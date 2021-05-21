@@ -23,6 +23,7 @@ class SquadMSServersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /* Migrations */
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }
