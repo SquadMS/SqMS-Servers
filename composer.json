@@ -25,7 +25,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SquadMS\\Servers\\SquadMSServersServiceProvider"
+                "SquadMS\\Servers\\SquadMSServersServiceProvider",
+                "SquadMS\\Servers\\Providers\\ModulesServiceProvider"
             ]
         }
     }
