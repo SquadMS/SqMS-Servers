@@ -1,10 +1,11 @@
 <?php
 
-namespace SquadMS\Servers;
+namespace SquadMS\Servers\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class SquadMSServersServiceProvider extends ServiceProvider
+class ViewServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -23,10 +24,7 @@ class SquadMSServersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /* Configuration */
-        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms');
-        
-        /* Migrations */
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        /* Load views */
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'sqms-servers');
     }
 }
