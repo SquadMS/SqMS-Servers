@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
         /* Public Menu */
         FacadesSquadMSMenu::register(
             'main-left',
-            (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), __('sqms-foundation::navigation.home'), true))
+            (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), __('sqms-servers::navigation.servers'), true))
             ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.servers.name')) )
             ->setOrder(200)
         );

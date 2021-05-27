@@ -28,5 +28,8 @@ class SquadMSServersServiceProvider extends ServiceProvider
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        /* Load Translations */
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'sqms-servers');
     }
 }
