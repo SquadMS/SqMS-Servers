@@ -24,7 +24,7 @@ class SquadMSServersServiceProvider extends ServiceProvider
     public function boot()
     {
         /* Configuration */
-        $this->mergeConfigFrom(__DIR__ . '/../config/sqms.php', 'sqms-servers');
+        $this->mergeConfigFrom(__DIR__ . '/../config/sqms-servers.php', 'sqms-servers');
 
         /* Migrations */
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
