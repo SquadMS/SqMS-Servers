@@ -28,7 +28,8 @@
                 "SquadMS\\Servers\\SquadMSServersServiceProvider",
                 "SquadMS\\Servers\\Providers\\ModulesServiceProvider",
                 "SquadMS\\Servers\\Providers\\RouteServiceProvider",
-                "SquadMS\\Servers\\Providers\\ViewServiceProvider"
+                "SquadMS\\Servers\\Providers\\ViewServiceProvider",
+                "SquadMS\\Servers\\Providers\\LivewireServiceProvider"
             ]
         }
     }
