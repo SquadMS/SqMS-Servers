@@ -10,7 +10,32 @@
     
         <x-slot name="content">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server name" aria-label="New server name" wire:model.lazy="input">
+                <input type="text" class="form-control" placeholder="New server name" aria-label="New server name" wire:model.lazy="server.name">
+            </div>
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ $server->account_playtime ? 'checked' : '' }} wire:model.lazy="server.account_playtime">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Account playtime</label>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="New server host" aria-label="New server host" wire:model.lazy="server.host">
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="New server port" aria-label="New server port" wire:model.lazy="server.game_port">
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="New server query port" aria-label="New server query port" wire:model.lazy="server.query_port">
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="New server rcon password" aria-label="New server rcon password" wire:model.lazy="server.rcon_password">
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="New server rcon port" aria-label="New server rcon port" wire:model.lazy="server.rcon_port">
             </div>
         </x-slot>
     

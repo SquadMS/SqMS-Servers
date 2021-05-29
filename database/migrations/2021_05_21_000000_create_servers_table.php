@@ -32,7 +32,7 @@ class CreateServersTable extends Migration
           
             /* RCON Config */
             $table->unsignedSmallInteger('rcon_port')->default(21115);
-            $table->unsignedSmallInteger('rcon_password');
+            $table->string('rcon_password');
             $table->unique(['host', 'rcon_port']);
 
             $table->timestamps();
