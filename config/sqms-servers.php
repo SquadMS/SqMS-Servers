@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'models' => [
+        'server' => \SquadMS\Servers\Models\Server::class,
+    ],
+
     'routes' => [
         'prefix' => null,
         'middleware' => ['web'],
