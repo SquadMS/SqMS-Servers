@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Admin\Http\Livewire\RBAC;
+namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
 use Livewire\Component;
 use Livewire\WithPagination;

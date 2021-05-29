@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Admin\Http\Livewire\RBAC;
+namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
 use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
