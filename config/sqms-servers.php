@@ -29,7 +29,7 @@ return [
                 'path' => 'admin/servers',
                 'middlewares' => ['auth', 'can:sqms admin', 'can:sqms-servers admin servers'],
                 'controller' => \SquadMS\Servers\Admin\Http\Controllers\ServersController::class,
-                'executor' => 'show',
+                'executor' => 'index',
                 'localized' => false,
             ]
         ]
