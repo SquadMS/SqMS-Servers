@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-check form-switch mb-3">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ $server->account_playtime ? 'checked' : '' }} wire:model.lazy="server.account_playtime">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ $server->account_playtime ? 'checked' : '' }} wire:changed.lazy="server.account_playtime">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Account playtime</label>
             </div>
 
