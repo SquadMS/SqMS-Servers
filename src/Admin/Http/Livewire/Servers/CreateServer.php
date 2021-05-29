@@ -11,7 +11,7 @@ class CreateServer extends AbstractModalComponent
     public string $input = '';
 
     protected $rules = [
-        'input' => 'required|string|unique:' . Config::get('sqms-servers.models.server') . ',name',
+        'input' => 'required|string|unique:SquadMS\Servers\Models\Server,name',
     ];
 
     public function createServer() {

@@ -17,7 +17,7 @@ class EditServer extends AbstractModalComponent
     public function updateServer() {
         /* Validate the data first */
         $this->validate([
-            'server.name' => 'required|string|unique:' . Config::get('sqms-servers.models.server') . ',name,' . $this->server->id,
+            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,' . $this->server->id,
         ]);
         
         /* Create the Server */
