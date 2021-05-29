@@ -3,7 +3,7 @@
         Create
     </x-sqms-foundation::button>
 
-    <x-sqms-foundation::dialog-modal wire:model="showModal">
+    <x-sqms-foundation::dialog-modal wire:model="showModal" class="fs-base">
         <x-slot name="title">
             Create Server
         </x-slot>
