@@ -24,7 +24,7 @@ class CreateServersTable extends Migration
             $table->boolean('account_playtime')->default(false);
 
             /* Connection Configuration */
-            $table->string('host')->unique();
+            $table->string('host')->index();
             $table->unsignedSmallInteger('game_port')->default(7787);
             $table->unsignedSmallInteger('query_port')->default(27165);
             $table->unique(['host', 'game_port']);
