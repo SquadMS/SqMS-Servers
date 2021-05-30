@@ -4,11 +4,15 @@ namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
 use Illuminate\Support\Facades\Config;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
-use SquadMS\Servers\Models\Server;
 
 class CreateServer extends AbstractModalComponent
 {
-    public Server $server;
+    public array $server = [
+        'account_playtime' => false,
+        'host'             => '127.0.0.1',
+        'game_port'        => 7787,
+        'query_port'       => 27165,
+    ];
 
     protected $rules = [
         'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name',
@@ -28,27 +32,17 @@ class CreateServer extends AbstractModalComponent
         $this->validate();
 
         /* Create the Server */
-        $this->server->save();
+        (Config::get('sqms-servers.models.server'))::create($this->server);
 
         /* Emit event */
         $this->emit('server:created');
 
         /* Reset state */
-        $this->hideModal();
-        $this->initializeServer();
-    }
-
-    public function mount()
-    {
-        $this->initializeServer();
+        $this->reset();
     }
     
     public function render()
     {
         return view('sqms-servers::admin.livewire.servers.create-server');
-    }
-
-    private function initializeServer() {
-        $this->server = new (Config::get('sqms-servers.models.server'))();
     }
 }

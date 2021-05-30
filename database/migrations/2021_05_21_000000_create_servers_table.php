@@ -21,7 +21,7 @@ class CreateServersTable extends Migration
             $table->string('name')->unique();
 
             /* Determines if the servers playtime accounts to general playtime */
-            $table->boolean('account_playtime')->default(false)->unique();
+            $table->boolean('account_playtime')->default(false);
 
             /* Connection Configuration */
             $table->string('host')->unique();
