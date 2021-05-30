@@ -10,7 +10,7 @@
             </thead>
             <tbody>
                 @foreach ($servers as $server)
-                <livewire:sqms-servers.admin.servers.server-entry :server="$server"></livewire:sqms-servers.admin.servers.server-entry />
+                <livewire:sqms-servers.admin.servers.server-entry :server="$server" :key="$server->id"></livewire:sqms-servers.admin.servers.server-entry />
                 @endforeach
             </tbody>
         </table>
