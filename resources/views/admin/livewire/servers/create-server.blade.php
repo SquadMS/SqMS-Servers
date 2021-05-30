@@ -9,32 +9,23 @@
         </x-slot>
     
         <x-slot name="content">
-            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.stop="server.name" />
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.lazy="server.name" />
 
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ $server->account_playtime ? 'checked' : '' }} wire:dirty.class="border-warning" wire:model.lazy="server.account_playtime" value="1">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Account playtime</label>
             </div>
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server host" aria-label="New server host" wire:dirty.class="border-warning" wire:model.lazy="server.host">
-            </div>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.host" placeholder="New server host" label="Server host" wire:dirty.class="border-warning" wire:model.lazy="server.host" />
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server port" aria-label="New server port" wire:dirty.class="border-warning" wire:model.lazy="server.game_port">
-            </div>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.port" placeholder="New server port" label="Server port" wire:dirty.class="border-warning" wire:model.lazy="server.game_port" />
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server query port" aria-label="New server query port" wire:dirty.class="border-warning" wire:model.lazy="server.query_port">
-            </div>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.query_port" placeholder="New server query port" label="Server query port" wire:dirty.class="border-warning" wire:model.lazy="server.query_port" />
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server rcon password" aria-label="New server rcon password" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_password">
-            </div>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_password" placeholder="New server RCON password" label="Server RCON password" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_password" />
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="New server rcon port" aria-label="New server rcon port" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_port">
-            </div>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_port" placeholder="New server RCON port" label="Server RCON port" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_port" />
+
         </x-slot>
     
         <x-slot name="footer">
