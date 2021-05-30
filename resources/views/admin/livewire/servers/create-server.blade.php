@@ -9,7 +9,7 @@
         </x-slot>
     
         <x-slot name="content">
-            <x-sqms-foundation::input-group type="text" name="server.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.stop="server.name" />
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.stop="server.name" />
 
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ $server->account_playtime ? 'checked' : '' }} wire:dirty.class="border-warning" wire:model.lazy="server.account_playtime" value="1">
