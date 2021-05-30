@@ -9,16 +9,22 @@
         </x-slot>
     
         <x-slot name="content">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Server name</label>
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.lazy="server.name" />
 
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Name of the server" aria-label="Name of the server" value="{{ $server->name }}" wire:model.lazy="server.name">
-                    <x-sqms-foundation::button class="btn-outline-success" wire:click="updateServer" wire:loading.attr="disabled">
-                        Update
-                    </x-sqms-foundation::button>
-                </div>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ \Illuminate\Support\Arr::get($server, 'account_playtime', false) ? 'checked' : '' }} wire:dirty.class="border-warning" wire:model.lazy="server.account_playtime" value="1">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Account playtime</label>
             </div>
+
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.host" placeholder="New server host" label="Server host" wire:dirty.class="border-warning" wire:model.lazy="server.host" />
+
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.game_port" placeholder="New server port" label="Server port" wire:dirty.class="border-warning" wire:model.lazy="server.game_port" />
+
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.query_port" placeholder="New server query port" label="Server query port" wire:dirty.class="border-warning" wire:model.lazy="server.query_port" />
+
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_password" placeholder="New server RCON password" label="Server RCON password" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_password" />
+
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_port" placeholder="New server RCON port" label="Server RCON port" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_port" />
         </x-slot>
     
         <x-slot name="footer">
@@ -27,6 +33,10 @@
             </x-sqms-foundation::button>
     
             <div class="flex-grow-1"></div>
+
+            <x-sqms-foundation::button class="btn-success" wire:click="updateServer" wire:loading.attr="disabled">
+                Update
+            </x-sqms-foundation::button>
         </x-slot>
     </x-sqms-foundation::dialog-modal>
 </div>
