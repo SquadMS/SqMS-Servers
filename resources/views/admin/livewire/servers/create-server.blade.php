@@ -18,7 +18,7 @@
 
             <x-sqms-foundation::form-input class="mb-3" type="text" name="server.host" placeholder="New server host" label="Server host" wire:dirty.class="border-warning" wire:model.lazy="server.host" />
 
-            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.port" placeholder="New server port" label="Server port" wire:dirty.class="border-warning" wire:model.lazy="server.game_port" />
+            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.game_port" placeholder="New server port" label="Server port" wire:dirty.class="border-warning" wire:model.lazy="server.game_port" />
 
             <x-sqms-foundation::form-input class="mb-3" type="text" name="server.query_port" placeholder="New server query port" label="Server query port" wire:dirty.class="border-warning" wire:model.lazy="server.query_port" />
 

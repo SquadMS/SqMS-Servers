@@ -2,7 +2,9 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 
 class CreateServer extends AbstractModalComponent
@@ -15,17 +17,42 @@ class CreateServer extends AbstractModalComponent
     ];
 
     protected $rules = [
-        'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name',
-
-        'server.account_playtime' => 'required|boolean',
-
-        'server.host' => 'required|ipv4',
-        'server.game_port' => 'required|integer|min:1|max:65535',
-        'server.query_port' => 'required|integer|min:1|max:65535',
-
-        'server.rcon_port' => 'required_with:rcon_password|integer|min:1|max:65535',
-        'server.rcon_password' => 'required_with:rcon_port|string',
+        'server.*' => null,
     ];
+
+    public function rules()
+    {
+        return [
+            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name',
+    
+            'server.account_playtime' => 'required|boolean',
+    
+            'server.host' => 'required|ipv4',
+            'server.game_port' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:65535',
+                Rule::unique('servers', 'game_port')->where('host', Arr::get($this->server, 'host'))
+            ],
+            'server.query_port' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:65535',
+                Rule::unique('servers', 'query_port')->where('host', Arr::get($this->server, 'host'))
+            ],
+    
+            'server.rcon_port' => [
+                'required_with:rcon_password',
+                'integer',
+                'min:1',
+                'max:65535',
+                Rule::unique('servers', 'rcon_port')->where('host', Arr::get($this->server, 'host'))
+            ],
+            'server.rcon_password' => 'required_with:rcon_port|string',
+        ];
+    }
 
     public function createServer() {
         /* Validate the data first */

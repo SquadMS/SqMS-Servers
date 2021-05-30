@@ -11,14 +11,19 @@ class EditServer extends AbstractModalComponent
     public Server $server;
 
     protected $rules = [
-        'server.name' => null // TODO: Remove this somehow...
+        'server.*' => null // TODO: Remove this somehow...
     ];
+
+    public function rules()
+    {
+        return [
+            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,' . $this->server->id,
+        ];
+    }
 
     public function updateServer() {
         /* Validate the data first */
-        $this->validate([
-            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,' . $this->server->id,
-        ]);
+        $this->validate();
         
         /* Create the Server */
         $this->server->save();
