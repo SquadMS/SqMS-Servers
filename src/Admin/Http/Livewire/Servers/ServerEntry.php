@@ -7,7 +7,7 @@ use SquadMS\Servers\Models\Server;
 
 class ServerEntry extends Component
 {
-    public Server $role;
+    public Server $server;
 
     protected $listeners = [
         'server:updated' => '$refresh',

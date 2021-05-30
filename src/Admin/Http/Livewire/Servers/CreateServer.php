@@ -34,16 +34,21 @@ class CreateServer extends AbstractModalComponent
         $this->emit('server:created');
 
         /* Reset state */
-        $this->reset();
+        $this->hideModal();
+        $this->initializeServer();
     }
 
     public function mount()
     {
-        $this->server = new (Config::get('sqms-servers.models.server'))();
+        $this->initializeServer();
     }
     
     public function render()
     {
         return view('sqms-servers::admin.livewire.servers.create-server');
+    }
+
+    private function initializeServer() {
+        $this->server = new (Config::get('sqms-servers.models.server'))();
     }
 }
