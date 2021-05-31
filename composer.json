@@ -13,7 +13,6 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "illuminate/support": "^8.0",
         "dsg/squad-rcon-php": "^2.0.1",
         "squadms/foundation": "dev-master"
     },
@@ -29,7 +28,9 @@
                 "SquadMS\\Servers\\Providers\\ModulesServiceProvider",
                 "SquadMS\\Servers\\Providers\\RouteServiceProvider",
                 "SquadMS\\Servers\\Providers\\ViewServiceProvider",
-                "SquadMS\\Servers\\Providers\\LivewireServiceProvider"
+                "SquadMS\\Servers\\Providers\\LivewireServiceProvider",
+                "SquadMS\\Servers\\Providers\\AuthServiceProvider",
+                "SquadMS\\Servers\\Providers\\PermissionsServiceProvider"
             ]
         }
     }
