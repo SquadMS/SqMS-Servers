@@ -38,6 +38,6 @@ class Server extends Model
 
     public function getConnectUrlAttribute() : string
     {
-        return 'steam://connect/' . $this->host . ':' . $this->game_port . '/'
+        return 'steam://connect/' . $this->host . ':' . $this->game_port . '/';
     }
 }
