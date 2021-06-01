@@ -36,7 +36,7 @@ class SquadMSModule extends SquadMSModuleContract {
             case 'main-left':
                 SquadMSMenu::register(
                     'main-left',
-                    (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), __('sqms-servers::navigation.servers'), true))
+                    (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), fn () => __('sqms-servers::navigation.servers'), true))
                     ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.servers.name')) )
                     ->setOrder(200)
                 );
