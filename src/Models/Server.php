@@ -35,4 +35,9 @@ class Server extends Model
         'game_port'        => 7787,
         'query_port'       => 27165,
     ];
+
+    public function getConnectUrlAttribute() : string
+    {
+        return 'steam://connect/' . $this->host . ':' . $this->game_port . '/'
+    }
 }
