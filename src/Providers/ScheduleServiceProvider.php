@@ -4,7 +4,7 @@ namespace SquadMS\Servers\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
-use SquadMS\Foundation\Jobs\QueryServer;
+use SquadMS\Servers\Jobs\QueryServer;
 use SquadMS\Servers\Models\Server;
 
 class ScheduleServiceProvider extends ServiceProvider

@@ -1,15 +1,15 @@
 <?php
 
-namespace SquadMS\Foundation\Jobs;
+namespace SquadMS\Servers\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use GameQ\GameQ;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use GameQ\GameQ;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Services\ServerQueryService;
