@@ -18,14 +18,14 @@ class WorkerAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Config::get('sqms.squadjs.auth_token') || $request->header('SQUADMS-WORKER-AUTH-TOKEN') !== Config::get('sqms.squadjs.auth_token')) {
+        if (!Config::get('sqms-servers.worker.auth_token') || $request->header('SQUADMS-WORKER-AUTH-TOKEN') !== Config::get('sqms-servers.worker.auth_token')) {
             return Response::json([
                 'status' => false,
                 'error' => 'Unauthorized Token: ' . $request->header('SQUADMS-WORKER-AUTH-TOKEN'),
             ], 401);
         }
 
-        if (!Config::get('sqms.squadjs.auth_ip') ||  $request->ip() !== Config::get('sqms.squadjs.auth_ip')) {
+        if (!Config::get('sqms-servers.worker.auth_ip') ||  $request->ip() !== Config::get('sqms-servers.worker.auth_ip')) {
             return Response::json([
                 'status' => false,
                 'error' => 'Unauthorized IP: ' . $request->ip(),
