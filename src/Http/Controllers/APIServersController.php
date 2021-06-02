@@ -15,7 +15,7 @@ class APIServersController extends Controller
      */
     public function servers()
     {
-        return Response::json(Server::hasRconInfo()->all()->makeVisible([
+        return Response::json(Server::hasRconInfo()->get()->makeVisible([
             'rcon_port',
             'rcon_password',
         ]));
