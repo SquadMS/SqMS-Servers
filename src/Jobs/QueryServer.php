@@ -73,7 +73,7 @@ class QueryServer implements ShouldQueue
             $this->queryResult = new ServerQueryResult(
                 $this->server,
                 !!Arr::get($status, 'gq_online', false),
-                Arr::get($status, 'gq_hostname', 'Squad Dedicated Server'),
+                Arr::get($status, 'gq_hostname') ?? 'Squad Dedicated Server',
                 intval(Arr::get($status, 'NUMPUBCONN', 0)),
                 intval(Arr::get($status, 'NUMPRIVCONN', 0)),
                 intval(Arr::get($status, 'PlayerCount_i', 0)),
