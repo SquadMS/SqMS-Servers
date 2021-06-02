@@ -9,15 +9,12 @@ use SquadMS\Servers\Models\Server;
 class APIServersController extends Controller
 {
     /**
-     * Returns all servers with their hidden rcon information included.
+     * Returns all servers with their rcon information included.
      *
      * @return \Illuminate\Http\Response
      */
     public function servers()
     {
-        return Response::json(Server::hasRconInfo()->get()->makeVisible([
-            'rcon_port',
-            'rcon_password',
-        ]));
+        return Response::json(Server::hasRconInfo()->get());
     }
 }

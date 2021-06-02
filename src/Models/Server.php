@@ -3,12 +3,19 @@
 namespace SquadMS\Servers\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
 
 class Server extends Model
 {
+    use Encryptable;
+
+    protected $encryptable = [
+        'rcon_password',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,16 +44,6 @@ class Server extends Model
         'host'             => '127.0.0.1',
         'game_port'        => 7787,
         'query_port'       => 27165,
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'rcon_port',
-        'rcon_password',
     ];
 
     public function getConnectUrlAttribute() : string
