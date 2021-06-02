@@ -3,7 +3,6 @@
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rule;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 use SquadMS\Servers\Models\Server;
@@ -40,13 +39,14 @@ class EditServer extends AbstractModalComponent
             ],
     
             'server.rcon_port' => [
+                'nullable',
                 'required_with:rcon_password',
                 'integer',
                 'min:1',
                 'max:65535',
                 Rule::unique('servers', 'rcon_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host'))
             ],
-            'server.rcon_password' => 'required_with:rcon_port|string',
+            'server.rcon_password' => 'nullable|required_with:rcon_port|string',
         ];
     }
 
@@ -61,6 +61,14 @@ class EditServer extends AbstractModalComponent
 
         /* Emit event */
         $this->emitUp('server:updated');
+    }
+
+    public function mount(Server $server)
+    {
+        $this->title = $server->makeVisible([
+            'rcon_port',
+            'rcon_password',
+        ]);
     }
     
     public function render()
