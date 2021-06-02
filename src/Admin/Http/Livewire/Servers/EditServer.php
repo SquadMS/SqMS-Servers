@@ -3,6 +3,7 @@
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 use SquadMS\Servers\Models\Server;
@@ -73,6 +74,6 @@ class EditServer extends AbstractModalComponent
     
     public function render()
     {
-        return view('sqms-servers::admin.livewire.servers.edit-server');
+        return View::make('sqms-servers::admin.livewire.servers.edit-server');
     }
 }

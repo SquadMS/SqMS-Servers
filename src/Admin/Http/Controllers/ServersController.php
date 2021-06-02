@@ -3,6 +3,7 @@
 namespace SquadMS\Servers\Admin\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class ServersController extends Controller
 {
@@ -14,6 +15,6 @@ class ServersController extends Controller
     public function index()
     {
         /* Show home page */
-        return view('sqms-servers::admin.pages.servers');
+        return View::make('sqms-servers::admin.pages.servers');
     }
 }
