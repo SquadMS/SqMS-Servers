@@ -22,7 +22,7 @@
 
             <x-sqms-foundation::form-input class="mb-3" type="text" name="server.query_port" placeholder="New server query port" label="Server query port" wire:dirty.class="border-warning" wire:model.lazy="server.query_port" />
 
-            <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_password" placeholder="New server RCON password" label="Server RCON password" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_password" />
+            <x-sqms-foundation::form-input class="mb-3" type="password" name="server.rcon_password" placeholder="New server RCON password" label="Server RCON password" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_password" />
 
             <x-sqms-foundation::form-input class="mb-3" type="text" name="server.rcon_port" placeholder="New server RCON port" label="Server RCON port" wire:dirty.class="border-warning" wire:model.lazy="server.rcon_port" />
         </x-slot>
