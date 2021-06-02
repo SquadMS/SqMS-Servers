@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Policies;
+namespace SquadMS\Servers\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use SquadMS\Servers\Models\Server;
