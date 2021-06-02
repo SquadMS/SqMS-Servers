@@ -2,8 +2,10 @@
 
 return [
     'worker' => [
-        'auth_token' => env('SQUADMS_WORKER_AUTH_TOKEN', 'SECRETTOKEN'),
-        'auth_ip'    => env('SQUADMS_WORKER_AUTH_IP', '127.0.0.1'),
+        'auth_token' => env('SQMS_WORKER_AUTH_TOKEN', 'SECRETTOKEN'),
+        'auth_ip'    => env('SQMS_WORKER_AUTH_IP', '127.0.0.1'),
+        'host'       => env('SQMS_WORKER_HOST', 'http://127.0.0.1'),
+        'port'       => env('SQMS_WORKER_PORT', 8080),
     ],
 
     'models' => [
