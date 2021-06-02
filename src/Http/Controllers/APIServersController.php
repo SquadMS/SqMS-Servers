@@ -15,6 +15,6 @@ class APIServersController extends Controller
      */
     public function servers()
     {
-        return Response::json(Server::hasRconInfo()->get());
+        return Response::json(Server::hasRconData()->get());
     }
 }

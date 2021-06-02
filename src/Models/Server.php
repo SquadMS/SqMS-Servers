@@ -2,10 +2,13 @@
 
 namespace SquadMS\Servers\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
+use Illuminate\Support\Facades\Cache;
+use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
 
 class Server extends Model
@@ -62,7 +65,7 @@ class Server extends Model
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeHasRconInfo($query)
+    public function scopeHasRconData($query)
     {
         return $query->whereNotNull('rcon_port')->whereNotNull('rcon_password');
     }
@@ -79,5 +82,62 @@ class Server extends Model
         } else {
             return null;
         }
+    }
+
+    public function createFrontendCache(ServerQueryResult $result) : void
+    {
+        if ($result->online()) {
+            $data = [
+                'updated' => Carbon::now()->toDateTimeString(),
+                'online' => $result->online(),
+    
+                'name' => $result->name(),
+                'playerCount' => $result->count(),
+                'slots' => $result->slots(),
+                'queue' => $result->queue(),
+                'reservedSlots' => $result->reserved(),
+    
+                'level'     => $result->level(),
+                'layer' => $result->layer(),
+                'nextLevel' => $result->nextLevel(),
+                'nextLayer'    => $result->nextLayer(),
+    
+                'population' => $result->population(),
+    
+                'connectURL' => $result->connectionURI(),
+            ];
+    
+            /* Cache result */
+            Cache::forever($this->getCacheKey('serverQuery'), $data);
+        } else {
+            /* Try to get the old cache */
+            $oldCache = Cache::get($this->getCacheKey('serverQuery'));
+
+            /* check if there is no cache or if there is if it is older than 5 minutes */
+            if ( !is_array($oldCache) || !isset($oldCache['updated']) || Carbon::parse($oldCache['updated'])->lessThan(Carbon::now()->subMinutes(5)) ) {
+                /* Cache as offline result */
+                Cache::put($this->getCacheKey('serverQuery'), [
+                    'updated' => Carbon::now()->toDateTimeString(),
+                    'online' => $result->online(),
+                ], 60 * 5);
+            }
+        }
+    }
+
+    public function getFrontendCache() : array
+    {
+        return Cache::get($this->getCacheKey('serverQuery'), [
+            'online' => false
+        ]);
+    }
+
+    /**
+     * Helper method to create an unique cache key for this server.
+     *
+     * @return string
+     */
+    private function getCacheKey(string $identifier) : string 
+    {
+        return $identifier . $this->host . ':' . $this->port;
     }
 }
