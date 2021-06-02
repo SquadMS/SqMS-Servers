@@ -3,7 +3,7 @@
         Edit
     </x-sqms-foundation::button>
 
-    <x-sqms-foundation::dialog-modal wire:model="showModal" maxWidth="xl" fullscreen="xl">
+    <x-sqms-foundation::dialog-modal model="showModal" maxWidth="xl" fullscreen="xl">
         <x-slot name="title">
             Edit Server
         </x-slot>

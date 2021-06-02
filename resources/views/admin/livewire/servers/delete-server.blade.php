@@ -3,7 +3,7 @@
         Delete
     </x-sqms-foundation::button>
 
-    <x-sqms-foundation::confirm-modal wire:model="showModal">
+    <x-sqms-foundation::confirm-modal model="showModal">
         <x-slot name="title">
             Delete Server
         </x-slot>
