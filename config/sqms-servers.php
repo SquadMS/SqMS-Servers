@@ -4,7 +4,7 @@ return [
     'worker' => [
         'auth_token' => env('SQMS_WORKER_AUTH_TOKEN', 'SECRETTOKEN'),
         'auth_ip'    => env('SQMS_WORKER_AUTH_IP', '127.0.0.1'),
-        'host'       => env('SQMS_WORKER_HOST', 'http://127.0.0.1'),
+        'host'       => env('SQMS_WORKER_HOST', 'http://localhost'),
         'port'       => env('SQMS_WORKER_PORT', 8080),
     ],
 
