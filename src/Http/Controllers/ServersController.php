@@ -4,6 +4,7 @@ namespace SquadMS\Servers\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 use SquadMS\Servers\Models\Server;
 
 class ServersController extends Controller
@@ -16,7 +17,7 @@ class ServersController extends Controller
     public function index()
     {
         /* Show home page */
-        return view(Config::get('sqms.theme') . '::pages.servers', [
+        return View::make(Config::get('sqms.theme') . '::pages.servers', [
             'servers' => Server::all(),
         ]);
     }
@@ -29,7 +30,7 @@ class ServersController extends Controller
     public function show(Server $server)
     {
         /* Show home page */
-        return view(Config::get('sqms.theme') . '::pages.server', [
+        return View::make(Config::get('sqms.theme') . '::pages.server', [
             'server' => $server,
         ]);
     }

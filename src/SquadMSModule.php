@@ -3,6 +3,8 @@
 namespace SquadMS\Servers;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
 use SquadMS\Foundation\Facades\SquadMSAdminMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
@@ -36,7 +38,7 @@ class SquadMSModule extends SquadMSModuleContract {
             case 'main-left':
                 SquadMSMenu::register(
                     'main-left',
-                    (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), fn () => __('sqms-servers::navigation.servers'), true))
+                    (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), fn () => Lang::get('sqms-servers::navigation.servers'), true))
                     ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.servers.name')) )
                     ->setOrder(200)
                 );
@@ -45,7 +47,7 @@ class SquadMSModule extends SquadMSModuleContract {
 
             case 'admin-servers':
                 /* Admin Menu */
-                SquadMSMenu::prepend('admin-servers', fn () => view('sqms-foundation::components.navigation.heading', [
+                SquadMSMenu::prepend('admin-servers', fn () => View::make('sqms-foundation::components.navigation.heading', [
                     'title'  => 'Server Management',
                 ])->render());
 

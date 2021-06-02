@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 /* Define routes from config */
-foreach (config('sqms-servers.routes.def') as $definition) {
+foreach (Config::get('sqms-servers.routes.def') as $definition) {
     /* Create the definitor as an anonymous function */
     $define = function() use ($definition) {
         $type = Arr::get($definition, 'type', 'get');

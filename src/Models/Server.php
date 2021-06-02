@@ -36,6 +36,16 @@ class Server extends Model
         'query_port'       => 27165,
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'rcon_port',
+        'rcon_password',
+    ];
+
     public function getConnectUrlAttribute() : string
     {
         return 'steam://connect/' . $this->host . ':' . $this->game_port . '/';
