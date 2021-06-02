@@ -44,13 +44,13 @@ class CreateServer extends AbstractModalComponent
             ],
     
             'server.rcon_port' => [
-                'required_with:rcon_password',
+                'required_with:server.rcon_password',
                 'integer',
                 'min:1',
                 'max:65535',
                 Rule::unique('servers', 'rcon_port')->where('host', Arr::get($this->server, 'host'))
             ],
-            'server.rcon_password' => 'required_with:rcon_port|string',
+            'server.rcon_password' => 'required_with:server.rcon_port|string',
         ];
     }
 
