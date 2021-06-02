@@ -71,6 +71,19 @@ class Server extends Model
     }
 
     /**
+     * Get the GameQ server connection data well formed.
+     *
+     * @return array
+     */
+    public function getGameQData() : array
+    {
+        return [
+            'type' => 'squad',
+            'host' => $this->host . ':' . $this->port,
+        ];
+    }
+
+    /**
      * Initializes and returns a new RCON connection.
      * 
      * @throws \Throwable
