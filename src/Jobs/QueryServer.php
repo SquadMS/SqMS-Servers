@@ -80,8 +80,8 @@ class QueryServer implements ShouldQueue
                 intval(Arr::get($status, 'PublicQueue_i', 0)) + intval(Arr::get($status, 'ReservedQueue_i', 0)),
             );
 
-            /* Check of the server has RCON information configured */
-            if ($this->server->has_rcon_data) {
+            /* Check if the server is online and has RCON information configured */
+            if ($this->queryResult->online() && $this->server->has_rcon_data) {
                 /* Initialize a new RCON connection to the server */
                 $rcon = $this->server->getRconConnection();
 
