@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
+use GameQ\GameQ;
+use GameQ\Server as GameQServer;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use SquadMS\Servers\Data\ServerQueryResult;
@@ -85,8 +87,11 @@ class Server extends Model
     public function getGameQData() : array
     {
         return [
-            'type' => 'squad',
-            'host' => $this->host . ':' . $this->port,
+            GameQServer::SERVER_TYPE => 'squad',
+            GameQServer::SERVER_HOST => $this->host . ':' . $this->port,
+            GameQServer::SERVER_OPTIONS => [
+                GameQServer::SERVER_OPTIONS_QUERY_PORT => $this->query_port,
+            ],
         ];
     }
 
