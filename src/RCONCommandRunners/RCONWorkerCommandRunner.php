@@ -400,7 +400,7 @@ class RCONWorkerCommandRunner implements ServerCommandRunner
 
     private function rcon(string $command) : string
     {
-        $response = Http::post(Config::get('sqms.squadjs.host') . ':' . Config::get('sqms.squadjs.port') . '/execute-command', [
+        $response = Http::post(Config::get('sqms-servers.worker.host') . ':' . Config::get('sqms-servers.worker.port') . '/execute-command', [
             'id' => $this->serverId,
             'command' => $command,
         ]);
