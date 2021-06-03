@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
@@ -57,6 +58,12 @@ class Server extends Model
     public function getHasRconDataAttribute() : bool
     {
         return !is_null($this->rcon_port) && !is_null($this->rcon_password);
+    }
+
+    public function getIsOnlineAttribute() : bool
+    {
+        $cache = $this->getFrontendCache();
+        return $cache && Arr::get($cache, 'online', false);
     }
 
     /**
