@@ -88,7 +88,7 @@ class Server extends Model
     {
         return [
             GameQServer::SERVER_TYPE => 'squad',
-            GameQServer::SERVER_HOST => $this->host . ':' . $this->port,
+            GameQServer::SERVER_HOST => $this->host . ':' . $this->game_port,
             GameQServer::SERVER_OPTIONS => [
                 GameQServer::SERVER_OPTIONS_QUERY_PORT => $this->query_port,
             ],
