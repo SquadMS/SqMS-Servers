@@ -8,9 +8,9 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Broadcasting\Channel;
 use SquadMS\Servers\Data\ServerQueryResult;
 
-class ServerStatusUpdated
+class ServerStatusUpdated implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels, ShouldBroadcast;
+    use Dispatchable, SerializesModels;
 
     public ServerQueryResult $serverQueryResult;
 
