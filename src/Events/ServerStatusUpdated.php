@@ -36,6 +36,6 @@ class ServerStatusUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('server-status.' . $this->serverQueryResult->server()->id);
+        return new Channel('server.' . $this->serverQueryResult->server()->id);
     }
 }
