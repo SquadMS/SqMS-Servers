@@ -68,7 +68,7 @@ class SquadMSModule extends SquadMSModuleContract {
     static function schedule(Schedule $schedule) : void
     {
         foreach (Server::all() as $server) {
-            $schedule->job(new QueryServer($server))->withoutOverlapping()->everyFiveMinutes();
+            $schedule->job(new QueryServer($server))->withoutOverlapping()->everyMinute();
         }
     }
 }
