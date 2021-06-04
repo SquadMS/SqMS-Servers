@@ -75,10 +75,70 @@ class ServerQueryResult {
     {
         $this->level = Arr::get($currentMapInfo, 'level');
         $this->layer = Arr::get($currentMapInfo, 'layer');
-        $this->nextLevel = Arr::get($nextMapInfo, 'level');
-        $this->nextLayer = Arr::get($nextMapInfo, 'layer');
+        $this->nextLevel = Arr::get($nextMapInfo, 'nextLevel');
+        $this->nextLayer = Arr::get($nextMapInfo, 'nextLayer');
         $this->population = $population;
         $this->count = count($this->population->getPlayers());  
+    }
+
+    public function toArray() : array
+    {
+        $primitivePopulation = [];
+        if ($this->population()) foreach ($this->population()->getTeams() as $team) {
+            $primitiveTeam = [
+                'id'      => $team->getId(),
+                'name'    => $team->getName(),
+                'squads'  => [],
+                'players' => [],
+            ];
+
+            /* Squads of this tTam */
+            foreach ($team->getSquads() as $squad) {
+                $primitiveSquad = [
+                    'id'      => $squad->getId(),
+                    'name'    => $squad->getName(),
+                    'players' => [],
+                ];
+
+                /* Players of this Squad */
+                foreach ($squad->getPlayers() as $player) {
+                    $primitiveSquad['players'][] = [
+                        'id'      => $player->getId(),
+                        'steamId' => $player->getSteamId(),
+                        'name'    => $player->getName(),
+                    ];
+                }
+
+                $primitiveTeam['squads'][] = $primitiveSquad;
+            }
+
+            /* Unassigned players */
+            foreach ($team->getPlayers() as $player) {
+                $primitiveTeam['players'][] = [
+                    'id'      => $player->getId(),
+                    'steamId' => $player->getSteamId(),
+                    'name'    => $player->getName(),
+                ];
+            }
+
+            $primitivePopulation[] = $primitiveTeam;
+        }
+
+        return [
+            'server'     => $this->server->id,
+            'created'    => $this->created,
+            'online'     => $this->online,
+            'name'       => $this->name,
+            'slots'      => $this->slots,
+            'reserved'   => $this->reserved,
+            'count'      => $this->count,
+            'queue'      => $this->queue,
+            'population' => $primitivePopulation,
+            'level'      => $this->level,
+            'layer'      => $this->layer,
+            'nextLevel'  => $this->nextLevel,
+            'nextLayer'  => $this->nextLayer,
+        ];
     }
 
     public function __serialize(): array
@@ -96,8 +156,8 @@ class ServerQueryResult {
             'population' => $this->population,
             'level'      => $this->level,
             'layer'      => $this->layer,
-            'nextLevel'  => $this->level,
-            'nextLayer'  => $this->level,
+            'nextLevel'  => $this->nextLevel,
+            'nextLayer'  => $this->nextLayer,
         ];
     }
 

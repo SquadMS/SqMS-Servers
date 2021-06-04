@@ -20,6 +20,16 @@ class ServerStatusUpdated implements ShouldBroadcast
     }
 
     /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return $this->serverQueryResult->toArray();
+    }
+
+    /**
      * Get the channels the event should broadcast on.
      *
      * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
