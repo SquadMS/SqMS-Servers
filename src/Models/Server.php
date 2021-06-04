@@ -51,6 +51,8 @@ class Server extends Model
         'query_port'       => 27165,
     ];
 
+    protected ?ServerQueryResult $lastQueryResult;
+
     public function getConnectUrlAttribute() : string
     {
         return 'steam://connect/' . $this->host . ':' . $this->game_port . '/';
@@ -110,25 +112,15 @@ class Server extends Model
 
     public function getLastQueryResultAttribute() : ServerQueryResult
     {
-        return ServerQueryResult::load($this);
+        if (is_null($this->lastQueryResult)) {
+            $this->lastQueryResult = ServerQueryResult::load($this);
+        }
+
+        return $this->lastQueryResult;
     }
 
-    public function createFrontendCache(ServerQueryResult $result) : void
+    public function clearLastQueryResultCache() : void
     {
-        if ($result->online()) {
-            $result->save();
-        } else {
-            /* Try to get the old cache */
-            $oldCache = Cache::get($this->getCacheKey('serverQuery'));
-
-            /* check if there is no cache or if there is if it is older than 5 minutes */
-            if ( !is_array($oldCache) || !isset($oldCache['updated']) || Carbon::parse($oldCache['updated'])->lessThan(Carbon::now()->subMinutes(5)) ) {
-                /* Cache as offline result */
-                Cache::put($this->getCacheKey('serverQuery'), [
-                    'updated' => Carbon::now()->toDateTimeString(),
-                    'online' => $result->online(),
-                ], 60 * 5);
-            }
-        }
+        $this->lastQueryResult = null;
     }
 }
