@@ -38,7 +38,8 @@ class ServerQueryResult {
 
     function __construct(Server $server, ?Carbon $created = null) {
         $this->created = $created ?? Carbon::now();
-        $this->server = $server;    
+        $this->server = $server;
+        $this->name = $server->name;
     }
 
     /**
