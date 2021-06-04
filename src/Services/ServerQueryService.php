@@ -72,7 +72,11 @@ class ServerQueryService {
         if (!$result->online()) {
             $oldResult = $result->server->last_query_result;
 
-            if ( ! $oldResult instanceof ServerQueryResult || ! $oldResult->online() || $oldResult->created()->greaterThan(Carbon::now()->subMinutes(5))) ) {
+            if ( 
+                ! $oldResult instanceof ServerQueryResult ||
+                ! $oldResult->online() ||
+                $oldResult->created()->greaterThan(Carbon::now()->subMinutes(5))
+            ) {
                 return;
             }
         }
