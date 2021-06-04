@@ -20,8 +20,6 @@ class QueryServer implements ShouldQueue
 
     protected Server $server;
 
-    protected ServerQueryResult $queryResult;
-
     /**
      * Create a new job instance.
      *
@@ -30,8 +28,6 @@ class QueryServer implements ShouldQueue
     public function __construct(Server $server)
     {
         $this->server = $server;
-
-        $this->queryResult = new ServerQueryResult($this->server, false);
     }
 
     /**
@@ -62,6 +58,8 @@ class QueryServer implements ShouldQueue
         /** @var GameQ|null */
         $gameq = null;
 
+        $serverQueryResult = new ServerQueryResult($this->server);
+
         try {
             /* Steam Query / A2S */
             $gameq = new GameQ();
@@ -70,8 +68,7 @@ class QueryServer implements ShouldQueue
             $status = array_values($result)[0];
 
             /* Build a new QueryResult from the response */
-            $this->queryResult = new ServerQueryResult(
-                $this->server,
+            $serverQueryResult->setQueryData(
                 Arr::get($status, 'gq_online', false),
                 Arr::get($status, 'gq_hostname') ?? 'Squad Dedicated Server',
                 intval(Arr::get($status, 'NUMPUBCONN', 0)),
@@ -81,12 +78,12 @@ class QueryServer implements ShouldQueue
             );
 
             /* Check if the server is online and has RCON information configured */
-            if ($this->queryResult->online() && $this->server->has_rcon_data) {
+            if ($serverQueryResult->online() && $this->server->has_rcon_data) {
                 /* Initialize a new RCON connection to the server */
                 $rcon = $this->server->getRconConnection();
 
                 /* Run RCON commands and add information to the ServerQueryResult */
-                $this->queryResult->setRCONData($rcon->showCurrentMap(), $rcon->showNextMap(), $rcon->serverPopulation());
+                $serverQueryResult->setRCONData($rcon->showCurrentMap(), $rcon->showNextMap(), $rcon->serverPopulation());
             }
         } catch (\Throwable $e) {
             Log::debug('[QueryServer] Error during query: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString());
@@ -102,6 +99,6 @@ class QueryServer implements ShouldQueue
             unset($gameq);
         }
 
-        return $this->queryResult;
+        return $serverQueryResult;
     }
 }
