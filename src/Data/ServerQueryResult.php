@@ -37,8 +37,8 @@ class ServerQueryResult {
     private ?string $nextLayer = null;
 
     function __construct(Server $server, ?Carbon $created = null) {
-        $this->created = $created ?? Carbon::now();
         $this->server = $server;
+        $this->created = $created ?? Carbon::now();
         $this->name = $server->name;
     }
 
@@ -107,9 +107,9 @@ class ServerQueryResult {
         $this->server = ServerRepositoriy::getServerModelQuery()->findOrFail(Arr::get($data, 'server', -1));
 
         /* Rebuild query data and preserve class defaults */
-        $this->created = Arr::get($data, 'created', $this->created);
+        $this->created = Arr::get($data, 'created', Carbon::now());
         $this->online  = Arr::get($data, 'online', $this->online);
-        $this->online  = Arr::get($data, 'name', $this->name);
+        $this->online  = Arr::get($data, 'name', $this->server->name);
         $this->online  = Arr::get($data, 'slots', $this->slots);
         $this->online  = Arr::get($data, 'reserved', $this->reserved);
         $this->online  = Arr::get($data, 'count', $this->count);
