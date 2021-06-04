@@ -51,7 +51,7 @@ class Server extends Model
         'query_port'       => 27165,
     ];
 
-    protected ?ServerQueryResult $lastQueryResult;
+    protected ?ServerQueryResult $lastQueryResult = null;
 
     public function getConnectUrlAttribute() : string
     {
