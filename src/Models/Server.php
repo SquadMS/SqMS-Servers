@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
-use GameQ\GameQ;
 use GameQ\Server as GameQServer;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -109,31 +108,15 @@ class Server extends Model
         }
     }
 
+    public function getLastQueryResultAttribute() : ServerQueryResult
+    {
+        return ServerQueryResult::load($this);
+    }
+
     public function createFrontendCache(ServerQueryResult $result) : void
     {
         if ($result->online()) {
-            $data = [
-                'updated' => Carbon::now()->toDateTimeString(),
-                'online' => $result->online(),
-    
-                'name' => $result->name(),
-                'playerCount' => $result->count(),
-                'slots' => $result->slots(),
-                'queue' => $result->queue(),
-                'reservedSlots' => $result->reserved(),
-    
-                'level'     => $result->level(),
-                'layer' => $result->layer(),
-                'nextLevel' => $result->nextLevel(),
-                'nextLayer'    => $result->nextLayer(),
-    
-                'population' => $result->population(),
-    
-                'connectURL' => $result->connectionURI(),
-            ];
-    
-            /* Cache result */
-            Cache::forever($this->getCacheKey('serverQuery'), $data);
+            $result->save();
         } else {
             /* Try to get the old cache */
             $oldCache = Cache::get($this->getCacheKey('serverQuery'));
@@ -147,22 +130,5 @@ class Server extends Model
                 ], 60 * 5);
             }
         }
-    }
-
-    public function getFrontendCache() : array
-    {
-        return Cache::get($this->getCacheKey('serverQuery'), [
-            'online' => false
-        ]);
-    }
-
-    /**
-     * Helper method to create an unique cache key for this server.
-     *
-     * @return string
-     */
-    private function getCacheKey(string $identifier) : string 
-    {
-        return $identifier . $this->host . ':' . $this->port;
     }
 }

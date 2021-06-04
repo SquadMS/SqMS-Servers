@@ -2,6 +2,7 @@
 
 namespace SquadMS\Servers\Services;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use SquadMS\Foundation\Auth\SteamUser;
 use SquadMS\Foundation\Jobs\FetchUsers;
@@ -25,7 +26,8 @@ class ServerQueryService {
             self::fetchMissingPlayers($users);
         }
 
-        $result->createFrontendCache();
+        /* Properly save the ServerQueryResult to Cache */
+        self::createFrontendCache($result);
     }
 
     public static function getUsersBySteamIds(array $steamIds) : Collection
@@ -55,5 +57,26 @@ class ServerQueryService {
 
         /* Check if we got any ids */
         FetchUsers::dispatch($users->pluck('steam_id_64')->toArray());
+    }
+
+    /**
+     * Saves the ServerQueryResult to cache in a safe manner. That means, if
+     * the result is offline it will not save it until the last online result is older
+     * than the configured threshold.
+     *
+     * @param ServerQueryResult $result
+     * @return void
+     */
+    public static function createFrontendCache(ServerQueryResult $result) : void
+    {
+        if (!$result->online()) {
+            $oldResult = $result->server->last_query_result;
+
+            if ( $oldResult instanceof ServerQueryResult &&  $oldResult->online() && $oldResult->created()->lessThan(Carbon::now()->subMinutes(5)) ) {
+                $result->save();
+            }
+        }
+
+        $result->save();
     }
 }
