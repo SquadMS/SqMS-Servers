@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DSG\SquadRCON\Data\Population;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use SquadMS\Servers\Events\ServerStatusUpdated;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
 
@@ -123,6 +124,8 @@ class ServerQueryResult {
     public function save() : void
     {
         Cache::forever('sqms-servers-query-result::' . $this->server->id, $this);
+
+        ServerStatusUpdated::dispatch($this);
     }
 
     public static function load(Server $server) : self
