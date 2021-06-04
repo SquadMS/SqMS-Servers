@@ -10,13 +10,13 @@ use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
 
 class ServerQueryResult {
-    private Server $server;
+    private ?Server $server = null;
 
-    private Carbon $created;
+    private ?Carbon $created = null;
 
     private bool $online = false;
 
-    private string $name;
+    private ?string $name;
 
     private int $slots = 0;
 
@@ -39,7 +39,6 @@ class ServerQueryResult {
     function __construct(Server $server, ?Carbon $created = null) {
         $this->server = $server;
         $this->created = $created ?? Carbon::now();
-        $this->name = $server->name;
     }
 
     /**
@@ -56,7 +55,7 @@ class ServerQueryResult {
     public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $queue = 0) : void
     {
         $this->online = $online;
-        $this->name = $name ?? $this->server->name;
+        $this->name = $name;
         $this->slots = $slots;
         $this->reserved = $reserved;
         $this->queue = $queue;
@@ -107,18 +106,18 @@ class ServerQueryResult {
         $this->server = ServerRepositoriy::getServerModelQuery()->findOrFail(Arr::get($data, 'server', -1));
 
         /* Rebuild query data and preserve class defaults */
-        $this->created = Arr::get($data, 'created', Carbon::now());
-        $this->online  = Arr::get($data, 'online', $this->online);
-        $this->online  = Arr::get($data, 'name', $this->server->name);
-        $this->online  = Arr::get($data, 'slots', $this->slots);
-        $this->online  = Arr::get($data, 'reserved', $this->reserved);
-        $this->online  = Arr::get($data, 'count', $this->count);
-        $this->online  = Arr::get($data, 'queue', $this->queue);
-        $this->online  = Arr::get($data, 'population', $this->population);
-        $this->online  = Arr::get($data, 'level', $this->level);
-        $this->online  = Arr::get($data, 'layer', $this->layer);
-        $this->online  = Arr::get($data, 'nextLevel', $this->nextLevel);
-        $this->online  = Arr::get($data, 'nextLayer', $this->nextLayer);
+        $this->created    = Arr::get($data, 'created', Carbon::now());
+        $this->online     = Arr::get($data, 'online', $this->online);
+        $this->name       = Arr::get($data, 'name', $this->server->name);
+        $this->slots      = Arr::get($data, 'slots', $this->slots);
+        $this->reserved   = Arr::get($data, 'reserved', $this->reserved);
+        $this->count      = Arr::get($data, 'count', $this->count);
+        $this->queue      = Arr::get($data, 'queue', $this->queue);
+        $this->population = Arr::get($data, 'population', $this->population);
+        $this->level      = Arr::get($data, 'level', $this->level);
+        $this->layer      = Arr::get($data, 'layer', $this->layer);
+        $this->nextLevel  = Arr::get($data, 'nextLevel', $this->nextLevel);
+        $this->nextLayer  = Arr::get($data, 'nextLayer', $this->nextLayer);
     }
 
     public function save() : void
@@ -150,7 +149,7 @@ class ServerQueryResult {
 
     public function name() : string
     {
-        return $this->name;
+        return $this->name ?? $this->server->name;
     }
 
     public function slots() : int
