@@ -70,7 +70,7 @@ class ServerQueryService {
     public static function createFrontendCache(ServerQueryResult $result) : void
     {
         if (!$result->online()) {
-            $oldResult = $result->server->last_query_result;
+            $oldResult = $result->server()->last_query_result;
 
             if ( 
                 ! $oldResult instanceof ServerQueryResult ||
