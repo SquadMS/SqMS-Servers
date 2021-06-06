@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use SquadMS\Servers\Events\ServerStatusUpdated;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
+use SquadMS\Foundation\Helpers\LevelHelper;
 
 class ServerQueryResult {
     private ?Server $server = null;
@@ -144,6 +145,7 @@ class ServerQueryResult {
             'layer'         => $this->layer,
             'nextLevel'     => $this->nextLevel,
             'nextLayer'     => $this->nextLayer,
+            'levelClass'    => LevelHelper::levelToClass($this->level)
         ];
     }
 
