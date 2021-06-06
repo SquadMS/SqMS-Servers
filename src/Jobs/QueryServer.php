@@ -74,7 +74,8 @@ class QueryServer implements ShouldQueue
                 intval(Arr::get($status, 'NUMPUBCONN', 0)),
                 intval(Arr::get($status, 'NUMPRIVCONN', 0)),
                 intval(Arr::get($status, 'PlayerCount_i', 0)),
-                intval(Arr::get($status, 'PublicQueue_i', 0)) + intval(Arr::get($status, 'ReservedQueue_i', 0)),
+                intval(Arr::get($status, 'PublicQueue_i', 0)),
+                intval(Arr::get($status, 'ReservedQueue_i', 0))
             );
 
             /* Check if the server is online and has RCON information configured */

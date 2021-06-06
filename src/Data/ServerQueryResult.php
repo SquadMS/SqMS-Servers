@@ -25,7 +25,9 @@ class ServerQueryResult {
 
     private int $count = 0;
 
-    private int $queue = 0;
+    private int $publicQueue = 0;
+
+    private int $reservedQueue = 0;
 
     private ?Population $population = null;
 
@@ -50,16 +52,18 @@ class ServerQueryResult {
      * @param integer $slots
      * @param integer $reserved
      * @param integer $count
-     * @param integer $queue
+     * @param integer $publicQueue
+     * @param integer $reservedQueue
      * @return void
      */
-    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $queue = 0) : void
+    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0) : void
     {
         $this->online = $online;
         $this->name = $name;
         $this->slots = $slots;
         $this->reserved = $reserved;
-        $this->queue = $queue;
+        $this->publicQueue = $publicQueue;
+        $this->reservedQueue = $reservedQueue;
         $this->count = $count; 
     }
 
@@ -125,19 +129,21 @@ class ServerQueryResult {
         }
 
         return [
-            'server'     => $this->server->id,
-            'created'    => $this->created,
-            'online'     => $this->online,
-            'name'       => $this->name,
-            'slots'      => $this->slots,
-            'reserved'   => $this->reserved,
-            'count'      => $this->count,
-            'queue'      => $this->queue,
-            'population' => $primitivePopulation,
-            'level'      => $this->level,
-            'layer'      => $this->layer,
-            'nextLevel'  => $this->nextLevel,
-            'nextLayer'  => $this->nextLayer,
+            'server'        => $this->server->id,
+            'created'       => $this->created,
+            'online'        => $this->online,
+            'name'          => $this->name,
+            'slots'         => $this->slots,
+            'reserved'      => $this->reserved,
+            'count'         => $this->count,
+            'publicQueue'   => $this->publicQueue,
+            'reservedQueue' => $this->reservedQueue,
+            'queue'         => $this->queue(),
+            'population'    => $primitivePopulation,
+            'level'         => $this->level,
+            'layer'         => $this->layer,
+            'nextLevel'     => $this->nextLevel,
+            'nextLayer'     => $this->nextLayer,
         ];
     }
 
@@ -145,19 +151,20 @@ class ServerQueryResult {
     {
         /* Serialize the data, use related server id instead of searializing the model */
         return [
-            'server'     => $this->server->id,
-            'created'    => $this->created,
-            'online'     => $this->online,
-            'name'       => $this->name,
-            'slots'      => $this->slots,
-            'reserved'   => $this->reserved,
-            'count'      => $this->count,
-            'queue'      => $this->queue,
-            'population' => $this->population,
-            'level'      => $this->level,
-            'layer'      => $this->layer,
-            'nextLevel'  => $this->nextLevel,
-            'nextLayer'  => $this->nextLayer,
+            'server'        => $this->server->id,
+            'created'       => $this->created,
+            'online'        => $this->online,
+            'name'          => $this->name,
+            'slots'         => $this->slots,
+            'reserved'      => $this->reserved,
+            'count'         => $this->count,
+            'publicQueue'   => $this->publicQueue,
+            'reservedQueue' => $this->reservedQueue,
+            'population'    => $this->population,
+            'level'         => $this->level,
+            'layer'         => $this->layer,
+            'nextLevel'     => $this->nextLevel,
+            'nextLayer'     => $this->nextLayer,
         ];
     }
 
@@ -167,18 +174,19 @@ class ServerQueryResult {
         $this->server = ServerRepositoriy::getServerModelQuery()->findOrFail(Arr::get($data, 'server', -1));
 
         /* Rebuild query data and preserve class defaults */
-        $this->created    = Arr::get($data, 'created', Carbon::now());
-        $this->online     = Arr::get($data, 'online', $this->online);
-        $this->name       = Arr::get($data, 'name', $this->server->name);
-        $this->slots      = Arr::get($data, 'slots', $this->slots);
-        $this->reserved   = Arr::get($data, 'reserved', $this->reserved);
-        $this->count      = Arr::get($data, 'count', $this->count);
-        $this->queue      = Arr::get($data, 'queue', $this->queue);
-        $this->population = Arr::get($data, 'population', $this->population);
-        $this->level      = Arr::get($data, 'level', $this->level);
-        $this->layer      = Arr::get($data, 'layer', $this->layer);
-        $this->nextLevel  = Arr::get($data, 'nextLevel', $this->nextLevel);
-        $this->nextLayer  = Arr::get($data, 'nextLayer', $this->nextLayer);
+        $this->created       = Arr::get($data, 'created', Carbon::now());
+        $this->online        = Arr::get($data, 'online', $this->online);
+        $this->name          = Arr::get($data, 'name', $this->server->name);
+        $this->slots         = Arr::get($data, 'slots', $this->slots);
+        $this->reserved      = Arr::get($data, 'reserved', $this->reserved);
+        $this->count         = Arr::get($data, 'count', $this->count);
+        $this->publicQueue   = Arr::get($data, 'publicQueue', $this->publicQueue);
+        $this->reservedQueue = Arr::get($data, 'reservedQueue', $this->queue);
+        $this->population    = Arr::get($data, 'population', $this->population);
+        $this->level         = Arr::get($data, 'level', $this->level);
+        $this->layer         = Arr::get($data, 'layer', $this->layer);
+        $this->nextLevel     = Arr::get($data, 'nextLevel', $this->nextLevel);
+        $this->nextLayer     = Arr::get($data, 'nextLayer', $this->nextLayer);
     }
 
     public function save() : void
@@ -230,9 +238,19 @@ class ServerQueryResult {
         return $this->count;
     }
 
+    public function publicQueue() : int
+    {
+        return $this->publicQueue;
+    }
+
+    public function reservedQueue() : int
+    {
+        return $this->reservedQueue;
+    }
+
     public function queue() : int
     {
-        return $this->queue;
+        return $this->publicQueue + $this->reservedQueue;
     }
 
     public function population() : ?Population
