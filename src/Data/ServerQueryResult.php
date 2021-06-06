@@ -145,7 +145,8 @@ class ServerQueryResult {
             'layer'         => $this->layer,
             'nextLevel'     => $this->nextLevel,
             'nextLayer'     => $this->nextLayer,
-            'levelClass'    => LevelHelper::levelToClass($this->level)
+            'levelClass'    => LevelHelper::levelToClass($this->level),
+            'teamTags'      => $this->teamTags(),
         ];
     }
 
@@ -258,6 +259,15 @@ class ServerQueryResult {
     public function population() : ?Population
     {
         return $this->population;
+    }
+
+    public function teamTags() : array
+    {
+        $tags = [];
+        if ($this->population) foreach ($this->population->getTeams() as $team) {
+            $tags[$team->getId()] =\SquadMS\Foundation\Helpers\FactionHelper::getFactionTag($team->getName(), $this->layer);
+        }
+        return $tags;
     }
 
     public function level() : ?string
