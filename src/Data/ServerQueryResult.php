@@ -183,7 +183,7 @@ class ServerQueryResult {
         $this->reserved      = Arr::get($data, 'reserved', $this->reserved);
         $this->count         = Arr::get($data, 'count', $this->count);
         $this->publicQueue   = Arr::get($data, 'publicQueue', $this->publicQueue);
-        $this->reservedQueue = Arr::get($data, 'reservedQueue', $this->queue);
+        $this->reservedQueue = Arr::get($data, 'reservedQueue', $this->reservedQueue);
         $this->population    = Arr::get($data, 'population', $this->population);
         $this->level         = Arr::get($data, 'level', $this->level);
         $this->layer         = Arr::get($data, 'layer', $this->layer);
