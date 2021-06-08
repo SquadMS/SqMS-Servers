@@ -2,6 +2,7 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
@@ -10,6 +11,8 @@ use SquadMS\Servers\Models\Server;
 
 class EditServer extends AbstractModalComponent
 {
+    use AuthorizesRequests;
+
     public Server $server;
 
     protected $rules = [
@@ -52,6 +55,9 @@ class EditServer extends AbstractModalComponent
     }
 
     public function updateServer() {
+        /* Authorize the action */
+        $this->authorize('update', $this->server);
+
         /* Validate the data first */
         $this->validate();
         

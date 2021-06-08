@@ -2,15 +2,22 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\View;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 use SquadMS\Servers\Models\Server;
 
 class DeleteServer extends AbstractModalComponent
 {
+    use AuthorizesRequests;
+    
     public Server $server;
 
-    public function deleteServer() {
+    public function deleteServer()
+    {
+        /* Authorize the action */
+        $this->authorize('delete', $this->server);
+
         /* Delete the Server */
         $this->server->delete();    
         

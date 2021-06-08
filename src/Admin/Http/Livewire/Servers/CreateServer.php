@@ -2,6 +2,7 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
@@ -10,6 +11,8 @@ use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 
 class CreateServer extends AbstractModalComponent
 {
+    use AuthorizesRequests;
+    
     public array $server = [
         'account_playtime' => false,
         'host'             => '127.0.0.1',
@@ -55,7 +58,11 @@ class CreateServer extends AbstractModalComponent
         ];
     }
 
-    public function createServer() {
+    public function createServer()
+    {
+        /* Authorize the action */
+        $this->authorize('create', Config::get('sqms-servers.models.server'));
+
         /* Validate the data first */
         $this->validate();
 
