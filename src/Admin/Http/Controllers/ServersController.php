@@ -16,7 +16,7 @@ class ServersController extends Controller
     public function index()
     {
         /* Authorize the action */
-        $this->authorize(Config::get('sqms-servers.permissions.module') + ' admin servers');
+        $this->authorize(Config::get('sqms-servers.permissions.module') . ' admin servers');
 
         /* Show home page */
         return View::make('sqms-servers::admin.pages.servers');
