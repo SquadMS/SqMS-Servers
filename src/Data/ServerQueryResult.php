@@ -68,7 +68,7 @@ class ServerQueryResult {
         $this->reservedQueue = $reservedQueue;
         $this->count = $count;
         if ($rawName) {
-            $this->layer = SDKDataReader::getLayerForRaw($rawName);
+            $this->layer = $rawName;
             $this->level = SDKDataReader::layerToLevel($this->layer);
         }
     }
@@ -83,10 +83,29 @@ class ServerQueryResult {
      */
     public function setRCONData(array $currentMapInfo, array $nextMapInfo, Population $population) : void
     {
+        /* Convert Layer-Name to Layer */
+        if (Arr::has($currentMapInfo, 'layer')) {
+            /* Only set if it is not Jensens Range, use curent or default in that case */
+            if (Arr::get($currentMapInfo, 'layer') !== 'Jensen\'s Training Range') {
+                $this->layer = SDKDataReader::getLayer(Arr::get($currentMapInfo, 'layer'));
+            } else {
+                $this->layer = $this->layer ?? 'JensensRange_GB-MIL';
+            }
+        }
         $this->level = Arr::get($currentMapInfo, 'level');
-        $this->layer = Arr::get($currentMapInfo, 'layer');
+
+        /* Convert Layer-Name to Layer */
+        if (Arr::get($nextMapInfo, 'nextLayer')) {
+            /* Only set if it is not Jensens Range, use current or default in that case */
+            if (Arr::get($nextMapInfo, 'layer') !== 'Jensen\'s Training Range') {
+                $this->nextLayer = SDKDataReader::getLayer(Arr::get($nextMapInfo, 'layer'));
+            } else {
+                $this->nextLayer = $this->nextLayer ?? 'JensensRange_GB-MIL';
+            }
+            
+        }
         $this->nextLevel = Arr::get($nextMapInfo, 'nextLevel');
-        $this->nextLayer = Arr::get($nextMapInfo, 'nextLayer');
+
         $this->population = $population;
         $this->count = count($this->population->getPlayers());  
     }
