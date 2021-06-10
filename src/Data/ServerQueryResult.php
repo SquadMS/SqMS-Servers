@@ -265,7 +265,7 @@ class ServerQueryResult {
     {
         $tags = [];
         if ($this->population) foreach ($this->population->getTeams() as $team) {
-            $tags[$team->getId()] =\SquadMS\Foundation\Helpers\FactionHelper::getFactionTag($this->layer, $team->getId());
+            $tags[$team->getId()] = \SquadMS\Foundation\Helpers\FactionHelper::getFactionTag($this->layer, $team->getId());
         }
         return $tags;
     }
