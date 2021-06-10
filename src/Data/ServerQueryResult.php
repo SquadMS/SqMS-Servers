@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DSG\SquadRCON\Data\Population;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Servers\Events\ServerStatusUpdated;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
@@ -57,7 +58,7 @@ class ServerQueryResult {
      * @param integer $reservedQueue
      * @return void
      */
-    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0) : void
+    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0, ?string $rawName = null) : void
     {
         $this->online = $online;
         $this->name = $name;
@@ -65,7 +66,11 @@ class ServerQueryResult {
         $this->reserved = $reserved;
         $this->publicQueue = $publicQueue;
         $this->reservedQueue = $reservedQueue;
-        $this->count = $count; 
+        $this->count = $count;
+        if ($rawName) {
+            $this->layer = SDKDataReader::getLayerForRaw($rawName);
+            $this->level = SDKDataReader::layerToLevel($this->layer);
+        }
     }
 
     /**
