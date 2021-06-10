@@ -145,7 +145,7 @@ class ServerQueryResult {
             'layer'         => $this->layer,
             'nextLevel'     => $this->nextLevel,
             'nextLayer'     => $this->nextLayer,
-            'levelClass'    => LevelHelper::levelToClass($this->level),
+            'levelClass'    => is_string($this->level) ? LevelHelper::levelToClass($this->level) : null,
             'teamTags'      => $this->teamTags(),
         ];
     }
