@@ -7,6 +7,7 @@ use DSG\SquadRCON\Data\Population;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use SquadMS\Foundation\Facades\SDKDataReader;
+use SquadMS\Foundation\Helpers\FactionHelper;
 use SquadMS\Servers\Events\ServerStatusUpdated;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
@@ -288,8 +289,8 @@ class ServerQueryResult {
     public function teamTags() : array
     {
         $tags = [];
-        if ($this->population) foreach ($this->population->getTeams() as $team) {
-            $tags[$team->getId()] = \SquadMS\Foundation\Helpers\FactionHelper::getFactionTag($this->layer, $team->getId());
+        if ($this->layer) foreach (range(1, 2) as $teamId) {
+            $tags[$teamId] = FactionHelper::getFactionTag(SDKDataReader::getFactionForTeamID($this->layer, $teamId)); 
         }
         return $tags;
     }
