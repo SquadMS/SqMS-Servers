@@ -3,6 +3,7 @@
 namespace SquadMS\Servers\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Config;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Foundation\Contracts\SquadMSUser;
 
@@ -18,7 +19,7 @@ class ServerPolicy
      */
     public function viewAny(SquadMSUser $user)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -30,7 +31,7 @@ class ServerPolicy
      */
     public function view(SquadMSUser $user, Server $server)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -41,7 +42,7 @@ class ServerPolicy
      */
     public function create(SquadMSUser $user)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -53,7 +54,7 @@ class ServerPolicy
      */
     public function update(SquadMSUser $user, Server $server)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -65,7 +66,7 @@ class ServerPolicy
      */
     public function delete(SquadMSUser $user, Server $server)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -77,7 +78,7 @@ class ServerPolicy
      */
     public function restore(SquadMSUser $user, Server $server)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 
     /**
@@ -89,6 +90,6 @@ class ServerPolicy
      */
     public function forceDelete(SquadMSUser $user, Server $server)
     {
-        return $user->can('admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module') . ' admin servers');
     }
 }
