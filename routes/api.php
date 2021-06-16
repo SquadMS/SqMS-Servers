@@ -9,5 +9,5 @@ Route::group(['prefix' => 'rcon-worker', 'as' => 'worker.', 'middleware' => ['ap
     Route::get('servers', [APIServersController::class, 'servers']);
 
     /* Event-Webhooks */
-    // TODO
+    Route::post('chat-message', [APIServersController::class, 'chatMessage']);
 });
