@@ -2,14 +2,13 @@
 
 namespace SquadMS\Servers\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use HiHaHo\EncryptableTrait\Encryptable;
 use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
 use GameQ\Server as GameQServer;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
 
@@ -78,6 +77,14 @@ class Server extends Model
     public function scopeHasRconData($query)
     {
         return $query->whereNotNull('rcon_port')->whereNotNull('rcon_password');
+    }
+
+    /**
+     * Get the messages that were sent on this server.
+     */
+    public function serverChatMessages(): HasMany
+    {
+        return $this->hasMany(ServerChatMessage::class);
     }
 
     /**
