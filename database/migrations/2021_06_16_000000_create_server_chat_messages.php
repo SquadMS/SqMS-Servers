@@ -20,8 +20,7 @@ class CreateServersTable extends Migration
             $table->foreignId('server')->constrained();
 
             /* The user that sent the message */
-            $table->unsignedBigInteger('user_id')->nullable()->default(null);
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user')->constrained();
 
             /* Type / Chat this was sent on */
             $table->string('type')->index();
