@@ -8,6 +8,7 @@ use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
 use GameQ\Server as GameQServer;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Arr;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
@@ -85,6 +86,14 @@ class Server extends Model
     public function serverChatMessages(): HasMany
     {
         return $this->hasMany(ServerChatMessage::class);
+    }
+
+    /**
+     * Get the Ban-Lists that do affect this server.
+     */
+    public function banLists(): HasManyThrough
+    {
+        return $this->hasManyThrough(BanList::class, ServerBanList::class);
     }
 
     /**

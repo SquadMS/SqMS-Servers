@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServersTable extends Migration
+class CreateServerChatMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -45,6 +45,6 @@ class CreateServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        Schema::dropIfExists('server_chat_messages');
     }
 }
