@@ -204,7 +204,7 @@ class ServerQueryResult
     public function __unserialize(array $data): void
     {
         /* Find related Server or fail */
-        $this->server = ServerRepositoriy::getServerModelQuery()->findOrFail(Arr::get($data, 'server', -1));
+        $this->server = ServerRepositoriy::getModelQuery()->findOrFail(Arr::get($data, 'server', -1));
 
         /* Rebuild query data and preserve class defaults */
         $this->created = Arr::get($data, 'created', Carbon::now());

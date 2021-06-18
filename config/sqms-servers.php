@@ -9,7 +9,9 @@ return [
     ],
 
     'models' => [
-        'server' => \SquadMS\Servers\Models\Server::class,
+        'server'  => \SquadMS\Servers\Models\Server::class,
+        'banList' => \SquadMS\Servers\Models\BanList::class,
+        'ban'     => \SquadMS\Servers\Models\Ban::class,
     ],
 
     'routes' => [

@@ -21,7 +21,7 @@ class ServerList extends Component
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.servers.server-list', [
-            'servers' => ServerRepositoriy::getServerModelQuery()->paginate(10),
+            'servers' => ServerRepositoriy::getModelQuery()->paginate(10),
         ]);
     }
 }
