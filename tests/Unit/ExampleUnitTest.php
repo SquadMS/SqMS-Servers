@@ -12,7 +12,7 @@ class ExampleUnitTest extends TestCase
      * @return void
      */
     public function test_example()
-    {            
+    {
         $this->assertTrue(true);
     }
 }
