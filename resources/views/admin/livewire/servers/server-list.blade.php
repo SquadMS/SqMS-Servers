@@ -36,7 +36,7 @@
                     <x-sqms-foundation::form-input class="mb-3" type="text" name="selectedServer.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.lazy="selectedServer.name" />
 
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ \Illuminate\Support\Arr::get($server, 'account_playtime', false) ? 'checked' : '' }} wire:dirty.class="border-warning" wire:model.lazy="selectedServer.account_playtime" value="1">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" {{ \Illuminate\Support\Arr::get($selectedServer, 'account_playtime', false) ? 'checked' : '' }} wire:dirty.class="border-warning" wire:model.lazy="selectedServer.account_playtime" value="1">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Account playtime</label>
                     </div>
 
