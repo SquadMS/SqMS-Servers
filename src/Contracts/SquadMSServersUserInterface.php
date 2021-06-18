@@ -4,7 +4,8 @@ namespace SquadMS\Servers\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-interface SquadMSServersUserInterface {
+interface SquadMSServersUserInterface
+{
     /**
      * Get the messages that were sent by this user.
      */

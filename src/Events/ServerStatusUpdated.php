@@ -2,15 +2,16 @@
 
 namespace SquadMS\Servers\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 use SquadMS\Servers\Data\ServerQueryResult;
 
 class ServerStatusUpdated implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     public ServerQueryResult $serverQueryResult;
 

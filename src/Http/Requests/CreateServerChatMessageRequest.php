@@ -2,8 +2,8 @@
 
 namespace SquadMS\Servers\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
+use Illuminate\Foundation\Http\FormRequest;
 use SquadMS\Foundation\Auth\SteamUser;
 use SquadMS\Foundation\Repositories\UserRepository;
 
@@ -52,7 +52,7 @@ class CreateServerChatMessageRequest extends FormRequest
         $validated['content'] = $validated['message'];
 
         /* Convert to Carbon */
-        $validated['time'] =  Carbon::parse($validated['time']);
+        $validated['time'] = Carbon::parse($validated['time']);
 
         /* Find the User or create shallowly */
         if ($validated['steamId64']) {

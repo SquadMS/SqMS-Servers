@@ -2,11 +2,11 @@
 
 namespace SquadMS\Servers\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use HiHaHo\EncryptableTrait\Encryptable;
-use DSG\SquadRCON\SquadServer as RCON;
 use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\SquadServer as RCON;
 use GameQ\Server as GameQServer;
+use HiHaHo\EncryptableTrait\Encryptable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Arr;
@@ -34,7 +34,7 @@ class Server extends Model
         'host',
         'game_port',
         'query_port',
-        
+
         'rcon_port',
         'rcon_password',
     ];
@@ -53,26 +53,28 @@ class Server extends Model
 
     protected ?ServerQueryResult $lastQueryResult = null;
 
-    public function getConnectUrlAttribute() : string
+    public function getConnectUrlAttribute(): string
     {
-        return 'steam://connect/' . $this->host . ':' . $this->game_port . '/';
+        return 'steam://connect/'.$this->host.':'.$this->game_port.'/';
     }
 
-    public function getHasRconDataAttribute() : bool
+    public function getHasRconDataAttribute(): bool
     {
         return !is_null($this->rcon_port) && !is_null($this->rcon_password);
     }
 
-    public function getIsOnlineAttribute() : bool
+    public function getIsOnlineAttribute(): bool
     {
         $cache = $this->getFrontendCache();
+
         return $cache && Arr::get($cache, 'online', false);
     }
 
     /**
      * Scope a query to only include servers that have RCON connection information available.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeHasRconData($query)
@@ -101,11 +103,11 @@ class Server extends Model
      *
      * @return array
      */
-    public function getGameQData() : array
+    public function getGameQData(): array
     {
         return [
-            GameQServer::SERVER_TYPE => 'squad',
-            GameQServer::SERVER_HOST => $this->host . ':' . $this->game_port,
+            GameQServer::SERVER_TYPE    => 'squad',
+            GameQServer::SERVER_HOST    => $this->host.':'.$this->game_port,
             GameQServer::SERVER_OPTIONS => [
                 GameQServer::SERVER_OPTIONS_QUERY_PORT => $this->query_port,
             ],
@@ -114,10 +116,10 @@ class Server extends Model
 
     /**
      * Initializes and returns a new RCON connection.
-     * 
+     *
      * @throws \Throwable
      */
-    public function getRconConnection() : ?RCON
+    public function getRconConnection(): ?RCON
     {
         if ($this->has_rcon_data) {
             return new RCON(new ServerConnectionInfo($this->host, $this->rcon_port, $this->rcon_password), new RCONWorkerCommandRunner($this->id));
@@ -126,7 +128,7 @@ class Server extends Model
         }
     }
 
-    public function getLastQueryResultAttribute() : ServerQueryResult
+    public function getLastQueryResultAttribute(): ServerQueryResult
     {
         if (is_null($this->lastQueryResult)) {
             $this->lastQueryResult = ServerQueryResult::load($this);
@@ -135,7 +137,7 @@ class Server extends Model
         return $this->lastQueryResult;
     }
 
-    public function clearLastQueryResultCache() : void
+    public function clearLastQueryResultCache(): void
     {
         $this->lastQueryResult = null;
     }

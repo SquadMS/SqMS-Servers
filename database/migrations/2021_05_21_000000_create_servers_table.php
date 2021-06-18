@@ -29,7 +29,7 @@ class CreateServersTable extends Migration
             $table->unsignedSmallInteger('query_port')->default(27165);
             $table->unique(['host', 'game_port']);
             $table->unique(['host', 'query_port']);
-          
+
             /* RCON Config */
             $table->unsignedSmallInteger('rcon_port')->nullable();
             $table->string('rcon_password')->nullable();

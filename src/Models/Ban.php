@@ -51,10 +51,11 @@ class Ban extends Model
     }
 
     /**
-     * Helper to set the end attribute. Does only accept a 
+     * Helper to set the end attribute. Does only accept a
      * valod Carbon instance or null (for permanent).
      *
      * @param Carbon|null $value
+     *
      * @return void
      */
     public function setEndAttribute(?Carbon $value): void
