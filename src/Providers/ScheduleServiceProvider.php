@@ -2,8 +2,8 @@
 
 namespace SquadMS\Servers\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\ServiceProvider;
 use SquadMS\Servers\Jobs\QueryServer;
 use SquadMS\Servers\Models\Server;
 

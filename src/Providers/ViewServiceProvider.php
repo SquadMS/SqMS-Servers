@@ -2,7 +2,6 @@
 
 namespace SquadMS\Servers\Providers;
 
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -25,6 +24,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         /* Load views */
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'sqms-servers');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'sqms-servers');
     }
 }

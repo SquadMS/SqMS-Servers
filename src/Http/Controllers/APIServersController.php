@@ -21,7 +21,7 @@ class APIServersController extends Controller
     }
 
     /**
-     * Add a chat message to the defined Server instance
+     * Add a chat message to the defined Server instance.
      *
      * @return \Illuminate\Http\Response
      */

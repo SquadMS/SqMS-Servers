@@ -12,7 +12,7 @@ use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 class CreateServer extends AbstractModalComponent
 {
     use AuthorizesRequests;
-    
+
     public array $server = [
         'account_playtime' => false,
         'host'             => '127.0.0.1',
@@ -28,31 +28,31 @@ class CreateServer extends AbstractModalComponent
     {
         return [
             'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name',
-    
+
             'server.account_playtime' => 'required|boolean',
-    
-            'server.host' => 'required|ipv4',
+
+            'server.host'      => 'required|ipv4',
             'server.game_port' => [
                 'required',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'game_port')->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'game_port')->where('host', Arr::get($this->server, 'host')),
             ],
             'server.query_port' => [
                 'required',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'query_port')->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'query_port')->where('host', Arr::get($this->server, 'host')),
             ],
-    
+
             'server.rcon_port' => [
                 'required_with:server.rcon_password',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'rcon_port')->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'rcon_port')->where('host', Arr::get($this->server, 'host')),
             ],
             'server.rcon_password' => 'required_with:server.rcon_port|string',
         ];
@@ -75,7 +75,7 @@ class CreateServer extends AbstractModalComponent
         /* Reset state */
         $this->reset();
     }
-    
+
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.servers.create-server');

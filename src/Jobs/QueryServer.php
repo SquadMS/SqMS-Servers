@@ -2,21 +2,24 @@
 
 namespace SquadMS\Servers\Jobs;
 
+use GameQ\GameQ;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
-use GameQ\GameQ;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Services\ServerQueryService;
 
 class QueryServer implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected Server $server;
 
@@ -45,16 +48,16 @@ class QueryServer implements ShouldQueue
     }
 
     /**
-     * Queries the Server and retrieves  information. Instead of 
+     * Queries the Server and retrieves  information. Instead of
      * throwing an exception it will return its success status.
      *
-     * @return boolean
+     * @return bool
      */
-    private function queryServer() : ServerQueryResult
+    private function queryServer(): ServerQueryResult
     {
         /** @var \DSG\SquadRCON\SquadServer|null */
         $rcon = null;
-        
+
         /** @var GameQ|null */
         $gameq = null;
 
@@ -88,7 +91,7 @@ class QueryServer implements ShouldQueue
                 $serverQueryResult->setRCONData($rcon->showCurrentMap(), $rcon->showNextMap(), $rcon->serverPopulation());
             }
         } catch (\Throwable $e) {
-            Log::debug('[QueryServer] Error during query: ' . $e->getMessage() . PHP_EOL . $e->getTraceAsString());
+            Log::debug('[QueryServer] Error during query: '.$e->getMessage().PHP_EOL.$e->getTraceAsString());
         }
 
         /* Close connections to be sure */

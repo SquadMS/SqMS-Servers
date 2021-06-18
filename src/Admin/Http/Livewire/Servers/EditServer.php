@@ -22,45 +22,46 @@ class EditServer extends AbstractModalComponent
     public function rules()
     {
         return [
-            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,' . $this->server->id,
-    
+            'server.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,'.$this->server->id,
+
             'server.account_playtime' => 'required|boolean',
-    
-            'server.host' => 'required|ipv4',
+
+            'server.host'      => 'required|ipv4',
             'server.game_port' => [
                 'required',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'game_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'game_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
             ],
             'server.query_port' => [
                 'required',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'query_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'query_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
             ],
-    
+
             'server.rcon_port' => [
                 'nullable',
                 'required_with:server.rcon_password',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'rcon_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host'))
+                Rule::unique('servers', 'rcon_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
             ],
             'server.rcon_password' => 'nullable|required_with:server.rcon_port|string',
         ];
     }
 
-    public function updateServer() {
+    public function updateServer()
+    {
         /* Authorize the action */
         $this->authorize('update', $this->server);
 
         /* Validate the data first */
         $this->validate();
-        
+
         /* Create the Server */
         $this->server->save();
 
@@ -77,7 +78,7 @@ class EditServer extends AbstractModalComponent
             'rcon_password',
         ]);
     }
-    
+
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.servers.edit-server');

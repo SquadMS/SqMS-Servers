@@ -3,8 +3,8 @@
 namespace SquadMS\Servers\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use SquadMS\Servers\Policies\ServerPolicy;
 use SquadMS\Servers\Models\Server;
+use SquadMS\Servers\Policies\ServerPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
