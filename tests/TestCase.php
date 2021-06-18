@@ -2,7 +2,7 @@
 
 namespace SquadMS\Servers\Tests;
 
-use \SquadMS\Foundation\Tests\TestCase as SquadMSFoundationTestCase;
+use SquadMS\Foundation\Tests\TestCase as SquadMSFoundationTestCase;
 
 class TestCase extends SquadMSFoundationTestCase
 {

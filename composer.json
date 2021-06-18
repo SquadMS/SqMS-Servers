@@ -29,7 +29,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SquadMS\\Servers\\Tests\\": "tests/"
+            "SquadMS\\Servers\\Tests\\": "tests/",
+            "SquadMS\\Foundation\\Tests\\": "vendor/squadms/foundation/tests/"
         }
     },
     "extra": {
