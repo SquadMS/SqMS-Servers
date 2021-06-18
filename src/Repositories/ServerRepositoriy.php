@@ -10,8 +10,10 @@ class ServerRepositoriy
     /**
      * Returns a query builder for the configured user model.
      */
-    public static function getServerModelQuery() : Builder {
+    public static function getServerModelQuery(): Builder
+    {
         $class = Config::get('sqms-servers.models.server');
-        return call_user_func($class . '::query');
+
+        return call_user_func($class.'::query');
     }
 }

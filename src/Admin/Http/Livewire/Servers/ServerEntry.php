@@ -13,7 +13,7 @@ class ServerEntry extends Component
     protected $listeners = [
         'server:updated' => '$refresh',
     ];
-    
+
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.servers.server-entry');

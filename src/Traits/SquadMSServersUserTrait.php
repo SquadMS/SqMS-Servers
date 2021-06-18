@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use SquadMS\Servers\Models\Ban;
 use SquadMS\Servers\Models\ServerChatMessage;
 
-trait SquadMSServersUserTrait {
+trait SquadMSServersUserTrait
+{
     /**
      * @inheritDoc
      */

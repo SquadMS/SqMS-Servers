@@ -24,12 +24,12 @@ class SquadMSServersServiceProvider extends ServiceProvider
     public function boot()
     {
         /* Configuration */
-        $this->mergeConfigFrom(__DIR__ . '/../config/sqms-servers.php', 'sqms-servers');
+        $this->mergeConfigFrom(__DIR__.'/../config/sqms-servers.php', 'sqms-servers');
 
         /* Migrations */
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'sqms-servers');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-servers');
     }
 }

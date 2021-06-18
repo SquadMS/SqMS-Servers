@@ -9,14 +9,16 @@ use SquadMS\Foundation\Jobs\FetchUsers;
 use SquadMS\Foundation\Repositories\UserRepository;
 use SquadMS\Servers\Data\ServerQueryResult;
 
-class ServerQueryService {
+class ServerQueryService
+{
     /**
      * Processes the query result of a server.
      *
      * @param ServerQueryResult $result
+     *
      * @return void
      */
-    public static function processResult(ServerQueryResult $result) : void
+    public static function processResult(ServerQueryResult $result): void
     {
         if ($result->online()) {
             /* Get the Users, create those that do not exist */
@@ -30,25 +32,25 @@ class ServerQueryService {
         self::createFrontendCache($result);
     }
 
-    public static function getUsersBySteamIds(array $steamIds) : Collection
+    public static function getUsersBySteamIds(array $steamIds): Collection
     {
         if (count($steamIds)) {
             $steamUsers = [];
             foreach ($steamIds as $steamId) {
                 $steamUsers[] = new SteamUser($steamId);
             }
-    
+
             /* Bulk create the users shallowly and check if anything has been created or updated */
             if (UserRepository::createOrUpdateBulk($steamUsers, true)) {
                 /* Query and get the created users */
                 return UserRepository::getUserModelQuery()->whereIn('steam_id_64', $steamIds)->get();
             }
         }
-        
+
         return new Collection();
     }
 
-    public static function fetchMissingPlayers(Collection $users) : void
+    public static function fetchMissingPlayers(Collection $users): void
     {
         /* Dont do anything if nothing was provided */
         if (!$users->count()) {
@@ -65,16 +67,17 @@ class ServerQueryService {
      * than the configured threshold.
      *
      * @param ServerQueryResult $result
+     *
      * @return void
      */
-    public static function createFrontendCache(ServerQueryResult $result) : void
+    public static function createFrontendCache(ServerQueryResult $result): void
     {
         if (!$result->online()) {
             $oldResult = $result->server()->last_query_result;
 
-            if ( 
-                ! $oldResult instanceof ServerQueryResult ||
-                ! $oldResult->online() ||
+            if (
+                !$oldResult instanceof ServerQueryResult ||
+                !$oldResult->online() ||
                 $oldResult->created()->greaterThan(Carbon::now()->subMinutes(5))
             ) {
                 return;

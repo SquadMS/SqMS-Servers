@@ -8,12 +8,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Foundation\Helpers\FactionHelper;
+use SquadMS\Foundation\Helpers\LevelHelper;
 use SquadMS\Servers\Events\ServerStatusUpdated;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Repositories\ServerRepositoriy;
-use SquadMS\Foundation\Helpers\LevelHelper;
 
-class ServerQueryResult {
+class ServerQueryResult
+{
     private ?Server $server = null;
 
     private ?Carbon $created = null;
@@ -42,7 +43,8 @@ class ServerQueryResult {
 
     private ?string $nextLayer = null;
 
-    function __construct(Server $server, ?Carbon $created = null) {
+    public function __construct(Server $server, ?Carbon $created = null)
+    {
         $this->server = $server;
         $this->created = $created ?? Carbon::now();
     }
@@ -50,16 +52,17 @@ class ServerQueryResult {
     /**
      * Method to set data that can be obtained by a simple A2S query.
      *
-     * @param boolean $online
+     * @param bool   $online
      * @param string $name
-     * @param integer $slots
-     * @param integer $reserved
-     * @param integer $count
-     * @param integer $publicQueue
-     * @param integer $reservedQueue
+     * @param int    $slots
+     * @param int    $reserved
+     * @param int    $count
+     * @param int    $publicQueue
+     * @param int    $reservedQueue
+     *
      * @return void
      */
-    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0, ?string $rawName = null) : void
+    public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0, ?string $rawName = null): void
     {
         $this->online = $online;
         $this->name = $name;
@@ -77,12 +80,13 @@ class ServerQueryResult {
     /**
      * Method to set data that can only be obtained by RCON.
      *
-     * @param array $currentMapInfo
-     * @param array $nextMapInfo
+     * @param array      $currentMapInfo
+     * @param array      $nextMapInfo
      * @param Population $population
+     *
      * @return void
      */
-    public function setRCONData(array $currentMapInfo, array $nextMapInfo, Population $population) : void
+    public function setRCONData(array $currentMapInfo, array $nextMapInfo, Population $population): void
     {
         /* Convert Layer-Name to Layer */
         if (Arr::has($currentMapInfo, 'layer')) {
@@ -103,55 +107,56 @@ class ServerQueryResult {
             } else {
                 $this->nextLayer = $this->nextLayer ?? 'JensensRange_GB-MIL';
             }
-            
         }
         $this->nextLevel = Arr::get($nextMapInfo, 'nextLevel');
 
         $this->population = $population;
-        $this->count = count($this->population->getPlayers());  
+        $this->count = count($this->population->getPlayers());
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         $primitivePopulation = [];
-        if ($this->population()) foreach ($this->population()->getTeams() as $team) {
-            $primitiveTeam = [
-                'id'      => $team->getId(),
-                'name'    => $team->getName(),
-                'squads'  => [],
-                'players' => [],
-            ];
-
-            /* Squads of this tTam */
-            foreach ($team->getSquads() as $squad) {
-                $primitiveSquad = [
-                    'id'      => $squad->getId(),
-                    'name'    => $squad->getName(),
+        if ($this->population()) {
+            foreach ($this->population()->getTeams() as $team) {
+                $primitiveTeam = [
+                    'id'      => $team->getId(),
+                    'name'    => $team->getName(),
+                    'squads'  => [],
                     'players' => [],
                 ];
 
-                /* Players of this Squad */
-                foreach ($squad->getPlayers() as $player) {
-                    $primitiveSquad['players'][] = [
+                /* Squads of this tTam */
+                foreach ($team->getSquads() as $squad) {
+                    $primitiveSquad = [
+                        'id'      => $squad->getId(),
+                        'name'    => $squad->getName(),
+                        'players' => [],
+                    ];
+
+                    /* Players of this Squad */
+                    foreach ($squad->getPlayers() as $player) {
+                        $primitiveSquad['players'][] = [
+                            'id'      => $player->getId(),
+                            'steamId' => $player->getSteamId(),
+                            'name'    => $player->getName(),
+                        ];
+                    }
+
+                    $primitiveTeam['squads'][] = $primitiveSquad;
+                }
+
+                /* Unassigned players */
+                foreach ($team->getPlayers() as $player) {
+                    $primitiveTeam['players'][] = [
                         'id'      => $player->getId(),
                         'steamId' => $player->getSteamId(),
                         'name'    => $player->getName(),
                     ];
                 }
 
-                $primitiveTeam['squads'][] = $primitiveSquad;
+                $primitivePopulation[] = $primitiveTeam;
             }
-
-            /* Unassigned players */
-            foreach ($team->getPlayers() as $player) {
-                $primitiveTeam['players'][] = [
-                    'id'      => $player->getId(),
-                    'steamId' => $player->getSteamId(),
-                    'name'    => $player->getName(),
-                ];
-            }
-
-            $primitivePopulation[] = $primitiveTeam;
         }
 
         return [
@@ -202,125 +207,128 @@ class ServerQueryResult {
         $this->server = ServerRepositoriy::getServerModelQuery()->findOrFail(Arr::get($data, 'server', -1));
 
         /* Rebuild query data and preserve class defaults */
-        $this->created       = Arr::get($data, 'created', Carbon::now());
-        $this->online        = Arr::get($data, 'online', $this->online);
-        $this->name          = Arr::get($data, 'name', $this->server->name);
-        $this->slots         = Arr::get($data, 'slots', $this->slots);
-        $this->reserved      = Arr::get($data, 'reserved', $this->reserved);
-        $this->count         = Arr::get($data, 'count', $this->count);
-        $this->publicQueue   = Arr::get($data, 'publicQueue', $this->publicQueue);
+        $this->created = Arr::get($data, 'created', Carbon::now());
+        $this->online = Arr::get($data, 'online', $this->online);
+        $this->name = Arr::get($data, 'name', $this->server->name);
+        $this->slots = Arr::get($data, 'slots', $this->slots);
+        $this->reserved = Arr::get($data, 'reserved', $this->reserved);
+        $this->count = Arr::get($data, 'count', $this->count);
+        $this->publicQueue = Arr::get($data, 'publicQueue', $this->publicQueue);
         $this->reservedQueue = Arr::get($data, 'reservedQueue', $this->reservedQueue);
-        $this->population    = Arr::get($data, 'population', $this->population);
-        $this->level         = Arr::get($data, 'level', $this->level);
-        $this->layer         = Arr::get($data, 'layer', $this->layer);
-        $this->nextLevel     = Arr::get($data, 'nextLevel', $this->nextLevel);
-        $this->nextLayer     = Arr::get($data, 'nextLayer', $this->nextLayer);
+        $this->population = Arr::get($data, 'population', $this->population);
+        $this->level = Arr::get($data, 'level', $this->level);
+        $this->layer = Arr::get($data, 'layer', $this->layer);
+        $this->nextLevel = Arr::get($data, 'nextLevel', $this->nextLevel);
+        $this->nextLayer = Arr::get($data, 'nextLayer', $this->nextLayer);
     }
 
-    public function save() : void
+    public function save(): void
     {
-        Cache::forever('sqms-servers-query-result::' . $this->server->id, $this);
+        Cache::forever('sqms-servers-query-result::'.$this->server->id, $this);
 
         ServerStatusUpdated::dispatch($this);
     }
 
-    public static function load(Server $server) : self
+    public static function load(Server $server): self
     {
-        return Cache::get('sqms-servers-query-result::' . $server->id, new ServerQueryResult($server));
+        return Cache::get('sqms-servers-query-result::'.$server->id, new ServerQueryResult($server));
     }
 
     /* Property-Accessors */
 
-    public function server() : Server
+    public function server(): Server
     {
         return $this->server;
     }
 
-    public function created() : Carbon
+    public function created(): Carbon
     {
         return $this->created;
     }
 
-    public function online() : bool
+    public function online(): bool
     {
         return $this->online;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return $this->name ?? $this->server->name;
     }
 
-    public function slots() : int
+    public function slots(): int
     {
         return $this->slots;
     }
 
-    public function reserved() : int
+    public function reserved(): int
     {
         return $this->reserved;
     }
 
-    public function count() : int
+    public function count(): int
     {
         return $this->count;
     }
 
-    public function publicQueue() : int
+    public function publicQueue(): int
     {
         return $this->publicQueue;
     }
 
-    public function reservedQueue() : int
+    public function reservedQueue(): int
     {
         return $this->reservedQueue;
     }
 
-    public function queue() : int
+    public function queue(): int
     {
         return $this->publicQueue + $this->reservedQueue;
     }
 
-    public function population() : ?Population
+    public function population(): ?Population
     {
         return $this->population;
     }
 
-    public function teamTags() : array
+    public function teamTags(): array
     {
         $tags = [];
-        if ($this->layer) foreach (range(1, 2) as $teamId) {
-            $tags[$teamId] = FactionHelper::getFactionTag(SDKDataReader::getFactionForTeamID($this->layer, $teamId)); 
+        if ($this->layer) {
+            foreach (range(1, 2) as $teamId) {
+                $tags[$teamId] = FactionHelper::getFactionTag(SDKDataReader::getFactionForTeamID($this->layer, $teamId));
+            }
         }
+
         return $tags;
     }
 
-    public function level() : ?string
+    public function level(): ?string
     {
         return $this->level;
     }
 
-    public function layer() : ?string
+    public function layer(): ?string
     {
         return $this->layer;
     }
 
-    public function nextLevel() : ?string
+    public function nextLevel(): ?string
     {
         return $this->nextLevel;
     }
 
-    public function nextLayer() : ?string
+    public function nextLayer(): ?string
     {
         return $this->nextLayer;
     }
 
-    public function connectionURI() : string
+    public function connectionURI(): string
     {
         return $this->server->connect_url;
     }
 
-    public function steamIds() : array
+    public function steamIds(): array
     {
         /* Process player List and get steamIds */
         $steamIds = [];

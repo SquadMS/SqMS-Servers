@@ -10,7 +10,7 @@ use SquadMS\Servers\Models\Server;
 class DeleteServer extends AbstractModalComponent
 {
     use AuthorizesRequests;
-    
+
     public Server $server;
 
     public function deleteServer()
@@ -19,15 +19,15 @@ class DeleteServer extends AbstractModalComponent
         $this->authorize('delete', $this->server);
 
         /* Delete the Server */
-        $this->server->delete();    
-        
+        $this->server->delete();
+
         /* Hide the modal (backdrop) */
         $this->hideModal();
 
         /* Emit event */
         $this->emit('server:deleted');
     }
-    
+
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.servers.delete-server');

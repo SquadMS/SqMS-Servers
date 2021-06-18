@@ -17,7 +17,7 @@ class BanList extends Model
         'name',
         'description',
 
-        'global'
+        'global',
     ];
 
     /**

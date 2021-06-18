@@ -14,35 +14,36 @@ use SquadMS\Foundation\Modularity\Contracts\SquadMSModule as SquadMSModuleContra
 use SquadMS\Servers\Jobs\QueryServer;
 use SquadMS\Servers\Models\Server;
 
-class SquadMSModule extends SquadMSModuleContract {
-    static function getIdentifier() : string
+class SquadMSModule extends SquadMSModuleContract
+{
+    public static function getIdentifier(): string
     {
         return 'sqms-servers';
     }
 
-    static function getName() : string
+    public static function getName(): string
     {
         return 'SquadMS Servers';
     }
 
-    static function publishAssets() : void
+    public static function publishAssets(): void
     {
         //
     }
 
-    static function registerAdminMenus() : void
+    public static function registerAdminMenus(): void
     {
         SquadMSAdminMenu::register('admin-servers', 200);
     }
 
-    static function registerMenuEntries(string $menu) : void
+    public static function registerMenuEntries(string $menu): void
     {
         switch ($menu) {
             case 'main-left':
                 SquadMSMenu::register(
                     'main-left',
                     (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.servers.name'), fn () => Lang::get('sqms-servers::navigation.servers'), true))
-                    ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.servers.name')) )
+                    ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.servers.name')))
                     ->setOrder(200)
                 );
 
@@ -57,7 +58,7 @@ class SquadMSModule extends SquadMSModuleContract {
                 SquadMSMenu::register(
                     'admin-servers',
                     (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.admin-servers.name'), '<i class="bi bi-house-fill"></i> Servers', true))->setView('sqms-foundation::components.navigation.item')
-                    ->setActive( fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.admin-servers.name')) )
+                    ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.admin-servers.name')))
                     ->setOrder(200)
                 );
 
@@ -65,7 +66,7 @@ class SquadMSModule extends SquadMSModuleContract {
         }
     }
 
-    static function schedule(Schedule $schedule) : void
+    public static function schedule(Schedule $schedule): void
     {
         foreach (Server::all() as $server) {
             $schedule->job(new QueryServer($server))->withoutOverlapping()->everyMinute();
