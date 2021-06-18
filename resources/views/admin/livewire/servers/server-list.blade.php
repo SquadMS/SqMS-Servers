@@ -13,10 +13,10 @@
                     <tr>
                         <td scope="row">{{ $server->name }}</td>
                         <td class="text-end">
-                            <x-sqms-foundation::button class="btn-warning" wire:click="showEditServer($server)" wire:loading.attr="disabled">
+                            <x-sqms-foundation::button class="btn-warning" wire:click="showEditServer({{ $server->id }})" wire:loading.attr="disabled">
                                 Edit
                             </x-sqms-foundation::button>
-                            <x-sqms-foundation::button class="btn-danger" wire:click="showDeleteServer($server)" wire:loading.attr="disabled">
+                            <x-sqms-foundation::button class="btn-danger" wire:click="showDeleteServer({{ $server->id }})" wire:loading.attr="disabled">
                                 Delete
                             </x-sqms-foundation::button>
                         </td>
