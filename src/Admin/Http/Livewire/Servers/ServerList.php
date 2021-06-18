@@ -26,6 +26,7 @@ class ServerList extends Component
     ];
 
     public bool $showEditModal = false;
+    public bool $showDeleteModal = false;
     public ?Server $selectedServer = null;
 
     public function showEditServer(Server $server)
