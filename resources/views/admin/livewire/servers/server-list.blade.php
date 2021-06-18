@@ -26,7 +26,7 @@
         </table>
 
         <!-- Edit Modal -->
-        <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl">
+        <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
             <x-slot name="title">
                 Edit Server
             </x-slot>
@@ -68,7 +68,7 @@
         </x-sqms-foundation::dialog-modal>
 
         <!-- Delete Modal -->
-        <x-sqms-foundation::confirm-modal model="showDeleteModal">
+        <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
             <x-slot name="title">
                 Delete Server
             </x-slot>
