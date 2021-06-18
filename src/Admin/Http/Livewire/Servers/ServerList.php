@@ -89,7 +89,7 @@ class ServerList extends Component
     public function rules()
     {
         return [
-            'selectedServer.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,'.$this->server->id,
+            'selectedServer.name' => 'required|string|unique:SquadMS\Servers\Models\Server,name,'.$this->selectedServer->id,
 
             'selectedServer.account_playtime' => 'required|boolean',
 
@@ -99,14 +99,14 @@ class ServerList extends Component
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'game_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
+                Rule::unique('servers', 'game_port')->ignore($this->selectedServer->id)->where('host', Arr::get($this->selectedServer, 'host')),
             ],
             'selectedServer.query_port' => [
                 'required',
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'query_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
+                Rule::unique('servers', 'query_port')->ignore($this->selectedServer->id)->where('host', Arr::get($this->selectedServer, 'host')),
             ],
 
             'selectedServer.rcon_port' => [
@@ -115,7 +115,7 @@ class ServerList extends Component
                 'integer',
                 'min:1',
                 'max:65535',
-                Rule::unique('servers', 'rcon_port')->ignore($this->server->id)->where('host', Arr::get($this->server, 'host')),
+                Rule::unique('servers', 'rcon_port')->ignore($this->selectedServer->id)->where('host', Arr::get($this->selectedServer, 'host')),
             ],
             'selectedServer.rcon_password' => 'nullable|required_with:selectedServer.rcon_port|string',
         ];
