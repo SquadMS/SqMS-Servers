@@ -1,6 +1,6 @@
 <?php
 
-namespace SquadMS\Foundation\Tests;
+namespace SquadMS\Servers\Tests;
 
 use \SquadMS\Foundation\Tests\TestCase as SquadMSFoundationTestCase;
 
@@ -32,7 +32,7 @@ class TestCase extends SquadMSFoundationTestCase
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-        
+
         config()->set('localized-routes.supported-locales', [
             'en',
             'de',
