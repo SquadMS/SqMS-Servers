@@ -1,12 +1,12 @@
 <?php
 
-namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
+namespace SquadMS\Servers\Admin\Http\Livewire\Server;
 
 use Illuminate\Support\Facades\View;
 use SquadMS\Foundation\Admin\Http\Livewire\Contracts\AbstractModalComponent;
 use SquadMS\Servers\Models\Server;
 
-class CreateServer extends AbstractModalComponent
+class ServerChat extends AbstractModalComponent
 {
     protected $listeners = [
         'echo:ServerChatMessageCreated' => '$refresh',
