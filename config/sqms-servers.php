@@ -45,6 +45,15 @@ return [
                 'executor'    => 'index',
                 'localized'   => false,
             ],
+            'admin-server' => [
+                'type'        => 'get',
+                'name'        => 'admin.server',
+                'path'        => 'admin/servers/{server}',
+                'middlewares' => ['auth', 'can:sqms admin', 'can:sqms-servers admin servers'],
+                'controller'  => \SquadMS\Servers\Admin\Http\Controllers\ServersController::class,
+                'executor'    => 'show',
+                'localized'   => false,
+            ],
         ],
     ],
 

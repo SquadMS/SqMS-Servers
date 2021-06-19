@@ -13,6 +13,7 @@
                     <tr>
                         <td scope="row">{{ $server->name }}</td>
                         <td class="text-end">
+                            <a href="{{ route(Config::get('sqms-servers.routes.def.servers.admin-server')) }}" class="btn btn-primary">Admin</a>
                             <x-sqms-foundation::button class="btn-warning" wire:click="showEditServer({{ $server->id }})" wire:loading.attr="disabled">
                                 Edit
                             </x-sqms-foundation::button>
