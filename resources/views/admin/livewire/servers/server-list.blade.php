@@ -25,14 +25,14 @@
             </tbody>
         </table>
 
-        @if ($selectedServer)
-            <!-- Edit Modal -->
-            <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
-                <x-slot name="title">
-                    Edit Server
-                </x-slot>
-            
-                <x-slot name="content">
+        <!-- Edit Modal -->
+        <x-sqms-foundation::dialog-modal model="showEditModal" maxWidth="xl" fullscreen="xl" class="text-start">
+            <x-slot name="title">
+                Edit Server
+            </x-slot>
+        
+            <x-slot name="content">
+                @if ($selectedServer)
                     <x-sqms-foundation::form-input class="mb-3" type="text" name="selectedServer.name" placeholder="New server name" label="Server name" wire:dirty.class="border-warning" wire:model.lazy="selectedServer.name" />
 
                     <div class="form-check form-switch mb-3">
@@ -49,45 +49,47 @@
                     <x-sqms-foundation::form-input class="mb-3" type="password" name="selectedServer.rcon_password" placeholder="New server RCON password" label="Server RCON password" wire:dirty.class="border-warning" wire:model.lazy="selectedServer.rcon_password" />
 
                     <x-sqms-foundation::form-input class="mb-3" type="text" name="selectedServer.rcon_port" placeholder="New server RCON port" label="Server RCON port" wire:dirty.class="border-warning" wire:model.lazy="selectedServer.rcon_port" />
-                </x-slot>
-            
-                <x-slot name="footer">
-                    <x-sqms-foundation::button class="btn-dark" wire:click="$set('showEditModal', false)" wire:loading.attr="disabled">
-                        Close
-                    </x-sqms-foundation::button>
-            
-                    <div class="flex-grow-1"></div>
+                @else
+                    <p class="lead color-warning">No Server selected for editing.</p>
+                @endif
+            </x-slot>
+        
+            <x-slot name="footer">
+                <x-sqms-foundation::button class="btn-dark" wire:click="$set('showEditModal', false)" wire:loading.attr="disabled">
+                    Close
+                </x-sqms-foundation::button>
+        
+                <div class="flex-grow-1"></div>
 
-                    <x-sqms-foundation::button class="btn-success" wire:click="editServer" wire:loading.attr="disabled">
-                        Update
-                    </x-sqms-foundation::button>
-                </x-slot>
-            </x-sqms-foundation::dialog-modal>
+                <x-sqms-foundation::button class="btn-success" wire:click="editServer" wire:loading.attr="disabled">
+                    Update
+                </x-sqms-foundation::button>
+            </x-slot>
+        </x-sqms-foundation::dialog-modal>
 
-            <!-- Delete Modal -->
-            <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
-                <x-slot name="title">
-                    Delete Server
-                </x-slot>
-            
-                <x-slot name="content">
-                    <p>Are you sure that you want to delete the Server?</p>
-                </x-slot>
-            
-                <x-slot name="footer">
-                    <x-sqms-foundation::button class="btn-dark" wire:click="$set('showDeleteModal', false)" wire:loading.attr="disabled">
-                        Cancel
-                    </x-sqms-foundation::button>
-            
-                    <div class="flex-grow-1"></div>
+        <!-- Delete Modal -->
+        <x-sqms-foundation::confirm-modal model="showDeleteModal" class="text-start">
+            <x-slot name="title">
+                Delete Server
+            </x-slot>
+        
+            <x-slot name="content">
+                <p>Are you sure that you want to delete the Server?</p>
+            </x-slot>
+        
+            <x-slot name="footer">
+                <x-sqms-foundation::button class="btn-dark" wire:click="$set('showDeleteModal', false)" wire:loading.attr="disabled">
+                    Cancel
+                </x-sqms-foundation::button>
+        
+                <div class="flex-grow-1"></div>
 
-                    <x-sqms-foundation::button class="btn-danger" wire:click="deleteServer" wire:loading.attr="disabled">
-                        Delete
-                    </x-sqms-foundation::button>
-                </x-slot>
-            </x-sqms-foundation::confirm-modal>
-        </div>
-    @endif
+                <x-sqms-foundation::button class="btn-danger" wire:click="deleteServer" wire:loading.attr="disabled">
+                    Delete
+                </x-sqms-foundation::button>
+            </x-slot>
+        </x-sqms-foundation::confirm-modal>
+    </div>
 
     {{ $servers->links() }}
     @else
