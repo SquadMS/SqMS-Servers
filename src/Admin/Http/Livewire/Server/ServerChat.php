@@ -40,7 +40,7 @@ class ServerChat extends Component
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.server.chat', [
-            'messages' => $this->server->serverChatMessages()->cursorPaginate(25),
+            'messages' => $this->server->serverChatMessages()->latest('time')->cursorPaginate(25),
         ]);
     }
 }
