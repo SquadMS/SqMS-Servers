@@ -26,6 +26,13 @@ class ServerChatMessage extends Model
     ];
 
     /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d H:i:s.u';
+
+    /**
      * The event map for the model.
      *
      * @var array

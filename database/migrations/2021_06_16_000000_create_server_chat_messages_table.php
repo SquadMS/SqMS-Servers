@@ -32,9 +32,9 @@ class CreateServerChatMessagesTable extends Migration
             $table->text('content');
 
             /* Time it was sent on the server */
-            $table->dateTime('time');
+            $table->dateTime('time', 6);
 
-            $table->timestamps();
+            $table->timestamps(6);
         });
     }
 
