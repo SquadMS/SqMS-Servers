@@ -2,6 +2,7 @@
 
 return [
     'worker' => [
+        'enabled'    => env('SQMS_WORKER_ENABLED', true),
         'auth_token' => env('SQMS_WORKER_AUTH_TOKEN', 'SECRETTOKEN'),
         'auth_ip'    => env('SQMS_WORKER_AUTH_IP', '127.0.0.1'),
         'host'       => env('SQMS_WORKER_HOST', 'http://localhost'),

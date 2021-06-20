@@ -63,7 +63,7 @@ class Server extends Model
         return !is_null($this->rcon_port) && !is_null($this->rcon_password);
     }
 
-    public function getIsOnlineAttribute(): bool
+    public function getOnlineAttribute(): bool
     {
         $cache = $this->getFrontendCache();
 

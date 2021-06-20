@@ -3,9 +3,11 @@
 namespace SquadMS\Servers\Admin\Http\Livewire\Server;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Livewire\WithPagination;
 use Livewire\Component;
+use SquadMS\Servers\Jobs\RCONAdminBroadcast;
 use SquadMS\Servers\Models\Server;
 
 class ServerChat extends Component
@@ -24,7 +26,13 @@ class ServerChat extends Component
     {
         $this->authorize('admin servers moderation broadcast');
 
-        // Send Broadcast
+        if (Config::het('sqms-servers.worker.enabled')) {
+            RCONAdminBroadcast::dispatch($this->message);
+        } else {
+            // TODO, add server query based command queue.
+        }
+        
+        $this->server->getRconConnection()->adminBroadcast($this->message);
 
         $this->message = '';
     }
