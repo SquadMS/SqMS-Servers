@@ -13,13 +13,18 @@
                     <tr>
                         <td scope="row">{{ $server->name }}</td>
                         <td class="text-end">
+                            @can ('admin servers moderation')
                             <a href="{{ route(Config::get('sqms-servers.routes.def.admin-server.name'), ['server' => $server->id]) }}" class="btn btn-primary">Admin</a>
+                            @endcan
+                            
+                            @can ('admin servers manage')
                             <x-sqms-foundation::button class="btn-warning" wire:click="showEditServer({{ $server->id }})" wire:loading.attr="disabled">
                                 Edit
                             </x-sqms-foundation::button>
                             <x-sqms-foundation::button class="btn-danger" wire:click="showDeleteServer({{ $server->id }})" wire:loading.attr="disabled">
                                 Delete
                             </x-sqms-foundation::button>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

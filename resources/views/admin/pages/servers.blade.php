@@ -7,7 +7,9 @@
             <div class="col">
                 <h1 class="d-flex aliign-items-center">
                     <span class="flex-grow-1">Servers</span>
+                    @can ('admin servers manage')
                     <livewire:sqms-servers.admin.servers.create-server></livewire:sqms-servers.admin.servers.create-server/>
+                    @endcan
                 </h1>
                 <hr>
             </div>

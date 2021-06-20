@@ -4,15 +4,30 @@
 
         <hr>
 
-        <div id="chatMessagesContainer" class="chat-messages-container overflow-auto bg-dark text-white mb-3">
+        <div class="overflow-auto bg-dark text-white mb-3">
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3 d-none">
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Loading more Chat-Messages...</span>
                 </div>
             </div>
-            <div id="chatMessages" class="chat-messages">
+            <div class="chat-messages">
                 @foreach ($messages as $message)
-                    @include('admin.servers.includes.message', ['message' => $message])
+                    <div class="message-time p-1 p-md-2 border border-grey">
+                        {{ $message->time->format('H:i') }}
+                    </div>
+                    <div class="message-type p-1 p-md-2 border border-grey">
+                        {{ $message->type_formatted }}
+                    </div>
+                    <div class="message flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
+                        @if (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
+                            @if ($message->user)
+                            <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->user->name }}</a>:&nbsp;
+                            @else
+                            {{ $message->name }}:&nbsp;
+                            @endif
+                        @endif
+                        {{ $message->content }}
+                    </div>
                 @endforeach
             </div>
             <div id="chatLoading" class="align-items-center justify-content-center p-3 d-none">
@@ -22,23 +37,17 @@
             </div>
         </div>
 
-        <form id="form-broadcast" action="{{ route('admin.servers.send-broadcast', ['server' => $server]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        @can ('admin servers moderation broadcast')
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Send Broadcast</label>
 
-            <div class="form-group">
-                <label for="inputMessage">Message</label>
-                <input type="text"
-                    class="form-control {{ $errors->has('message') ? 'is-invalid' : '' }}"
-                    id="inputMessage" name="message" value="{{ old('message') }}"
-                    required>
-                @if ($errors->has('host'))
-                    <div class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('message') }}</strong>
-                    </div>
-                @endif
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Message to broadcast on the Server" aria-label="Message to broadcast on the Server" wire:model.lazy="message">
+                <x-sqms-foundation::button class="btn-outline-primary" wire:click="sendMessage" wire:loading.attr="disabled">
+                    Send
+                </x-sqms-foundation::button>
             </div>
-            
-            <button type="submit" class="btn btn-block btn-primary">Send</button>
-        </form>
+        </div>
+        @endcan
     </div>
 </div>

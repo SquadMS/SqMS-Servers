@@ -20,7 +20,7 @@ class ServerPolicy
      */
     public function viewAny(SquadMSUser $user)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -33,7 +33,7 @@ class ServerPolicy
      */
     public function view(SquadMSUser $user, Server $server)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -45,7 +45,7 @@ class ServerPolicy
      */
     public function create(SquadMSUser $user)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -58,7 +58,7 @@ class ServerPolicy
      */
     public function update(SquadMSUser $user, Server $server)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -71,7 +71,7 @@ class ServerPolicy
      */
     public function delete(SquadMSUser $user, Server $server)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -84,7 +84,7 @@ class ServerPolicy
      */
     public function restore(SquadMSUser $user, Server $server)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 
     /**
@@ -97,6 +97,6 @@ class ServerPolicy
      */
     public function forceDelete(SquadMSUser $user, Server $server)
     {
-        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers');
+        return $user->can(Config::get('sqms-servers.permissions.module').' admin servers manage');
     }
 }

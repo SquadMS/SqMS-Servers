@@ -34,7 +34,7 @@ class ServersController extends Controller
     public function show(Server $server)
     {
         /* Authorize the action */
-        $this->authorize(Config::get('sqms-servers.permissions.module').' admin servers');
+        $this->authorize(Config::get('sqms-servers.permissions.module').' admin servers moderation');
 
         /* Show home page */
         return View::make('sqms-servers::admin.pages.server', [
