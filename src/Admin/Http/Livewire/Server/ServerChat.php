@@ -2,7 +2,7 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Server;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
@@ -76,7 +76,7 @@ class ServerChat extends Component
         ]);
     }
 
-    private function getServerChatMessagesQuery(): Builder
+    private function getServerChatMessagesQuery(): HasMany
     {
         return $this->server->serverChatMessages()->latest();
     }
