@@ -16,7 +16,7 @@ class ServerChat extends Component
     use AuthorizesRequests;
 
     protected $listeners = [
-        'echo:SquadMS\\Servers\\Events\\ServerChatMessageCreated' => '$refresh',
+        'echo:server-chat.SquadMS\\Servers\\Events\\ServerChatMessageCreated' => '$refresh',
     ];
 
     public Server $server;
