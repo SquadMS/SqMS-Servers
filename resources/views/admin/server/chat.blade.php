@@ -6,7 +6,22 @@
 
         <div class="overflow-auto bg-dark text-white mb-3">
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3 d-none">
-                <div class="spinner-border" role="status">
+                <div class="spinner-border" role="status" x-data="{
+                    observe () {
+                        let observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    @this.call('loadOld')
+                                }
+                            })
+                        }, {
+                            root: null
+                        })
+            
+                        observer.observe(this.$el)
+                    }
+                }"
+                x-init="observe">
                     <span class="sr-only">Loading more Chat-Messages...</span>
                 </div>
             </div>
@@ -30,16 +45,11 @@
                     </div>
                 @endforeach
             </div>
-            <div id="chatLoading" class="align-items-center justify-content-center p-3 d-none">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading more Chat-Messages...</span>
-                </div>
-            </div>
         </div>
 
         @can ('admin servers moderation broadcast')
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Send Broadcast</label>
+            <label class="form-label">Send Broadcast</label>
 
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Message to broadcast on the Server" aria-label="Message to broadcast on the Server" wire:model.lazy="message">

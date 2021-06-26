@@ -2,17 +2,18 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Server;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
-use Livewire\WithPagination;
 use Livewire\Component;
 use SquadMS\Servers\Jobs\RCONAdminBroadcast;
 use SquadMS\Servers\Models\Server;
 
 class ServerChat extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use AuthorizesRequests;
 
     protected $listeners = [
         'echo:ServerChatMessageCreated' => '$refresh',
@@ -20,7 +21,15 @@ class ServerChat extends Component
 
     public Server $server;
 
+    public ?Collection $messages = null;
+
     public string $message = '';
+
+    public function mount($post)
+    {
+        $this->title = $post->title;
+        $this->messages = $this->getServerChatMessagesQuery()->limit(50);
+    }
 
     public function sendMessage(): void
     {
@@ -37,10 +46,39 @@ class ServerChat extends Component
         $this->message = '';
     }
 
+    public function loadOld(): void
+    {
+        $query = $this->getServerChatMessagesQuery();
+
+        if (($oldestMessage = $this->messages->first())) {
+            $query->where('id', '<', $oldestMessage->id);
+        }
+
+        $this->messages->merge($query->limit(50)->get());
+        
+    }
+
+    public function loadNew(): void
+    {
+        $query = $this->getServerChatMessagesQuery();
+
+        if (($newestMessage = $this->messages->last())) {
+            $query->where('id', '>', $newestMessage->id);
+        }
+
+        $this->messages->concat($query->limit(50)->get());
+        
+    }
+
     public function render()
     {
         return View::make('sqms-servers::admin.livewire.server.chat', [
             'messages' => $this->server->serverChatMessages()->latest('time')->cursorPaginate(25),
         ]);
+    }
+
+    private function getServerChatMessagesQuery(): Builder
+    {
+        return $this->server->serverChatMessages()->latest();
     }
 }
