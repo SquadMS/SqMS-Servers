@@ -4,7 +4,7 @@
 
         <hr>
 
-        <div class="overflow-auto bg-dark text-white mb-3">
+        <div class="vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3 d-none">
                 <div class="spinner-border" role="status" x-data="{
                     observe () {
