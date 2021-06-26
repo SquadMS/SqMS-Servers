@@ -27,7 +27,7 @@ class ServerChat extends Component
 
     public function mount()
     {
-        $this->messages = $this->getServerChatMessagesQuery()->limit(50)->get();
+        $this->messages = $this->getServerChatMessagesQuery()->limit(50)->get()->reverse();
     }
 
     public function sendMessage(): void
@@ -53,7 +53,7 @@ class ServerChat extends Component
             $query->where('id', '<', $oldestMessage->id);
         }
 
-        $this->messages->merge($query->limit(50)->get());
+        $this->messages->merge($query->limit(50)->get()->reverse());
         
     }
 
@@ -65,7 +65,7 @@ class ServerChat extends Component
             $query->where('id', '>', $newestMessage->id);
         }
 
-        $this->messages->concat($query->limit(50)->get());
+        $this->messages->concat($query->limit(50)->get()->reverse());
         
     }
 
