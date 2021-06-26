@@ -27,6 +27,15 @@ class ServerChatMessage extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'time' => 'datetime',
+    ];
+
+    /**
      * The storage format of the model's date columns.
      *
      * @var string
