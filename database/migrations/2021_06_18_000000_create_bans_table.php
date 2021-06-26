@@ -17,13 +17,13 @@ class CreateBansTable extends Migration
             $table->id();
 
             /* The user that took the action */
-            $table->foreignId('admin')->constrained('users');
+            $table->foreignId('admin_id')->constrained('users');
 
             /* The server this ban does apply to */
-            $table->foreignId('server')->constrained()->nullable();
+            $table->foreignId('server_id')->constrained()->nullable();
 
             /* The user that tha action was taken against */
-            $table->foreignId('user')->constrained();
+            $table->foreignId('user_id')->constrained();
 
             /* The reason that will be displayed ingame */
             $table->text('reason');
