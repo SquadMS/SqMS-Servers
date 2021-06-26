@@ -25,9 +25,8 @@ class ServerChat extends Component
 
     public string $message = '';
 
-    public function mount($post)
+    public function mount()
     {
-        $this->title = $post->title;
         $this->messages = $this->getServerChatMessagesQuery()->limit(50);
     }
 
