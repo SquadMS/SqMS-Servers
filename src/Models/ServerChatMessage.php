@@ -15,6 +15,7 @@ class ServerChatMessage extends Model
      * @var array
      */
     protected $fillable = [
+        'server_id',
         'user_id',
 
         'type',
