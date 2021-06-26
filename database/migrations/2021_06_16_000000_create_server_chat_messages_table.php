@@ -17,10 +17,10 @@ class CreateServerChatMessagesTable extends Migration
             $table->id();
 
             /* The server this message was sent on */
-            $table->foreignId('server')->constrained();
+            $table->foreign('server')->constrained();
 
             /* The user that sent the message */
-            $table->foreignId('user')->constrained();
+            $table->foreign('user')->constrained();
 
             /* Type / Chat this was sent on */
             $table->string('type')->index();
