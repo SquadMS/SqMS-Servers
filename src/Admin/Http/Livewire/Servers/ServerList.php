@@ -2,6 +2,7 @@
 
 namespace SquadMS\Servers\Admin\Http\Livewire\Servers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
@@ -12,7 +13,7 @@ use SquadMS\Servers\Repositories\ServerRepositoriy;
 
 class ServerList extends Component
 {
-    use WithPagination;
+    use WithPagination, AuthorizesRequests;
 
     protected $paginationTheme = 'bootstrap';
 
