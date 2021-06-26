@@ -8,6 +8,8 @@
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3">
                 <div class="spinner-border" role="status" x-data="{
                     observe () {
+                        this.$el.scrollTop = this.$el.scrollHeight
+
                         let observer = new IntersectionObserver((entries) => {
                             entries.forEach(entry => {
                                 if (entry.isIntersecting) {
