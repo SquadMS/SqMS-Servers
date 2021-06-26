@@ -26,7 +26,7 @@ class CreateBansTable extends Migration
             $table->foreignId('user')->constrained();
 
             /* The reason that will be displayed ingame */
-            $table->test('reason');
+            $table->text('reason');
 
             /* A detailed description if neccessary */
             $table->text('description')->nullable();
