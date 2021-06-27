@@ -52,6 +52,17 @@ class ServerChatMessage extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'time_short',
+        'type_formatted',
+        'content_formatted',
+    ];
+
+    /**
      * Get the User that sent this message.
      */
     public function user(): BelongsTo
@@ -65,6 +76,16 @@ class ServerChatMessage extends Model
     public function server(): BelongsTo
     {
         return $this->belongsTo(Server::class);
+    }
+
+    /**
+     * Accessor to get the short time as HH:SS.
+     *
+     * @return string
+     */
+    public function getTimeShortAttribute() : string
+    {
+        return $this->time->format('H:i');
     }
 
     /**
@@ -90,5 +111,27 @@ class ServerChatMessage extends Model
             default:
                 return $this->type;
         }
+    }
+
+    /**
+     * Accessor to get the short time as HH:SS.
+     *
+     * @return string
+     */
+    public function getContentFormattedAttribute() : string
+    {
+        $content = '';
+
+        /* Link author if possible */
+        if ($this->user) {
+            $content .= '<a href="'.$this->user->profile_url.'" target="_BLANK">'.$this->user->name.'</a>:&nbsp;';
+        } else {
+            $content .= $this->name . ':&nbsp;';
+        }
+
+        /* Add content */
+        $content .= $this->content;
+        
+        return $content;
     }
 }

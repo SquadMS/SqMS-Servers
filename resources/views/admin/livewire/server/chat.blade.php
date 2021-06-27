@@ -60,24 +60,11 @@
             @endif
 
             <div class="chat-messages">
-                @foreach ($messages as $message)
-                    <div id="message-time-{{ $message->id }}" class="p-1 p-md-2 border border-grey">
-                        {{ $message->time->format('H:i') }}
-                    </div>
-                    <div id="message-type-{{ $message->id }}" class="p-1 p-md-2 border border-grey">
-                        {{ $message->type_formatted }}
-                    </div>
-                    <div id="message-content-{{ $message->id }}" class="text-start flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
-                        @if (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
-                            @if ($message->user)
-                            <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->user->name }}</a>:&nbsp;
-                            @else
-                            {{ $message->name }}:&nbsp;
-                            @endif
-                        @endif
-                        {{ $message->content }}
-                    </div>
-                @endforeach
+                <template x-for="message in $wire.messages">
+                    <div class="p-1 p-md-2 border border-grey" x-text=" message.time_short "></div>
+                    <div class="p-1 p-md-2 border border-grey" x-text=" message.type_formatted "></div>
+                    <div class="text-start flex-fill p-1 p-md-2 border border-grey" x-html=" message.content_formatted "></div>
+                </template>
             </div>
         </div>
 
