@@ -17,7 +17,7 @@ class ServerChat extends Component
 
     protected $listeners = [
         'refreshComponent' => '$refresh',
-        'echo-private:server-chat,SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
+        'echo-private:server-chat,.SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
     ];
 
     public Server $server;
@@ -91,7 +91,7 @@ class ServerChat extends Component
         $this->emitSelf('refreshComponent');
 
         /* Emit loaded event */
-        $this->dispatchBrowserEvent('loaded-new');
+        $this->emitSelf('loaded-new');
     }
 
     public function render()
