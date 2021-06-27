@@ -13,6 +13,6 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require base_path(__DIR__.'/../../routes/channels.php');
+        require __DIR__.'/../../routes/channels.php';
     }
 }
