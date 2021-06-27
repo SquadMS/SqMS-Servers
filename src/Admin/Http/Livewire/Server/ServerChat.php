@@ -54,7 +54,7 @@ class ServerChat extends Component
             $query->where('id', '<', $oldestMessage->id);
         }
 
-        $this->messages = $this->messages->merge($query->limit(50)->get()->reverse());
+        $this->messages = $query->limit(50)->get()->reverse()->concat($this->messages);
         
         $this->emitSelf('refreshComponent');
     }
