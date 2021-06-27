@@ -51,31 +51,43 @@ class ServerChat extends Component
 
     public function loadOld(): void
     {
+        /* Get the query builder for the messages */
         $query = $this->getServerChatMessagesQuery();
 
+        /* Only select messages where id is smaller than oldest message */
         if (($oldestMessage = $this->messages->first())) {
             $query->where('id', '<', $oldestMessage->id);
         }
 
+        /* Query old messages and reverse for correct order */
         $newMessages = $query->limit(50)->get()->reverse();
 
+        /* Determine if there are any old messages left */
         $this->hasOld = $newMessages->count() === 50;
 
-        $this->messages = $newMessages->concat($this->messages);
+        /* Prepend old messages to the message list */
+        foreach ($newMessages as $message) {
+            $this->messages->prepend($message);
+        }
         
+        /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
     }
 
     public function loadNew(): void
     {
+        /* Get the query builder for the messages */
         $query = $this->getServerChatMessagesQuery();
 
+        /* Only select messages where id is bigger than oldest message */
         if (($newestMessage = $this->messages->last())) {
             $query->where('id', '>', $newestMessage->id);
         }
 
+        /* Push all new messages on the message list */
         $this->messages = $this->messages->concat($query->get()->reverse());
         
+        /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
     }
 
