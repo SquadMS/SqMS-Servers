@@ -18,8 +18,6 @@
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3" 
             x-data="{
                 observe () {
-                    debugger;
-
                     const chatMessages = this.$el.parentElement.getElementsByClassName('chat-messages')[0]
 
                     chatMessages.scrollTop = chatMessages.scrollHeight;
