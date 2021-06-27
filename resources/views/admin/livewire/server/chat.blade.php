@@ -14,32 +14,45 @@
 
         <hr>
 
-        <div class="chat-scroll vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
-            @if ($hasOld)
-                <div 
-                    id="chatLoadingBefore" 
-                    class="align-items-center justify-content-center p-3" 
-                    x-data="{
-                        observe () {
-                            let observer = new IntersectionObserver((entries) => {
-                                entries.forEach(entry => {
-                                    if (entry.isIntersecting) {
-                                        @this.call('loadOld')
-                                    }
-                                })
-                            }, {
-                                root: null
-                            })
+        <div 
+            class="chat-scroll vh-100 overflow-auto bg-dark text-white mb-3" 
+            style="max-height: 60vh"
+            x-data="{
+                scrollLock: true,
+                observe () {
+                    let observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                @this.call('loadOld')
+                            }
+                        })
+                    }, {
+                        root: null
+                    })
 
-                            // Start scrolled down
-                            this.$el.parentElement.scrollTop = this.$el.parentElement.scrollHeight;
-                
-                            // Check if element is scrolled in view
-                            observer.observe(this.$el)
+                    // Start scrolled down
+                    this.$el.scrollTop = this.$el.scrollHeight
+        
+                    // Check if element is scrolled in view
+                    observer.observe(document.getElementById('chatLoadingBefore'))
+
+                    // Keep scrolled down if locked
+                    @this.on('loaded-new', (foo, bar) => {
+                        if (scrollLock) {
+                            this.$el.scrollTop = this.$el.scrollHeight
                         }
-                    }"
-                    x-init="observe"
-                >
+                    })
+
+                    // Listen for scroll and toggle the scrollLock
+                    this.$el.addEventListener('scroll', e => {
+                        scrollLock = this.$el.scrollTop === this.$el.scrollHeight;
+                    })
+                }
+            }"
+            x-init="observe"
+        >
+            @if ($hasOld)
+                <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3">
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading more Chat-Messages...</span>
                     </div>

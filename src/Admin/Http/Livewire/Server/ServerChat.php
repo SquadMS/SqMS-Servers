@@ -89,6 +89,9 @@ class ServerChat extends Component
         
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
+
+        /* Emit loaded event */
+        $this->dispatchBrowserEvent('loaded-new');
     }
 
     public function render()
