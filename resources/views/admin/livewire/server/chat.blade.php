@@ -45,7 +45,7 @@
 
                     // Listen for scroll and toggle the scrollLock
                     this.$el.addEventListener('scroll', e => {
-                        scrollLock = this.$el.scrollTop === this.$el.scrollHeight;
+                        scrollLock = this.$el.scrollTop === this.$el.scrollHeight - this.$el.offsetHeight;
                     })
                 }
             }"
