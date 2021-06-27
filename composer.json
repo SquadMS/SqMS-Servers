@@ -43,7 +43,8 @@
                 "SquadMS\\Servers\\Providers\\LivewireServiceProvider",
                 "SquadMS\\Servers\\Providers\\AuthServiceProvider",
                 "SquadMS\\Servers\\Providers\\PermissionsServiceProvider",
-                "SquadMS\\Servers\\Providers\\ScheduleServiceProvider"
+                "SquadMS\\Servers\\Providers\\ScheduleServiceProvider",
+                "SquadMS\\Servers\\Providers\\BroadcastServiceProvider"
             ]
         }
     }

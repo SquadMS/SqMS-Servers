@@ -59,6 +59,7 @@ class SquadMSModule extends SquadMSModuleContract
                     'admin-servers',
                     (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.admin-servers.name'), '<i class="bi bi-house-fill"></i> Servers', true))->setView('sqms-foundation::components.navigation.item')
                     ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.admin-servers.name')))
+                    ->setCondition(Config::get('sqms-servers.permissions.module').' admin servers manage')
                     ->setOrder(200)
                 );
 
