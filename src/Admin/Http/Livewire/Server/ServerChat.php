@@ -16,6 +16,7 @@ class ServerChat extends Component
     use AuthorizesRequests;
 
     protected $listeners = [
+        'refreshComponent' => '$refresh',
         'echo-private:server-chat,SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
     ];
 
@@ -55,6 +56,7 @@ class ServerChat extends Component
 
         $this->messages->merge($query->limit(50)->get()->reverse());
         
+        $this->emitSelf('refreshComponent');
     }
 
     public function loadNew(): void
@@ -67,6 +69,7 @@ class ServerChat extends Component
 
         $this->messages->concat($query->limit(50)->get()->reverse());
         
+        $this->emitSelf('refreshComponent');
     }
 
     public function render()
