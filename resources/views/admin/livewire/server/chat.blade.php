@@ -21,8 +21,6 @@
                     class="align-items-center justify-content-center p-3" 
                     x-data="{
                         observe () {
-                            this.$el.parentElement.scrollTop = this.$el.parentElement.scrollHeight;
-
                             let observer = new IntersectionObserver((entries) => {
                                 entries.forEach(entry => {
                                     if (entry.isIntersecting) {
@@ -32,7 +30,11 @@
                             }, {
                                 root: null
                             })
+
+                            // Start scrolled down
+                            this.$el.parentElement.scrollTop = this.$el.parentElement.scrollHeight;
                 
+                            // Check if element is scrolled in view
                             observer.observe(this.$el)
                         }
                     }"
@@ -46,13 +48,13 @@
 
             <div class="chat-messages">
                 @foreach ($messages as $message)
-                    <div class="message-time p-1 p-md-2 border border-grey">
+                    <div id="message-time-{{ $message->id }}" class="p-1 p-md-2 border border-grey">
                         {{ $message->time->format('H:i') }}
                     </div>
-                    <div class="message-type p-1 p-md-2 border border-grey">
+                    <div id="message-type-{{ $message->id }}" class="p-1 p-md-2 border border-grey">
                         {{ $message->type_formatted }}
                     </div>
-                    <div class="text-start flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
+                    <div id="message-content-{{ $message->id }}" class="text-start flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
                         @if (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
                             @if ($message->user)
                             <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->user->name }}</a>:&nbsp;
