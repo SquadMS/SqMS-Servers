@@ -34,7 +34,7 @@ class ServerChat extends Component
         $this->hasOld = $this->messages->count() === 50;
     }
 
-    public function sendMessage(): void
+    public function sendMessage()
     {
         $this->authorize('admin servers moderation broadcast');
 
@@ -49,7 +49,7 @@ class ServerChat extends Component
         $this->message = '';
     }
 
-    public function loadOld(): void
+    public function loadOld()
     {
         /* Get the query builder for the messages */
         $query = $this->getServerChatMessagesQuery();
@@ -74,7 +74,7 @@ class ServerChat extends Component
         $this->emitSelf('refreshComponent');
     }
 
-    public function loadNew(): void
+    public function loadNew()
     {
         /* Get the query builder for the messages */
         $query = $this->getServerChatMessagesQuery();
