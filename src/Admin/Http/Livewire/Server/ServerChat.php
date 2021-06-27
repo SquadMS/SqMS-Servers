@@ -24,11 +24,14 @@ class ServerChat extends Component
 
     public ?Collection $messages = null;
 
+    public bool $hasOld = true;
+
     public string $message = '';
 
     public function mount()
     {
         $this->messages = $this->getServerChatMessagesQuery()->limit(50)->get()->reverse();
+        $this->hasOld = $this->messages->count() === 50;
     }
 
     public function sendMessage(): void
@@ -54,7 +57,11 @@ class ServerChat extends Component
             $query->where('id', '<', $oldestMessage->id);
         }
 
-        $this->messages = $query->limit(50)->get()->reverse()->concat($this->messages);
+        $newMessages = $query->limit(50)->get()->reverse();
+
+        $this->hasOld = $newMessages->count() === 50;
+
+        $this->messages = $newMessages->concat($this->messages);
         
         $this->emitSelf('refreshComponent');
     }

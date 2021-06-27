@@ -15,31 +15,37 @@
         <hr>
 
         <div class="vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
-            <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3" 
-            x-data="{
-                observe () {
-                    const chatMessages = this.$el.parentElement.getElementsByClassName('chat-messages')[0]
+            @if ($hasOld)
+                <div 
+                    id="chatLoadingBefore" 
+                    class="align-items-center justify-content-center p-3" 
+                    x-data="{
+                        observe () {
+                            const chatMessages = this.$el.parentElement.getElementsByClassName('chat-messages')[0]
 
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
 
-                    let observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                @this.call('loadOld')
-                            }
-                        })
-                    }, {
-                        root: null
-                    })
-        
-                    observer.observe(this.$el)
-                }
-            }"
-            x-init="observe">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading more Chat-Messages...</span>
+                            let observer = new IntersectionObserver((entries) => {
+                                entries.forEach(entry => {
+                                    if (entry.isIntersecting) {
+                                        @this.call('loadOld')
+                                    }
+                                })
+                            }, {
+                                root: null
+                            })
+                
+                            observer.observe(this.$el)
+                        }
+                    }"
+                    x-init="observe"
+                >
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading more Chat-Messages...</span>
+                    </div>
                 </div>
-            </div>
+            @endif
+
             <div class="chat-messages">
                 @foreach ($messages as $message)
                     <div class="message-time p-1 p-md-2 border border-grey">
