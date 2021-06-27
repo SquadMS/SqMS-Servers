@@ -5,26 +5,27 @@
         <hr>
 
         <div class="vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
-            <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3">
-                <div class="spinner-border" role="status" x-data="{
-                    observe () {
-                        this.$el.scrollTop = this.$el.scrollHeight
+            <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3" 
+            x-data="{
+                observe () {
+                    this.$el.scrollTop = this.$el.scrollHeight
 
-                        let observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    @this.call('loadOld')
-                                }
-                            })
-                        }, {
-                            root: null
+                    let observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                @this.call('loadOld')
+                            }
                         })
-            
-                        observer.observe(this.$el)
-                    }
-                }"
-                x-init="observe">
-                    <span class="sr-only">Loading more Chat-Messages...</span>
+                    }, {
+                        root: null
+                    })
+        
+                    observer.observe(this.$el)
+                }
+            }"
+            x-init="observe">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading more Chat-Messages...</span>
                 </div>
             </div>
             <style>
@@ -44,7 +45,7 @@
                     <div class="message-type p-1 p-md-2 border border-grey">
                         {{ $message->type_formatted }}
                     </div>
-                    <div class="message flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
+                    <div class="text-start flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
                         @if (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
                             @if ($message->user)
                             <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->user->name }}</a>:&nbsp;
