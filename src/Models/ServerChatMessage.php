@@ -66,4 +66,29 @@ class ServerChatMessage extends Model
     {
         return $this->belongsTo(Server::class);
     }
+
+    /**
+     * Accessor to get the formatted type.
+     *
+     * @return string
+     */
+    public function getTypeFormattedAttribute() : string
+    {
+        switch ($this->type) {
+            case 'ChatAll':
+                return 'All';
+            
+            case 'ChatTeam':
+                return 'Team';
+
+            case 'ChatSquad':
+                return 'Squad';
+
+            case 'ChatAdmin':
+                return 'Admin';
+
+            default:
+                return $this->type;
+        }
+    }
 }
