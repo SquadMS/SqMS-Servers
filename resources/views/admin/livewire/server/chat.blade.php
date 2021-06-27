@@ -27,6 +27,15 @@
                     <span class="sr-only">Loading more Chat-Messages...</span>
                 </div>
             </div>
+            <style>
+                .chat-messages {
+                    display: grid;
+                    grid-template-columns: fit-content(100%) fit-content(100%) 4fr;
+                    grid-template-rows: 1fr;
+                    gap: 0 0;
+                    grid-template-areas: ". .";
+                }
+            </style>
             <div class="chat-messages">
                 @foreach ($messages as $message)
                     <div class="message-time p-1 p-md-2 border border-grey">
