@@ -14,16 +14,14 @@
 
         <hr>
 
-        <div class="vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
+        <div class="chat-scroll vh-100 overflow-auto bg-dark text-white mb-3" style="max-height: 100vh">
             @if ($hasOld)
                 <div 
                     id="chatLoadingBefore" 
                     class="align-items-center justify-content-center p-3" 
                     x-data="{
                         observe () {
-                            const chatMessages = this.$el.parentElement.getElementsByClassName('chat-messages')[0]
-
-                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                            this.$el.parentElement.scrollTop = this.$el.parentElement.scrollHeight;
 
                             let observer = new IntersectionObserver((entries) => {
                                 entries.forEach(entry => {
