@@ -1,4 +1,14 @@
 <div class="card">
+    <style>
+        .chat-messages {
+            display: grid;
+            grid-template-columns: fit-content(100%) fit-content(100%) 4fr;
+            grid-template-rows: 1fr;
+            gap: 0 0;
+            grid-template-areas: ". .";
+        }
+    </style>
+
     <div class="card-body">
         <h5 class="card-title">Server Chat</h5>
 
@@ -8,7 +18,11 @@
             <div id="chatLoadingBefore" class="align-items-center justify-content-center p-3" 
             x-data="{
                 observe () {
-                    this.$el.scrollTop = this.$el.scrollHeight
+                    debugger;
+
+                    const chatMessages = this.$el.parentElement.getElementsByClassName('chat-messages')[0]
+
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
 
                     let observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
@@ -28,15 +42,6 @@
                     <span class="visually-hidden">Loading more Chat-Messages...</span>
                 </div>
             </div>
-            <style>
-                .chat-messages {
-                    display: grid;
-                    grid-template-columns: fit-content(100%) fit-content(100%) 4fr;
-                    grid-template-rows: 1fr;
-                    gap: 0 0;
-                    grid-template-areas: ". .";
-                }
-            </style>
             <div class="chat-messages">
                 @foreach ($messages as $message)
                     <div class="message-time p-1 p-md-2 border border-grey">
