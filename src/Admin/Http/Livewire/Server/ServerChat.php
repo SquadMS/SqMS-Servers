@@ -39,7 +39,7 @@ class ServerChat extends Component
         $this->authorize('admin servers moderation broadcast');
 
         if (Config::get('sqms-servers.worker.enabled')) {
-            RCONAdminBroadcast::dispatch($this->message);
+            RCONAdminBroadcast::dispatch($this->server, $this->message);
         }
 
         $this->message = '';
