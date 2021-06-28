@@ -9,7 +9,6 @@ use HiHaHo\EncryptableTrait\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Arr;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\RCONCommandRunners\RCONWorkerCommandRunner;
 

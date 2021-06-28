@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Livewire\Component;
+use SquadMS\Foundation\Contracts\SquadMSUser;
 use SquadMS\Servers\Jobs\RCONAdminBroadcast;
 use SquadMS\Servers\Models\Server;
 
@@ -16,7 +17,7 @@ class ServerChat extends Component
     use AuthorizesRequests;
 
     protected $listeners = [
-        'refreshComponent'                                                             => '$refresh',
+        'refreshComponent'                                                            => '$refresh',
         'echo-private:server-chat,.SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
     ];
 
@@ -39,7 +40,7 @@ class ServerChat extends Component
         $this->authorize('admin servers moderation broadcast');
 
         if (Config::get('sqms-servers.worker.enabled')) {
-            RCONAdminBroadcast::dispatch($this->server, $this->message);
+            RCONAdminBroadcast::dispatch($this->server, SquadMSUser::current(), $this->message);
         }
 
         $this->message = '';

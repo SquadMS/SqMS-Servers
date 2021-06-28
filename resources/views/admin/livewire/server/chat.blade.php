@@ -69,9 +69,9 @@
                             {{ $message->type_formatted }}
                         </div>
                         <div id="message-content-{{ $message->id }}" class="text-start flex-fill p-1 p-md-2 border border-grey {{ $message->color_class }}">
-                            @if (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
+                            @elseif (!in_array($message->type, ['Camera', 'Warning', 'Kick', 'Ban']))
                                 @if ($message->user)
-                                <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->user->name }}</a>:&nbsp;
+                                <a href="{{ $message->user->profile_url }}" target="_BLANK">{{ $message->type !== 'Broadcast' ? $message->user->name : $message->name }}</a>:&nbsp;
                                 @else
                                 {{ $message->name }}:&nbsp;
                                 @endif

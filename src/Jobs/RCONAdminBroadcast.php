@@ -8,7 +8,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use SquadMS\Foundation\Contracts\SquadMSUser;
 use SquadMS\Servers\Models\Server;
+use SquadMS\Servers\Models\ServerChatMessage;
 
 class RCONAdminBroadcast implements ShouldQueue
 {
@@ -19,6 +21,8 @@ class RCONAdminBroadcast implements ShouldQueue
 
     protected Server $server;
 
+    protected SquadMSUser $user;
+
     protected string $message;
 
     /**
@@ -26,9 +30,10 @@ class RCONAdminBroadcast implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Server $server, string $message)
+    public function __construct(Server $server, SquadMSUser $user, string $message)
     {
         $this->server = $server;
+        $this->user = $user;
         $this->message = $message;
     }
 
@@ -49,7 +54,19 @@ class RCONAdminBroadcast implements ShouldQueue
                 $rcon = $this->server->getRconConnection();
 
                 /* Run RCON commands and add information to the ServerQueryResult */
-                $rcon->adminBroadcast($this->message);
+                $rcon->adminBroadcast('Admin: ' . $this->message);
+
+                /* Save Broadcast as ServerChatMessage */
+                $this->server->serverChatMessages()->create([
+                    'user_id' => $this->user->id,
+
+                    'type' => 'Broadcast',
+
+                    'name' => 'Admin',
+                    'content' => $this->message,
+
+                    'time' => Carbon::now(),
+                ])
             }
         } catch (\Throwable $e) {
             Log::debug('[QueryServer] Error during query: '.$e->getMessage().PHP_EOL.$e->getTraceAsString());
