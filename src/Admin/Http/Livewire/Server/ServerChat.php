@@ -40,11 +40,7 @@ class ServerChat extends Component
 
         if (Config::get('sqms-servers.worker.enabled')) {
             RCONAdminBroadcast::dispatch($this->message);
-        } else {
-            // TODO, add server query based command queue.
         }
-
-        $this->server->getRconConnection()->adminBroadcast($this->message);
 
         $this->message = '';
     }
