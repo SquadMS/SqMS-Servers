@@ -60,7 +60,7 @@ class ServerChat extends Component
         }
 
         /* Query old messages and reverse for correct order */
-        $newMessages = $query->limit(50)->get()->reverse();
+        $newMessages = $query->limit(50)->get();
 
         /* Determine if there are any old messages left */
         $this->hasOld = $newMessages->count() === 50;
@@ -85,7 +85,7 @@ class ServerChat extends Component
         }
 
         /* Push all new messages on the message list */
-        $this->messages = $this->messages->concat($query->get()->reverse());
+        $this->messages = $this->messages->concat($query->get());
         
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
