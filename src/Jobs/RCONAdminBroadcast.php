@@ -2,6 +2,7 @@
 
 namespace SquadMS\Servers\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -66,7 +67,7 @@ class RCONAdminBroadcast implements ShouldQueue
                     'content' => $this->message,
 
                     'time' => Carbon::now(),
-                ])
+                ]);
             }
         } catch (\Throwable $e) {
             Log::debug('[QueryServer] Error during query: '.$e->getMessage().PHP_EOL.$e->getTraceAsString());
