@@ -63,11 +63,21 @@ class Server extends Model
         return !is_null($this->rcon_port) && !is_null($this->rcon_password);
     }
 
+    public function getLastQueryResultAttribute(): ServerQueryResult
+    {
+        if (is_null($this->lastQueryResult)) {
+            $this->lastQueryResult = ServerQueryResult::load($this);
+        }
+
+        return $this->lastQueryResult;
+    }
+
     public function getOnlineAttribute(): bool
     {
-        $cache = $this->getFrontendCache();
+        /** @var ServerQueryResult */
+        $result = $this->last_query_result;
 
-        return $cache && Arr::get($cache, 'online', false);
+        return $result->online();
     }
 
     /**
@@ -126,15 +136,6 @@ class Server extends Model
         } else {
             return null;
         }
-    }
-
-    public function getLastQueryResultAttribute(): ServerQueryResult
-    {
-        if (is_null($this->lastQueryResult)) {
-            $this->lastQueryResult = ServerQueryResult::load($this);
-        }
-
-        return $this->lastQueryResult;
     }
 
     public function clearLastQueryResultCache(): void
