@@ -11,7 +11,7 @@ Squad servers management module for the Squad Management System.
 
 ## Installation
 
-To install the theme simply run the following command at the root of your squadms project:
+To install the module simply run the following command at the root of your squadms project:
 ```
 composer require squadms/servers
 ```
