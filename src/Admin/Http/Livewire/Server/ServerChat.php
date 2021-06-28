@@ -38,7 +38,7 @@ class ServerChat extends Component
     {
         $this->authorize('admin servers moderation broadcast');
 
-        if (Config::het('sqms-servers.worker.enabled')) {
+        if (Config::get('sqms-servers.worker.enabled')) {
             RCONAdminBroadcast::dispatch($this->message);
         } else {
             // TODO, add server query based command queue.
