@@ -61,12 +61,12 @@ return [
     'permissions' => [
         'module'      => 'sqms-servers',
         'definitions' => [
-            'admin servers' => 'Grant access to the Servers overview',
-            'admin servers manage' => 'Grant access to managing Servers',
-            'admin servers moderation' => 'Grant access to moderating Servers',
-            'admin servers moderation warn' => 'Grant access to warning Players on Servers',
-            'admin servers moderation kick' => 'Grant access to kicking Players on Servers',
-            'admin servers moderation ban' => 'Grant access to banning Players on Servers',
+            'admin servers'                      => 'Grant access to the Servers overview',
+            'admin servers manage'               => 'Grant access to managing Servers',
+            'admin servers moderation'           => 'Grant access to moderating Servers',
+            'admin servers moderation warn'      => 'Grant access to warning Players on Servers',
+            'admin servers moderation kick'      => 'Grant access to kicking Players on Servers',
+            'admin servers moderation ban'       => 'Grant access to banning Players on Servers',
             'admin servers moderation broadcast' => 'Grant access to sending Broadcasts on Servers',
         ],
     ],

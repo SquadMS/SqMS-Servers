@@ -467,6 +467,5 @@ class RCONWorkerCommandRunner implements ServerCommandRunner
      */
     public function disconnect(): void
     {
-
     }
 }

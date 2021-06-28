@@ -14,6 +14,7 @@ class BanListRepository
     public static function getModelQuery(): Builder
     {
         $class = Config::get('sqms-servers.models.banList', BanList::class);
+
         return call_user_func($class.'::query');
     }
 }
