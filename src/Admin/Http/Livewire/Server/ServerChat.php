@@ -16,7 +16,7 @@ class ServerChat extends Component
     use AuthorizesRequests;
 
     protected $listeners = [
-        'refreshComponent' => '$refresh',
+        'refreshComponent'                                                             => '$refresh',
         'echo-private:server-chat,.SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
     ];
 
@@ -43,7 +43,7 @@ class ServerChat extends Component
         } else {
             // TODO, add server query based command queue.
         }
-        
+
         $this->server->getRconConnection()->adminBroadcast($this->message);
 
         $this->message = '';
@@ -69,7 +69,7 @@ class ServerChat extends Component
         foreach ($newMessages as $message) {
             $this->messages->prepend($message);
         }
-        
+
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
     }
@@ -86,7 +86,7 @@ class ServerChat extends Component
 
         /* Push all new messages on the message list */
         $this->messages = $this->messages->concat($query->get());
-        
+
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
 

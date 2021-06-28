@@ -13,7 +13,8 @@ use SquadMS\Servers\Repositories\ServerRepositoriy;
 
 class ServerList extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use WithPagination;
+    use AuthorizesRequests;
 
     protected $paginationTheme = 'bootstrap';
 

@@ -82,7 +82,7 @@ class ServerChatMessage extends Model
      *
      * @return string
      */
-    public function getTimeShortAttribute() : string
+    public function getTimeShortAttribute(): string
     {
         return $this->time->format('H:i');
     }
@@ -92,12 +92,12 @@ class ServerChatMessage extends Model
      *
      * @return string
      */
-    public function getTypeFormattedAttribute() : string
+    public function getTypeFormattedAttribute(): string
     {
         switch ($this->type) {
             case 'ChatAll':
                 return 'All';
-            
+
             case 'ChatTeam':
                 return 'Team';
 
