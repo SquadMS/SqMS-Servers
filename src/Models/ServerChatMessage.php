@@ -59,7 +59,6 @@ class ServerChatMessage extends Model
     protected $appends = [
         'time_short',
         'type_formatted',
-        'content_formatted',
     ];
 
     /**
