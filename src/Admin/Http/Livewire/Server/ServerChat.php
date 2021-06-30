@@ -62,14 +62,17 @@ class ServerChat extends Component
             $query->where('id', '<', $oldestMessage->id);
         }
 
+        /* Count remaining old messages before limiting */
+        $count = (clone $query)->count();
+
         /* Query old messages */
-        $newMessages = $query->limit(self::PAGE_SIZE)->get();
+        $newMessages = $query->limit(self::PAGE_SIZE)->get()->reverse();
 
         /* Determine if there are any old messages left */
-        $this->hasOld = $newMessages->count() === self::PAGE_SIZE;
+        $this->hasOld = $count - $newMessages->count() > 0;
 
         /* Prepend old messages to the message list */
-        $this->prependMessages($newMessages);
+        $this->performanceAddMessages($newMessages);
 
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
@@ -78,30 +81,35 @@ class ServerChat extends Component
     public function loadNew()
     {
         /** @var \Illuminate\Database\Query\Builder Get the query builder for the messages and order to oldest */
-        $query = $this->getServerChatMessagesQuery();
+        $query = $this->getServerChatMessagesQuery()->oldest('time');
 
         /* Only select messages where id is bigger than oldest message */
         if (($newestMessage = $this->messages->last())) {
             $query->where('id', '>', $newestMessage->id);
-        }  
+        }
+
+        /* Count remaining new messages */
+        $count = (clone $query)->count();
 
         /* Initialize an empty collection to keep type safety */
         $newMessages = new Collection();
 
         /* Scroll locked should always load the newest messages */
         if ($this->scrollLock) {
-            $newMessages = $query->oldest('time')->limit(self::MAX_MESSAGES)->get();
+            /* Get a full page of newest messages in order to overwrite */
+            $newMessages = $query->latest('time')->limit(self::MAX_MESSAGES)->get()->reverse(); 
 
             /* Locked should not have any messages left since it is live */
             $this->hasNew = false;
-        } else if ($this->messages->count() < self::MAX_MESSAGES) {
-            $newMessages = $query->limit(self::MAX_MESSAGES - $this->messages->count())->get()->reverse();
+        } else {
+            /* Get a Page of new messages and reverse since we ordered by oldest */
+            $newMessages = $query->limit(self::PAGE_SIZE)->get()->reverse();
 
             /* Determine if there are messages left that do not fit in */
-            $this->hasNew = (clone $query)->count() - $newMessages->count() > self::MAX_MESSAGES;
+            $this->hasNew = $count - $newMessages->count() > 0;
         }
 
-        $this->appendMessages($newMessages);
+        $this->performanceAddMessages($newMessages, false);
 
         /* Magic event to refresh the component */
         $this->emitSelf('refreshComponent');
@@ -122,37 +130,52 @@ class ServerChat extends Component
         return View::make('sqms-servers::admin.livewire.server.chat');
     }
 
-    private function prependMessages(Collection $messages): void
+    private function performanceAddMessages(Collection &$newMessages, bool $prepend = true)
     {
-        /* Prepend old messages to the message list */
-        foreach ($messages as $message) {
-            /* Remove from end if there are too many messages */
-            if ($this->messages->count() >= self::MAX_MESSAGES) {
-                $this->messages->pop();
+        /* Determine if there will be old / new messages after this operation */
+        if ($this->messages->count() + $newMessages->count() >= self::MAX_MESSAGES) {
+            if ($prepend) {
+                $this->hasNew = true;
+            } else {
+                $this->hasOld = true;
             }
-
-            /* Add the message */
-            $this->messages->prepend($message);
         }
-    }
 
-    private function appendMessages(Collection $messages): void
-    {
-        /* Determine the best strategy based on the amount of messages */
-        if ($messages->count() === self::MAX_MESSAGES) {
-            /* Directly assign it as we do not need old messages */
-            $this->messages = $messages;
+        /* Use the best strategy to update the messages */
+        if ($newMessages->count() >= self::MAX_MESSAGES) {
+            $this->messages = $newMessages;
         } else {
+            /* Determine which collection is bigger / the base */
+            $direction = $this->messages->count() > $newMessages->count();
+
+            /* Flip prepend/append based on which collection is bigger */
+            $prepend = $direction ? $prepend : !$prepend;
+
+            /* Determine Iterator and Basis */
+            $iterator = $direction ? $newMessages : $this->messages;
+            $basis = $direction ? $this->messages : $newMessages;
+
             /* Push all new messages on the message list */
-            foreach ($messages as $message) {
+            foreach ($iterator  as $message) {
                 /* Remove from start if there are too many messages */
-                if ($this->messages->count() >= self::MAX_MESSAGES) {
-                    $this->messages->shift();
+                if ($basis->count() >= self::MAX_MESSAGES) {
+                    if ($prepend) {
+                        $basis->pop();
+                    } else {
+                        $basis->shift();
+                    }
+                    
                 }
 
                 /* Add the message to the end */
-                $this->messages->push($message);
+                if ($prepend) {
+                    $basis->prepend($message);
+                } else {
+                    $basis->push($message);
+                }
             }
+
+            $this->messages = $basis;
         }
     }
 
