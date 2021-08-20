@@ -55,7 +55,7 @@ class RCONAdminBroadcast implements ShouldQueue
                 $rcon = $this->server->getRconConnection();
 
                 /* Run RCON commands and add information to the ServerQueryResult */
-                $rcon->adminBroadcast('Admin: ' . $this->message);
+                $rcon->adminBroadcast('Admin: '.$this->message);
 
                 /* Save Broadcast as ServerChatMessage */
                 $this->server->serverChatMessages()->create([
@@ -63,7 +63,7 @@ class RCONAdminBroadcast implements ShouldQueue
 
                     'type' => 'Broadcast',
 
-                    'name' => 'Admin',
+                    'name'    => 'Admin',
                     'content' => $this->message,
 
                     'time' => Carbon::now(),
