@@ -17,7 +17,7 @@ class ServerChat extends Component
     use AuthorizesRequests;
 
     protected $listeners = [
-        'refreshComponent'                                                            => '$refresh',
+        'refreshComponent'                                                             => '$refresh',
         'echo-private:server-chat,.SquadMS\\Servers\\Events\\ServerChatMessageCreated' => 'loadNew',
     ];
 
@@ -97,7 +97,7 @@ class ServerChat extends Component
         /* Scroll locked should always load the newest messages */
         if ($this->scrollLock) {
             /* Get a full page of newest messages in order to overwrite */
-            $newMessages = $query->latest('time')->limit(self::MAX_MESSAGES)->get()->reverse(); 
+            $newMessages = $query->latest('time')->limit(self::MAX_MESSAGES)->get()->reverse();
 
             /* Locked should not have any messages left since it is live */
             $this->hasNew = false;
@@ -164,7 +164,6 @@ class ServerChat extends Component
                     } else {
                         $basis->shift();
                     }
-                    
                 }
 
                 /* Add the message to the end */
