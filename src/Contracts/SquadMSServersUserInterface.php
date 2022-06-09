@@ -26,7 +26,7 @@ interface SquadMSServersUserInterface
      * How long the user is currently banned for.
      * null   = Not banned at all
      * true   = Banned forever
-     * Carbon = Banned until X
+     * Carbon = Banned until X.
      */
     public function getBannedUntilAttribute(): null|bool|Carbon;
 }

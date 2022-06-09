@@ -27,7 +27,7 @@ class ServerPolicy
      * Determine whether the user can view the model.
      *
      * @param \SquadMS\Foundation\Contracts\SquadMSUser; $user
-     * @param \SquadMS\Servers\Models\Server             $server
+     * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
      */
@@ -52,7 +52,7 @@ class ServerPolicy
      * Determine whether the user can update the model.
      *
      * @param \SquadMS\Foundation\Contracts\SquadMSUser; $user
-     * @param \SquadMS\Servers\Models\Server             $server
+     * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
      */
@@ -65,7 +65,7 @@ class ServerPolicy
      * Determine whether the user can delete the model.
      *
      * @param \SquadMS\Foundation\Contracts\SquadMSUser; $user
-     * @param \SquadMS\Servers\Models\Server             $server
+     * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
      */
@@ -78,7 +78,7 @@ class ServerPolicy
      * Determine whether the user can restore the model.
      *
      * @param \SquadMS\Foundation\Contracts\SquadMSUser; $user
-     * @param \SquadMS\Servers\Models\Server             $server
+     * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
      */
@@ -91,7 +91,7 @@ class ServerPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param \SquadMS\Foundation\Contracts\SquadMSUser; $user
-     * @param \SquadMS\Servers\Models\Server             $server
+     * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
      */
