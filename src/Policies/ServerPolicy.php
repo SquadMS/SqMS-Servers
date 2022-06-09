@@ -4,7 +4,7 @@ namespace SquadMS\Servers\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Config;
-use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Models\Server;
 
 class ServerPolicy
@@ -14,7 +14,7 @@ class ServerPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      *
      * @return mixed
      */
@@ -26,7 +26,7 @@ class ServerPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
@@ -39,7 +39,7 @@ class ServerPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      *
      * @return mixed
      */
@@ -51,7 +51,7 @@ class ServerPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
@@ -64,7 +64,7 @@ class ServerPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
@@ -77,7 +77,7 @@ class ServerPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed
@@ -90,7 +90,7 @@ class ServerPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param \SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser; $user
+     * @param \SquadMS\Foundation\Models\SquadMSUser; $user
      * @param \SquadMS\Servers\Models\Server $server
      *
      * @return mixed

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Models\ServerChatMessage;
 
