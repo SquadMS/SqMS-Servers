@@ -43,6 +43,13 @@ SquadMS and the Laravel framework are open-sourced software licensed under the [
             <br />
             <sub><b>Patrick</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/StyleCIBot">
+            <img src="https://avatars.githubusercontent.com/u/11048387?v=4" width="100;" alt="StyleCIBot"/>
+            <br />
+            <sub><b>StyleCI Bot</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
