@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Livewire\Component;
-use SquadMS\Foundation\Contracts\SquadMSUser;
+use SquadMS\Foundation\SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Jobs\RCONAdminBroadcast;
 use SquadMS\Servers\Models\Server;
 
