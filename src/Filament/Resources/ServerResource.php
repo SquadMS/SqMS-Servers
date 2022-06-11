@@ -36,11 +36,9 @@ class ServerResource extends Resource
                         ->integer()
                         ->minValue(1)
                         ->maxValue(65535)
-                        ->rules('required_with:server.rcon_password|min:1|max:65535'),
+                        ->rules('required_with:data.rcon_password|min:1|max:65535'),
                     Forms\Components\TextInput::make('rcon_password')
-                        ->minValue(1)
-                        ->maxValue(65535)
-                        ->rules('required_with:server.rcon_port|min:1|max:65535'),
+                        ->rules('required_with:data.server.rcon_port'),
                 ]),                
             ]);
     }
