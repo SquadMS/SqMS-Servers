@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "require": {
         "dsg/squad-rcon-php": "^3.1.0",
-        "squadms/foundation": "dev-master",
+        "squadms/foundation": "dev-filament",
         "austinb/gameq": "v3.x-dev"
     },
     "require-dev": {
@@ -42,6 +42,7 @@
                 "SquadMS\\Servers\\Providers\\ViewServiceProvider",
                 "SquadMS\\Servers\\Providers\\LivewireServiceProvider",
                 "SquadMS\\Servers\\Providers\\AuthServiceProvider",
+                "SquadMS\\Servers\\Providers\\FilamentServiceProvider",
                 "SquadMS\\Servers\\Providers\\PermissionsServiceProvider",
                 "SquadMS\\Servers\\Providers\\ScheduleServiceProvider",
                 "SquadMS\\Servers\\Providers\\BroadcastServiceProvider",
