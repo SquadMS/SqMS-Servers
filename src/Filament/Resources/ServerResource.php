@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use SquadMS\Foundation\Models\SquadMSUser;
 
 class ServerResource extends Resource
 {
@@ -21,14 +22,35 @@ class ServerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('name')
+                    ->rules('required|string')
+                    ->unique(SquadMSUser::class)
+                    ->required(),
 
-                Forms\Components\Toggle::make('account_playtime')->required()->default(false),
+                Forms\Components\Toggle::make('account_playtime')
+                    ->rules('required|boolean')
+                    ->required()
+                    ->default(false),
 
                 Forms\Components\Section::make('Host')->schema([
-                    Forms\Components\TextInput::make('host')->required()->default('127.0.0.1'),
-                    Forms\Components\TextInput::make('game_port')->required()->default(7787),
-                    Forms\Components\TextInput::make('query_port')->required()->default(27165),
+                    Forms\Components\TextInput::make('host')
+                        ->rules('required|ipv4')
+                        ->required()
+                        ->default('127.0.0.1'),
+                    Forms\Components\TextInput::make('game_port')
+                        ->integer()
+                        ->minValue(1)
+                        ->maxValue(65535)
+                        ->rules('required|integer|min:1|max:65535')
+                        ->required()
+                        ->default(7787),
+                    Forms\Components\TextInput::make('query_port')
+                        ->integer()
+                        ->minValue(1)
+                        ->maxValue(65535)
+                        ->rules('required|integer|min:1|max:65535')
+                        ->required()
+                        ->default(27165),
                 ]),
 
                 Forms\Components\Section::make('RCON')->schema([
@@ -36,9 +58,9 @@ class ServerResource extends Resource
                         ->integer()
                         ->minValue(1)
                         ->maxValue(65535)
-                        ->rules('required_with:data.rcon_password|min:1|max:65535'),
+                        ->rules('required_with:data.rcon_password|integer|min:1|max:65535'),
                     Forms\Components\TextInput::make('rcon_password')
-                        ->rules('required_with:data.server.rcon_port'),
+                        ->rules('required_with:data.rcon_port|string|min:1'),
                 ]),                
             ]);
     }
