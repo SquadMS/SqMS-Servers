@@ -23,17 +23,24 @@ class ServerResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
 
-                Forms\Components\Toggle::make('account_playtime')->required(),
+                Forms\Components\Toggle::make('account_playtime')->required()->default(false),
 
                 Forms\Components\Section::make('Host')->schema([
-                    Forms\Components\TextInput::make('host')->required(),
-                    Forms\Components\TextInput::make('game_port')->required(),
-                    Forms\Components\TextInput::make('query_port')->required(),
+                    Forms\Components\TextInput::make('host')->required()->default('127.0.0.1'),
+                    Forms\Components\TextInput::make('game_port')->required()->default(7787),
+                    Forms\Components\TextInput::make('query_port')->required()->default(27165),
                 ]),
 
                 Forms\Components\Section::make('RCON')->schema([
-                    Forms\Components\TextInput::make('rcon_port')->required(),
-                    Forms\Components\TextInput::make('rcon_password')->required(),
+                    Forms\Components\TextInput::make('rcon_port')
+                        ->integer()
+                        ->minValue(1)
+                        ->maxValue(65535)
+                        ->rules('required_with:server.rcon_password|min:1|max:65535'),
+                    Forms\Components\TextInput::make('rcon_password')
+                        ->minValue(1)
+                        ->maxValue(65535)
+                        ->rules('required_with:server.rcon_port|min:1|max:65535'),
                 ]),                
             ]);
     }
@@ -42,7 +49,8 @@ class ServerResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->sortable(),
+                Tables\Columns\BooleanColumn::make('account_playtime')->sortable()
             ])
             ->filters([
                 //
