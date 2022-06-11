@@ -48,22 +48,6 @@ class SquadMSModule extends SquadMSModuleContract
                 );
 
                 break;
-
-            case 'admin-servers':
-                /* Admin Menu */
-                SquadMSMenu::prepend('admin-servers', fn () => View::make('sqms-foundation::components.navigation.heading', [
-                    'title'  => 'Server Management',
-                ])->render());
-
-                SquadMSMenu::register(
-                    'admin-servers',
-                    (new SquadMSMenuEntry(Config::get('sqms-servers.routes.def.admin-servers.name'), '<i class="bi bi-house-fill"></i> Servers', true))->setView('sqms-foundation::components.navigation.item')
-                    ->setActive(fn (SquadMSMenuEntry $link) => NavigationHelper::isCurrentRoute(Config::get('sqms-servers.routes.def.admin-servers.name')))
-                    ->setCondition(Config::get('sqms-servers.permissions.module').' admin servers manage')
-                    ->setOrder(200)
-                );
-
-                break;
         }
     }
 
