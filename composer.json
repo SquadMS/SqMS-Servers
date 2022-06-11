@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "require": {
         "dsg/squad-rcon-php": "^3.1.0",
-        "squadms/foundation": "dev-filament",
+        "squadms/foundation": "dev-master",
         "austinb/gameq": "v3.x-dev"
     },
     "require-dev": {
