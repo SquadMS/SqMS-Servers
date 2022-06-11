@@ -21,7 +21,20 @@ class ServerResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required(),
+
+                Forms\Components\Toggle::make('account_playtime')->required(),
+
+                Forms\Components\Section::make('Host')->schema([
+                    Forms\Components\TextInput::make('host')->required(),
+                    Forms\Components\TextInput::make('game_port')->required(),
+                    Forms\Components\TextInput::make('query_port')->required(),
+                ]),
+
+                Forms\Components\Section::make('RCON')->schema([
+                    Forms\Components\TextInput::make('rcon_port')->required(),
+                    Forms\Components\TextInput::make('rcon_password')->required(),
+                ]),                
             ]);
     }
 
