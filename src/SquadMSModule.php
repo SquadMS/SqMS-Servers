@@ -25,11 +25,6 @@ class SquadMSModule extends SquadMSModuleContract
         return 'SquadMS Servers';
     }
 
-    public static function publishAssets(): void
-    {
-        //
-    }
-
     public static function registerMenuEntries(string $menu): void
     {
         switch ($menu) {
