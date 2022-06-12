@@ -71,7 +71,7 @@ class ServerResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable(),
                 Tables\Columns\BooleanColumn::make('account_playtime')->sortable(),
-                Tables\Columns\BooleanColumn::make('rcon')->getStateUsing(fn (Server $server) => $server->rcon_port && $server->rcon_password)
+                Tables\Columns\BooleanColumn::make('rcon')->getStateUsing(fn (Server $record) => $record->rcon_port && $record->rcon_password)
             ])
             ->filters([
                 //
