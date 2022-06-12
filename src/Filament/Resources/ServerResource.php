@@ -14,6 +14,8 @@ use SquadMS\Foundation\Models\SquadMSUser;
 
 class ServerResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Server Management';
+
     protected static ?string $model = Server::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-server';
