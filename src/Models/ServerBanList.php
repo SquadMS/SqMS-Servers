@@ -5,7 +5,7 @@ namespace SquadMS\Servers\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BanList extends Model
+class ServerBanList extends Model
 {
     /**
      * The Server in question.
