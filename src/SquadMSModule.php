@@ -6,7 +6,6 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use SquadMS\Foundation\Facades\SquadMSAdminMenu;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
@@ -29,11 +28,6 @@ class SquadMSModule extends SquadMSModuleContract
     public static function publishAssets(): void
     {
         //
-    }
-
-    public static function registerAdminMenus(): void
-    {
-        SquadMSAdminMenu::register('admin-servers', 200);
     }
 
     public static function registerMenuEntries(string $menu): void
