@@ -24,6 +24,15 @@ class SquadMSModule extends SquadMSModuleContract
     {
         return 'SquadMS Servers';
     }
+    
+    public static function publishAssets(): void
+    {
+        Artisan::call('vendor:publish', [
+            '--provider' => SquadMSServersServiceProvider::class,
+            '--tag'      => 'assets',
+            '--force'    => true,
+        ]);
+    }
 
     public static function registerMenuEntries(string $menu): void
     {
