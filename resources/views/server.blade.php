@@ -1,4 +1,4 @@
-@extends('sqms-default-theme::structure.layout', [
+@extends('sqms-foundation::structure.layout', [
     'mainClass' => 'server',
     'mainAttributes' => 'server-id="' . $server->id . '"'
 ])
@@ -55,7 +55,7 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/morphdom@2.6.1/dist/morphdom.min.js"></script>
-<script src="{{ mix('js/public/server-status-listener.js', 'themes/sqms-default-theme') }}"></script>
+<script src="{{ mix('js/server-status-listener.js', 'themes/sqms-server') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         /* Initialize and listen for server status updates */

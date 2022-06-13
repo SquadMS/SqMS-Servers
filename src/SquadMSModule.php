@@ -3,6 +3,7 @@
 namespace SquadMS\Servers;
 
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
@@ -23,6 +24,15 @@ class SquadMSModule extends SquadMSModuleContract
     public static function getName(): string
     {
         return 'SquadMS Servers';
+    }
+    
+    public static function publishAssets(): void
+    {
+        Artisan::call('vendor:publish', [
+            '--provider' => SquadMSServersServiceProvider::class,
+            '--tag'      => 'assets',
+            '--force'    => true,
+        ]);
     }
 
     public static function registerMenuEntries(string $menu): void
