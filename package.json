@@ -13,7 +13,7 @@
     "laravel",
     "squadms",
     "squad",
-    "default-theme"
+    "servers"
   ],
   "author": "Patrick Henninger",
   "license": "MIT",
@@ -22,13 +22,7 @@
   },
   "homepage": "https://github.com/SquadMS/SqMS-Servers#readme",
   "dependencies": {
-    "@popperjs/core": "^2.9.2",
-    "bootstrap": "^5.0.0-beta3",
-    "bootstrap-icons": "^1.4.1",
-    "flag-icon-css": "^4.1.7",
-    "laravel-mix": "^6.0.16",
-    "rtlcss": "^3.1.2",
-    "supports-webp": "^2.0.1"
+    "laravel-mix": "^6.0.16"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.13.13",
