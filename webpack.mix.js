@@ -26,6 +26,8 @@ mix
   ],
 })
 
+.js('resources/js/server-status-listener.js', 'public/js')
+
 .version();
 
 /* Copy static images */
