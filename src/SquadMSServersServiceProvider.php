@@ -31,5 +31,13 @@ class SquadMSServersServiceProvider extends ServiceProvider
 
         /* Load Translations */
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-servers');
+        
+        /* Publish Assets */
+        if ($this->app->runningInConsole()) {
+            // Publish assets
+            $this->publishes([
+                __DIR__.'/../public' => public_path('themes/sqms-servers'),
+            ], 'assets');
+        }
     }
 }
