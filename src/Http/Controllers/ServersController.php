@@ -17,7 +17,7 @@ class ServersController extends Controller
     public function index()
     {
         /* Show home page */
-        return View::make(Config::get('sqms.theme').'::pages.servers', [
+        return View::make('sqms-servers::servers', [
             'servers' => Server::all(),
         ]);
     }
@@ -30,7 +30,7 @@ class ServersController extends Controller
     public function show(Server $server)
     {
         /* Show home page */
-        return View::make(Config::get('sqms.theme').'::pages.server', [
+        return View::make('sqms-servers::server', [
             'server' => $server,
         ]);
     }
