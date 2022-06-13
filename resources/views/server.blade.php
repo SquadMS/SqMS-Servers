@@ -4,45 +4,45 @@
 ])
 
 @section('content')
-<section class="bg-light bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} bg-cover bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
-    <div class="container">
-        <div class="row min-vh-50 align-items-center p-5">
+<section class="bg-gray-100 bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} bg-cover bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
+    <div class="container mx-auto sm:px-4">
+        <div class="flex flex-wrap  min-vh-50 items-center p-12">
             @foreach (range(1, 2) as $teamId)
                 @php
                     $bgFactionClass = count($server->last_query_result->teamTags()) === 2 ? 'bg-faction-' . $server->last_query_result->teamTags()[$teamId] : null;
                 @endphp
-                <div class="col-12 col-md data-show-online {{ $server->online  ? '' : 'd-none' }}">
-                    <div class="squad-flag p-md-4 d-flex justify-content-center align-items-center">
+                <div class="w-full relative md:flex-grow md:flex-1 data-show-online {{ $server->online  ? '' : 'hidden' }}">
+                    <div class="squad-flag md:p-6 flex justify-center items-center">
                         <div class="ratio ratio-squad-flag data-team-tags flag {{ $bgFactionClass }} bg-cover bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <div class="gradient {{ $loop->first ? '' : 'right' }} position-absolute w-100 h-100"></div>
+                            <div class="flex justify-center items-center">
+                                <div class="gradient {{ $loop->first ? '' : 'right' }} absolute w-full h-full"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 @if ($loop->first)
-                    <div class="col-12 col-md-auto d-flex justify-content-center align-items-center">
-                        <span class="text-primary h2">VS.</span>
+                    <div class="w-full col-md-auto flex justify-center items-center">
+                        <span class="text-blue-600 h2">VS.</span>
                     </div>
                 @endif
             @endforeach
 
-            <div class="col data-show-offline {{ $server->online  ? 'd-none' : '' }}">
+            <div class="relative flex-grow max-w-full flex-1 px-4 data-show-offline {{ $server->online  ? 'hidden' : '' }}">
                 <p class="h3 text-center">Server offline :(</p>
             </div>
         </div>
     </div>
 </section>
 <section class="my-6">
-    <div class="container">
+    <div class="container mx-auto sm:px-4">
         <!-- Server name -->
-        <div class="row mb-5">
-            <div class="col">
-                <h1 class="text-center text-truncate data-server-name">{{ $server->last_query_result->name() }}</h1>
-                <p class="lead text-center">
-                    <span class="data-show-online {{ $server->online  ? '' : 'd-none' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-default-theme::pages/servers.server.players') }}</span>
-                    <span class="text-danger text-truncate data-show-offline {{ $server->online  ? 'd-none' : '' }}">{{ __('sqms-default-theme::pages/servers.server.offline') }}</span>
+        <div class="flex flex-wrap  mb-5">
+            <div class="relative flex-grow max-w-full flex-1 px-4">
+                <h1 class="text-center truncate data-server-name">{{ $server->last_query_result->name() }}</h1>
+                <p class="text-xl font-light text-center">
+                    <span class="data-show-online {{ $server->online  ? '' : 'hidden' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-default-theme::pages/servers.server.players') }}</span>
+                    <span class="text-red-600 truncate data-show-offline {{ $server->online  ? 'hidden' : '' }}">{{ __('sqms-default-theme::pages/servers.server.offline') }}</span>
                 </p>
             </div>
         </div>
