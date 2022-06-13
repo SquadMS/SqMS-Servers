@@ -1,0 +1,19 @@
+$factions: no-map, albasrah, belaya, chora, fallujah, gorodok;
+
+body {
+  @each $faction in $factions {
+    &.no-webp {
+      .bg-map-#{$faction} {
+        background-image: url('../images/maps/#{$faction}.jpg');
+        background-repeat: no-repeat;
+      }
+    }
+
+    &.webp {
+      .bg-map-#{$faction} {
+        background-image: url('../images/maps/#{$faction}.webp');
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+$factions: caf, im, ins, ru, uk, us, usmc, mea;
+
+@each $faction in $factions {
+  .bg-faction-#{$faction} {
+    background-image: url('../images/static/factions/#{$faction}.svg');
+    background-repeat: no-repeat;
+  }
+}
