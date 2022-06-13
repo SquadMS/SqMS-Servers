@@ -1,4 +1,4 @@
-@extends('sqms-default-theme::structure.layout', [
+@extends('sqms-foundation::structure.layout', [
     'mainClass' => 'server',
     'mainAttributes' => 'server-id="' . $server->id . '"'
 ])
