@@ -1,4 +1,4 @@
-@extends('sqms-default-theme::structure.layout')
+@extends('sqms-foundation::structure.layout')
 
 @section('content')
 <section class="mt-6">
