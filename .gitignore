@@ -2,6 +2,9 @@
 /vendor
 composer.lock
 
-# Npm
+# NPM
 /node_modules
 package-lock.json
+
+# Tests
+.phpunit.result.cache
