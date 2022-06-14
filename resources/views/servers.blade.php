@@ -5,7 +5,7 @@
     <div class="container mx-auto sm:px-4">
         <div class="flex flex-wrap  mb-5">
             <div class="relative flex-grow max-w-full flex-1 px-4">
-                <h1>{{ __('sqms-default-theme::pages/servers.heading') }}</h1>
+                <h1>{{ __('sqms-servers::pages/servers.heading') }}</h1>
             </div>
         </div>
         <div class="flex flex-wrap  server-list">
@@ -20,8 +20,8 @@
                                 </div>
 
                                 <div class="flex-grow min-width-0 md:flex-grow-0 flex h-full items-center justify-center p-2 md:px-6 extra">
-                                    <span class="text-white data-show-online {{ $server->last_query_result->online()  ? '' : 'hidden' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-default-theme::pages/servers.server.players') }}</span>
-                                    <span class="text-red-600 truncate data-show-offline {{ $server->last_query_result->online()  ? 'hidden' : '' }}">{{ __('sqms-default-theme::pages/servers.server.offline') }}</span>
+                                    <span class="text-white data-show-online {{ $server->last_query_result->online()  ? '' : 'hidden' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-servers::pages/servers.server.players') }}</span>
+                                    <span class="text-red-600 truncate data-show-offline {{ $server->last_query_result->online()  ? 'hidden' : '' }}">{{ __('sqms-servers::pages/servers.server.offline') }}</span>
                                 </div>
                             </div>
         
