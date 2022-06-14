@@ -41,14 +41,14 @@
             <div class="relative flex-grow max-w-full flex-1 px-4">
                 <h1 class="text-center truncate data-server-name">{{ $server->last_query_result->name() }}</h1>
                 <p class="text-xl font-light text-center">
-                    <span class="data-show-online {{ $server->online  ? '' : 'hidden' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-default-theme::pages/servers.server.players') }}</span>
-                    <span class="text-red-600 truncate data-show-offline {{ $server->online  ? 'hidden' : '' }}">{{ __('sqms-default-theme::pages/servers.server.offline') }}</span>
+                    <span class="data-show-online {{ $server->online  ? '' : 'hidden' }}"><span class="data-count">{{ $server->last_query_result->count() }}</span>(+<span class="data-queue">{{ $server->last_query_result->queue() }}</span>)/<span class="data-slots">{{ $server->last_query_result->slots() }}</span>(+<span class="data-reserved">{{ $server->last_query_result->reserved() }}</span>) {{ __('sqms-servers::pages/servers.server.players') }}</span>
+                    <span class="text-red-600 truncate data-show-offline {{ $server->online  ? 'hidden' : '' }}">{{ __('sqms-servers::pages/servers.server.offline') }}</span>
                 </p>
             </div>
         </div>
 
         <!-- Population -->
-        <x-sqms-default-theme::player-list.population :server="$server" />
+        <x-sqms-servers::player-list.population :server="$server" />
     </div>
 </section>
 @endsection
