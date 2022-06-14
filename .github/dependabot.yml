@@ -9,7 +9,7 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "security"
+      - "Security"
 
   # Maintain dependencies for composer
   - package-ecosystem: "composer"
@@ -17,4 +17,4 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "security"
+      - "Security"
