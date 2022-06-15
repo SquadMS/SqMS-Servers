@@ -4,7 +4,7 @@
     {{ __('sqms-servers::pages/servers.heading') }}
 @endsection
 
-@section('content')
+@section('page-content')
 <div class="flex flex-wrap  server-list">
     @foreach ($servers as $server)
         <div class="w-full mb-4">
