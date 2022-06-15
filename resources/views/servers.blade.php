@@ -1,6 +1,8 @@
-@extends('sqms-foundation::templates.page', [
-    'title' => __('sqms-servers::pages/servers.heading')
-])
+@extends('sqms-foundation::templates.page')
+
+@section('title')
+    {{ __('sqms-servers::pages/servers.heading') }}
+@endsection
 
 @section('content')
 <div class="flex flex-wrap  server-list">
