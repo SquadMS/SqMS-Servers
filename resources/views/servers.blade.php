@@ -1,4 +1,4 @@
-@extends('sqms-foundation::templates.page' [
+@extends('sqms-foundation::templates.page', [
     'title' => __('sqms-servers::pages/servers.heading')
 ])
 
