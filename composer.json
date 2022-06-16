@@ -50,5 +50,10 @@
                 "SquadMS\\Servers\\Providers\\EloquentServiceProvider"
             ]
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "0.0.0/composer-include-files": true
+        }
     }
 }
