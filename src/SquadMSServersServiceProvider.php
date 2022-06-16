@@ -69,12 +69,6 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
         /* Middlewares */
         Route::aliasMiddleware('sqms-worker-auth', WorkerAuth::class);
-
-        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            foreach (Server::all() as $server) {
-                $schedule->job(new QueryServer($server))->withoutOverlapping()->everyFiveMinutes();
-            }
-        });
     }
 
     /**
@@ -87,5 +81,12 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
         return [
             Server::class => ServerPolicy::class,
         ];
+    }
+
+    public function schedule(Schedule $schedule): void
+    {
+        foreach (Server::all() as $server) {
+            $schedule->job(new QueryServer($server))->withoutOverlapping()->everyMinute();
+        }
     }
 }
