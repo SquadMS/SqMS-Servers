@@ -2,11 +2,13 @@
 
 namespace SquadMS\Servers;
 
+use Filament\Forms\Components\Select;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
+use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
@@ -81,6 +83,16 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
         return [
             Server::class => ServerPolicy::class,
         ];
+    }
+
+    public function addNavigationTypes(): void
+    {
+        FilamentNavigation::addItemType('Servers');
+        FilamentNavigation::addItemType('Server', [
+            Select::make('server_id')
+                ->searchable()
+                ->options(fn () => Server::pluck('title', 'id'))
+        ]);
     }
 
     public function schedule(Schedule $schedule): void
