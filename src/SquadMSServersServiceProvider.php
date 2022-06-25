@@ -13,6 +13,7 @@ use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
+use SquadMS\Foundation\Facades\;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Filament\Resources\ServerResource;
 use SquadMS\Servers\Http\Middleware\WorkerAuth;
@@ -86,8 +87,8 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
     public function addNavigationTypes(): void
     {
-        SquadMSMenu::addType('Servers', fn () => route('servers'));
-        SquadMSMenu::addType('Server', fn (array $data) => route('server', [
+        SquadMSNavigation::addType('Servers', fn () => route('servers'));
+        SquadMSNavigation::addType('Server', fn (array $data) => route('server', [
             'server' => $data['server_id']
         ]), [
             Select::make('server_id')
