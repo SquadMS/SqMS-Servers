@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
 use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
+use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
 use SquadMS\Foundation\Models\SquadMSUser;
@@ -85,8 +86,10 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
     public function addNavigationTypes(): void
     {
-        FilamentNavigation::addItemType('Servers');
-        FilamentNavigation::addItemType('Server', [
+        SquadMSMenu::addType('Servers', fn () => route('servers'));
+        SquadMSMenu::addType('Server', fn (array $data) => route('server', [
+            'server' => $data['server_id']
+        ]), [
             Select::make('server_id')
                 ->searchable()
                 ->options(fn () => Server::pluck('title', 'id'))
