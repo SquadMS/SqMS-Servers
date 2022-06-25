@@ -2,17 +2,13 @@
 
 namespace SquadMS\Servers;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Helpers\NavigationHelper;
 use SquadMS\Foundation\Menu\SquadMSMenuEntry;
 use SquadMS\Foundation\Modularity\Contracts\SquadMSModule as SquadMSModuleContract;
-use SquadMS\Servers\Jobs\QueryServer;
-use SquadMS\Servers\Models\Server;
 
 class SquadMSModule extends SquadMSModuleContract
 {
@@ -47,13 +43,6 @@ class SquadMSModule extends SquadMSModuleContract
                 );
 
                 break;
-        }
-    }
-
-    public static function schedule(Schedule $schedule): void
-    {
-        foreach (Server::all() as $server) {
-            $schedule->job(new QueryServer($server))->withoutOverlapping()->everyMinute();
         }
     }
 }

@@ -15,7 +15,7 @@
     "require": {
         "php": "^8.1",
         "dsg/squad-rcon-php": "^3.1.0",
-        "squadms/foundation": "dev-master",
+        "squadms/foundation": "dev-navigation",
         "austinb/gameq": "v3.x-dev"
     },
     "require-dev": {
@@ -37,18 +37,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SquadMS\\Servers\\SquadMSServersServiceProvider",
-                "SquadMS\\Servers\\Providers\\ModulesServiceProvider",
-                "SquadMS\\Servers\\Providers\\RouteServiceProvider",
-                "SquadMS\\Servers\\Providers\\ViewServiceProvider",
-                "SquadMS\\Servers\\Providers\\LivewireServiceProvider",
-                "SquadMS\\Servers\\Providers\\AuthServiceProvider",
-                "SquadMS\\Servers\\Providers\\FilamentServiceProvider",
-                "SquadMS\\Servers\\Providers\\PermissionsServiceProvider",
-                "SquadMS\\Servers\\Providers\\ScheduleServiceProvider",
-                "SquadMS\\Servers\\Providers\\BroadcastServiceProvider",
-                "SquadMS\\Servers\\Providers\\EloquentServiceProvider"
+                "SquadMS\\Servers\\SquadMSServersServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "0.0.0/composer-include-files": true
         }
     }
 }

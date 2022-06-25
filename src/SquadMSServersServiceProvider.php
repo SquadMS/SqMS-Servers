@@ -2,16 +2,44 @@
 
 namespace SquadMS\Servers;
 
-use Illuminate\Support\ServiceProvider;
+use Filament\Forms\Components\Select;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
+use Spatie\LaravelPackageTools\Package;
+use RyanChandler\FilamentNavigation\Facades\FilamentNavigation;
+use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
+use SquadMS\Foundation\Facades\SquadMSMenu;
+use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
+use SquadMS\Foundation\Facades\SquadMSPermissions;
+use SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Servers\Filament\Resources\ServerResource;
+use SquadMS\Servers\Http\Middleware\WorkerAuth;
+use SquadMS\Servers\Jobs\QueryServer;
+use SquadMS\Servers\Models\Server;
+use SquadMS\Servers\Policies\ServerPolicy;
 
-class SquadMSServersServiceProvider extends ServiceProvider
+class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 {
+    public static string $name = 'sqms-servers';
+
+    protected array $resources = [
+        ServerResource::class,
+    ];
+
+    public function configureModule(Package $package): void
+    {
+        $package->hasAssets()
+                ->hasRoutes(['api', 'channels', 'web']);
+    }
+
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function registeringModule(): void
     {
         //
     }
@@ -21,23 +49,57 @@ class SquadMSServersServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function bootedModule(): void
     {
-        /* Configuration */
-        $this->mergeConfigFrom(__DIR__.'/../config/sqms-servers.php', 'sqms-servers');
+        /* Permissions */
+        foreach (Config::get('sqms-servers.permissions.definitions', []) as $definition => $displayName) {
+            SquadMSPermissions::define(Config::get('sqms-servers.permissions.module'), $definition, $displayName);
+        }
 
-        /* Migrations */
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        SquadMSUser::resolveRelationUsing('serverChatMessages', static function (SquadMSUser $user): HasMany {
+            return $user->hasMany(ServerChatMessage::class);
+        });
 
-        /* Load Translations */
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sqms-servers');
-        
-        /* Publish Assets */
-        if ($this->app->runningInConsole()) {
-            // Publish assets
-            $this->publishes([
-                __DIR__.'/../public' => public_path('themes/sqms-servers'),
-            ], 'assets');
+        SquadMSUser::resolveRelationUsing('bans', static function (SquadMSUser $user): HasMany {
+            return $user->hasMany(Ban::class);
+        });
+
+        SquadMSUser::resolveRelationUsing('banned', static function (SquadMSUser $user): HasMany {
+            return $user->hasMany(Ban::class, 'admin_id');
+        });
+
+        /* Middlewares */
+        Route::aliasMiddleware('sqms-worker-auth', WorkerAuth::class);
+    }
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+        return [
+            Server::class => ServerPolicy::class,
+        ];
+    }
+
+    public function addNavigationTypes(): void
+    {
+        SquadMSMenu::addType('Servers', fn () => route('servers'));
+        SquadMSMenu::addType('Server', fn (array $data) => route('server', [
+            'server' => $data['server_id']
+        ]), [
+            Select::make('server_id')
+                ->searchable()
+                ->options(fn () => Server::pluck('title', 'id'))
+        ]);
+    }
+
+    public function schedule(Schedule $schedule): void
+    {
+        foreach (Server::all() as $server) {
+            $schedule->job(new QueryServer($server))->withoutOverlapping()->everyMinute();
         }
     }
 }
