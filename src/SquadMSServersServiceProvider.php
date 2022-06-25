@@ -50,8 +50,6 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
      */
     public function bootedModule(): void
     {
-        SquadMSModuleRegistry::register(SquadMSModule::class);
-
         /* Permissions */
         foreach (Config::get('sqms-servers.permissions.definitions', []) as $definition => $displayName) {
             SquadMSPermissions::define(Config::get('sqms-servers.permissions.module'), $definition, $displayName);
