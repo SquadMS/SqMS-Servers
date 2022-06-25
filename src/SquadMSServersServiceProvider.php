@@ -13,7 +13,7 @@ use SquadMS\Foundation\Contracts\SquadMSModuleServiceProvider;
 use SquadMS\Foundation\Facades\SquadMSMenu;
 use SquadMS\Foundation\Facades\SquadMSModuleRegistry;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
-use SquadMS\Foundation\Facades\;
+use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Filament\Resources\ServerResource;
 use SquadMS\Servers\Http\Middleware\WorkerAuth;
