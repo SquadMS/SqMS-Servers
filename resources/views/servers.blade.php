@@ -39,7 +39,7 @@
 @endsection
 
 @push('scripts')
-<script src="{{ mix('js/server-status-listener.js', 'themes/sqms-servers') }}"></script>
+<script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-servers') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         /* Initialize and listen for server status updates */
