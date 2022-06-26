@@ -2,22 +2,21 @@ const mix = require('laravel-mix');
 const fs = require('fs');
 
 /* Remove old build and restore required file structure */
-if (fs.existsSync('public')) {
-    fs.rmdirSync('public', { recursive: true });
+if (fs.existsSync('resources/dist')) {
+    fs.rmdirSync('resources/dist', { recursive: true });
 
-    fs.mkdirSync('public');
-    fs.mkdirSync('public/images');
+    fs.mkdirSync('resources/dist');
+    fs.mkdirSync('resources/dist/images');
 }
 
 /* Configure the public path */
-mix.setPublicPath('public');
+mix.setPublicPath('resources/dist');
 
 mix.setResourceRoot('/themes/sqms-servers');
 
 /* Build SCSS/JS assets */
 mix
-/* Public assets */
-.sass('resources/scss/sqms-servers.scss', 'public/css')
+.sass('resources/scss/sqms-servers.scss', 'resources/dist/css')
 .options({
   postCss: [
       require('postcss-import'),
@@ -26,9 +25,9 @@ mix
   ],
 })
 
-.js('resources/js/server-status-listener.js', 'public/js')
+.js('resources/js/server-status-listener.js', 'resources/dist/js')
 
 .version();
 
 /* Copy static images */
-mix.copyDirectory('resources/images/static', 'public/static-images');
+mix.copyDirectory('resources/images/static', 'resources/dist/static-images');
