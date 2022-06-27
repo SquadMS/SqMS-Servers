@@ -1,10 +1,4 @@
-@extends('sqms-foundation::templates.page')
-
-@section('title')
-    {{ __('sqms-servers::pages/servers.heading') }}
-@endsection
-
-@section('page-content')
+<x-sqms-foundation::templates.page :title="__('sqms-servers::pages/servers.heading'))">
 <div class="sqmss-flex sqmss-flex-wrap server-list">
     @foreach ($servers as $server)
         <div class="sqmss-w-full sqmss-mb-4">
@@ -36,7 +30,6 @@
         </div>
     @endforeach
 </div>
-@endsection
 
 @push('scripts')
 <script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-servers') }}"></script>
@@ -61,3 +54,4 @@
     });
 </script>
 @endpush
+</x-sqms-foundation::templates.page>
