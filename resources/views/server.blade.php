@@ -1,4 +1,4 @@
-<x-sqms-foundation::layouts.app :title="__('sqms-servers::pages/servers.heading'))" :server-id="$server->id">
+<x-sqms-foundation::layouts.app :title="__('sqms-servers::pages/servers.heading')" :server-id="$server->id">
 <section class="sqmss-bg-gray-100 bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} bg-cover bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
     <div class="sqmss-container sqmss-mx-auto sm:sqmss-px-4">
         <div class="sqmss-flex sqmss-flex-wrap  sqmss-min-vh-50 sqmss-items-center sqmss-p-12">

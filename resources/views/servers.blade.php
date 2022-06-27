@@ -1,4 +1,4 @@
-<x-sqms-foundation::templates.page :title="__('sqms-servers::pages/servers.heading'))">
+<x-sqms-foundation::templates.page :title="__('sqms-servers::pages/servers.heading')">
 <div class="sqmss-flex sqmss-flex-wrap server-list">
     @foreach ($servers as $server)
         <div class="sqmss-w-full sqmss-mb-4">
