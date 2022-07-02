@@ -2,8 +2,8 @@
 
 namespace SquadMS\Servers\Filament\Resources\ServerResource\Pages;
 
-use SquadMS\Servers\Filament\Resources\ServerResource;
 use Filament\Resources\Pages\ListRecords;
+use SquadMS\Servers\Filament\Resources\ServerResource;
 
 class ListServers extends ListRecords
 {

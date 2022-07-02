@@ -45,7 +45,7 @@ return [
                 'controller' => \SquadMS\Servers\Http\Controllers\ServerController::class,
                 'executor' => 'population',
                 'localized' => true,
-            ]
+            ],
         ],
     ],
 

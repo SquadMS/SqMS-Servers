@@ -59,7 +59,7 @@ class Server extends Model
 
     public function getHasRconDataAttribute(): bool
     {
-        return !is_null($this->rcon_port) && !is_null($this->rcon_password);
+        return ! is_null($this->rcon_port) && ! is_null($this->rcon_password);
     }
 
     public function getLastQueryResultAttribute(): ServerQueryResult
@@ -82,8 +82,7 @@ class Server extends Model
     /**
      * Scope a query to only include servers that have RCON connection information available.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeHasRconData($query)

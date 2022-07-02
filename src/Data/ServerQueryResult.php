@@ -52,14 +52,13 @@ class ServerQueryResult
     /**
      * Method to set data that can be obtained by a simple A2S query.
      *
-     * @param bool   $online
-     * @param string $name
-     * @param int    $slots
-     * @param int    $reserved
-     * @param int    $count
-     * @param int    $publicQueue
-     * @param int    $reservedQueue
-     *
+     * @param  bool  $online
+     * @param  string  $name
+     * @param  int  $slots
+     * @param  int  $reserved
+     * @param  int  $count
+     * @param  int  $publicQueue
+     * @param  int  $reservedQueue
      * @return void
      */
     public function setQueryData(bool $online = false, string $name = '', int $slots = 0, int $reserved = 0, int $count = 0, int $publicQueue = 0, int $reservedQueue = 0, ?string $rawName = null): void
@@ -80,10 +79,9 @@ class ServerQueryResult
     /**
      * Method to set data that can only be obtained by RCON.
      *
-     * @param array      $currentMapInfo
-     * @param array      $nextMapInfo
-     * @param Population $population
-     *
+     * @param  array  $currentMapInfo
+     * @param  array  $nextMapInfo
+     * @param  Population  $population
      * @return void
      */
     public function setRCONData(array $currentMapInfo, array $nextMapInfo, Population $population): void
@@ -333,7 +331,7 @@ class ServerQueryResult
         /* Process player List and get steamIds */
         $steamIds = [];
 
-        if (!is_null($this->population)) {
+        if (! is_null($this->population)) {
             foreach ($this->population->getPlayers() as $player) {
                 $steamIds[] = $player->getSteamId();
             }

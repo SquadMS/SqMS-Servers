@@ -10,4 +10,3 @@ Route::group([
 ], function () {
     SquadMSRouteHelper::configurableRoutes(Config::get('sqms-servers.routes.def', []));
 });
-

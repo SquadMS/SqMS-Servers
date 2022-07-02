@@ -2,15 +2,14 @@
 
 namespace SquadMS\Servers\Filament\Resources;
 
-use SquadMS\Servers\Filament\Resources\ServerResource\Pages;
-use SquadMS\Servers\Filament\Resources\ServerResource\RelationManagers;
-use SquadMS\Servers\Models\Server;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use SquadMS\Foundation\Models\SquadMSUser;
+use SquadMS\Servers\Filament\Resources\ServerResource\Pages;
+use SquadMS\Servers\Models\Server;
 
 class ServerResource extends Resource
 {
@@ -63,7 +62,7 @@ class ServerResource extends Resource
                         ->rules('required_with:data.rcon_password|integer|min:1|max:65535'),
                     Forms\Components\TextInput::make('rcon_password')
                         ->rules('required_with:data.rcon_port|string|min:1'),
-                ]),                
+                ]),
             ]);
     }
 
@@ -73,20 +72,20 @@ class ServerResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable(),
                 Tables\Columns\BooleanColumn::make('account_playtime')->sortable(),
-                Tables\Columns\BooleanColumn::make('rcon')->getStateUsing(fn (Server $record) => $record->rcon_port && $record->rcon_password)
+                Tables\Columns\BooleanColumn::make('rcon')->getStateUsing(fn (Server $record) => $record->rcon_port && $record->rcon_password),
             ])
             ->filters([
                 //
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [

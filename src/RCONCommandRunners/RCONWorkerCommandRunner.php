@@ -285,13 +285,12 @@ class RCONWorkerCommandRunner implements ServerCommandRunner
     /**
      * Helper method to run Console commands with an expected response.
      *
-     * @param string $cmd
-     * @param string $param
-     * @param string $expected
+     * @param  string  $cmd
+     * @param  string  $param
+     * @param  string  $expected
+     * @return bool
      *
      * @throws \DSG\SquadRCON\Exceptions\RConException
-     *
-     * @return bool
      */
     private function _consoleCommand(string $cmd, string $param, ?string $expectedStart = null, ?string $expectedEnd = null): bool
     {
@@ -307,15 +306,15 @@ class RCONWorkerCommandRunner implements ServerCommandRunner
 
         /* Validate */
         if (is_null($expectedStart) && is_null($expectedEnd)) {
-            return !mb_strlen($cleaned);
+            return ! mb_strlen($cleaned);
         } else {
             $status = true;
 
-            if (!is_null($expectedStart)) {
+            if (! is_null($expectedStart)) {
                 $status &= substr($cleaned, 0, strlen($expectedStart)) == $expectedStart;
             }
 
-            if (!is_null($expectedEnd)) {
+            if (! is_null($expectedEnd)) {
                 $status &= substr($cleaned, -strlen($expectedEnd)) == $expectedEnd;
             }
 
@@ -332,7 +331,7 @@ class RCONWorkerCommandRunner implements ServerCommandRunner
 
         if ($response->successful()) {
             $json = $response->json();
-            if (!is_null($json)) {
+            if (! is_null($json)) {
                 return $response->json();
             } else {
                 $error = 'RCON Command Error: Empty response';

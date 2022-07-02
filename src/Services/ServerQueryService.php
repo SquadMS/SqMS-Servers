@@ -15,8 +15,7 @@ class ServerQueryService
     /**
      * Processes the query result of a server.
      *
-     * @param ServerQueryResult $result
-     *
+     * @param  ServerQueryResult  $result
      * @return void
      */
     public static function processResult(ServerQueryResult $result): void
@@ -54,7 +53,7 @@ class ServerQueryService
     public static function fetchMissingPlayers(Collection $users): void
     {
         /* Dont do anything if nothing was provided */
-        if (!$users->count()) {
+        if (! $users->count()) {
             return;
         }
 
@@ -67,18 +66,17 @@ class ServerQueryService
      * the result is offline it will not save it until the last online result is older
      * than the configured threshold.
      *
-     * @param ServerQueryResult $result
-     *
+     * @param  ServerQueryResult  $result
      * @return void
      */
     public static function createFrontendCache(ServerQueryResult $result): void
     {
-        if (!$result->online()) {
+        if (! $result->online()) {
             $oldResult = $result->server()->last_query_result;
 
             if (
-                !$oldResult instanceof ServerQueryResult ||
-                !$oldResult->online() ||
+                ! $oldResult instanceof ServerQueryResult ||
+                ! $oldResult->online() ||
                 $oldResult->created()->greaterThan(Carbon::now()->subMinutes(5))
             ) {
                 return;

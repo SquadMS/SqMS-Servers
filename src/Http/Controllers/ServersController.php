@@ -3,7 +3,6 @@
 namespace SquadMS\Servers\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use SquadMS\Servers\Models\Server;
 

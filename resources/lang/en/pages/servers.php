@@ -6,5 +6,5 @@ return [
     'server' => [
         'offline' => 'offline',
         'players' => 'Players',
-    ]
+    ],
 ];
