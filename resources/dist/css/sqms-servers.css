@@ -40,11 +40,11 @@
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.sqmss-mb-5 {
-  margin-bottom: 1.25rem;
-}
 .sqmss-mb-4 {
   margin-bottom: 1rem;
+}
+.sqmss-mb-5 {
+  margin-bottom: 1.25rem;
 }
 .sqmss-mb-0 {
   margin-bottom: 0px;
@@ -132,18 +132,14 @@
 .sqmss-bg-center {
   background-position: center;
 }
-.sqmss-p-12 {
-  padding: 3rem;
-}
 .sqmss-p-6 {
   padding: 1.5rem;
 }
 .sqmss-p-2 {
   padding: 0.5rem;
 }
-.sqmss-px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+.sqmss-p-12 {
+  padding: 3rem;
 }
 .sqmss-px-3 {
   padding-left: 0.75rem;
@@ -152,6 +148,10 @@
 .sqmss-py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+.sqmss-px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .sqmss-pr-4 {
   padding-right: 1rem;
@@ -182,10 +182,6 @@
 .sqmss-leading-none {
   line-height: 1;
 }
-.sqmss-text-blue-600 {
-  --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
-}
 .sqmss-text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -197,6 +193,10 @@
 .sqmss-text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+.sqmss-text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 .bg-faction-caf {
   background-image: url(/vendor/sqms-servers/images/caf.svg?17cc11fbf28e791af3cf2b30252bf30b);
