@@ -11,7 +11,7 @@ Route::group([
     SquadMSRouteHelper::localized(function () {
         Route::prefix('servers')->group(function () {
             Route::get('/', [\SquadMS\Servers\Http\Controllers\ServersController::class, 'index'])->name('servers');
-            Route::get('{server}', [\SquadMS\Servers\Http\Livewire\Server::class, 'show'])->name('server');
+            Route::get('{server}', \SquadMS\Servers\Http\Livewire\Server::class)->name('server');
         });
     });
 });

@@ -1,5 +1,4 @@
-<x-sqms-foundation::layouts.app :title="__('sqms-servers::pages/servers.heading')" :server-id="$server->id">
-<section class="sqmss-bg-gray-100 bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} bg-cover bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
+<section class="sqmss-bg-gray-100 bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} sqmss-bg-cover sqmss-bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
     <div class="sqmss-container sqmss-mx-auto sm:sqmss-px-4">
         <div class="sqmss-flex sqmss-flex-wrap  sqmss-min-vh-50 sqmss-items-center sqmss-p-12">
             @foreach (range(1, 2) as $teamId)
@@ -8,7 +7,7 @@
                 @endphp
                 <div class="sqmss-w-full sqmss-relative md:sqmss-flex-grow md:sqmss-flex-1 data-show-online {{ $server->online  ? '' : 'sqmss-hidden' }}">
                     <div class="squad-flag md:sqmss-p-6 sqmss-flex sqmss-justify-center sqmss-items-center">
-                        <div class="sqmss-aspect-squad-flag data-team-tags flag {{ $bgFactionClass }} sqmss-bg-cover sqmss-bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
+                        <div class="sqmss-aspect-squad-flag sqmss-h-40 data-team-tags flag {{ $bgFactionClass }} sqmss-bg-cover sqmss-bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
                             <div class="flex justify-center items-center">
                                 <div class="sqmss-gradient {{ $loop->first ? '' : 'sqmss-right' }} sqmss-absolute sqmss-w-full sqmss-h-full"></div>
                             </div>
@@ -46,13 +45,12 @@
         <x-sqms-servers::player-list.population :server="$server" />
     </div>
 </section>
-@endsection
 
 @pushOnce('styles')
 @livewireStyles
+<link href="{{ mix('css/sqms-servers.css', 'vendor/sqms-servers') }}" rel="stylesheet">
 @endPushOnce
 
 @pushOnce('scripts')
 @livewireScripts
-<script src="https://cdn.jsdelivr.net/npm/morphdom@2.6.1/dist/morphdom.min.js"></script>
 @endPushOnce
