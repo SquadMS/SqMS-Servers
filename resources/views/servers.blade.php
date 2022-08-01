@@ -38,26 +38,5 @@
 
 @pushOnce('scripts')
 @livewireScripts
-<script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-servers') }}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        /* Initialize and listen for server status updates */
-        const listener = new window.ServerStatusListener({
-            levelClass: [
-                'data-level-class',
-                function(element, value) {
-                    const oldClass = element.getAttribute('server-level-bg');
-                    const newClass = `bg-map-${value}`;
-                    
-                    /* Remove old class and add new one */
-                    element.classList.remove(oldClass);
-                    element.classList.add(newClass);
-                    /* Set server-level-bg attribute properly */
-                    element.setAttribute('server-level-bg', newClass);
-                },
-            ],
-        });
-    });
-</script>
 @endPushOnce
 </x-sqms-foundation::templates.page>
