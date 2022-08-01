@@ -64,9 +64,6 @@
 .sqmss-flex {
   display: flex;
 }
-.sqmss-hidden {
-  display: none;
-}
 .sqmss-aspect-squad-flag {
   aspect-ratio: 512 / 269;
 }
@@ -167,6 +164,10 @@
 }
 .sqmss-align-baseline {
   vertical-align: baseline;
+}
+.sqmss-text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 .sqmss-text-xl {
   font-size: 1.25rem;
