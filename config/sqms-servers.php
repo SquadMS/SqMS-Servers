@@ -42,7 +42,7 @@ return [
                 'name' => 'server',
                 'path' => 'servers/{server}/population',
                 'middlewares' => [],
-                'controller' => \SquadMS\Servers\Http\Controllers\ServerController::class,
+                'controller' => \SquadMS\Servers\Http\Livewire\Server::class,
                 'executor' => 'population',
                 'localized' => true,
             ],
