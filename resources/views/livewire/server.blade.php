@@ -7,7 +7,7 @@
                         $bgFactionClass = count($server->last_query_result->teamTags()) === 2 ? 'bg-faction-' . $server->last_query_result->teamTags()[$teamId] : null;
                     @endphp
                     <div class="data-show-online {{ $server->online  ? '' : 'sqmss-hidden' }}">
-                        <div class="md:sqmss-p-6 sqmss-flex sqmss-justify-center sqmss-items-center">
+                        <div class="lg:sqmss-p-6 sqmss-flex sqmss-justify-center sqmss-items-center">
                             <div class="sqmss-aspect-squad-flag sqmss-h-40 sqmss-relative data-team-tags flag {{ $bgFactionClass }} sqmss-bg-cover sqmss-bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
                                 <div class="sqmss-bg-gradient-to-b sqmss-from-transparent sqmss-to-black sqmss-opacity-30 {{ $loop->first ? '' : 'sqmss-right' }} sqmss-absolute sqmss-top-0 sqmss-w-full sqmss-h-full"></div>
                             </div>
@@ -15,7 +15,7 @@
                     </div>
 
                     @if ($loop->first)
-                        <div class="sqmss-w-full md:sqmss-w-auto sqmss-flex sqmss-justify-center sqmss-items-center">
+                        <div class="sqmss-w-full lg:sqmss-w-auto sqmss-flex sqmss-justify-center sqmss-items-center">
                             <span class="sqmss-text-blue-600 sqmss-h2">VS.</span>
                         </div>
                     @endif

@@ -294,9 +294,6 @@ body.webp .bg-map-gorodok {
   .md\:sqmss-mb-0 {
     margin-bottom: 0px;
   }
-  .md\:sqmss-w-auto {
-    width: auto;
-  }
   .md\:sqmss-w-1\/2 {
     width: 50%;
   }
@@ -309,11 +306,16 @@ body.webp .bg-map-gorodok {
   .md\:sqmss-flex-row {
     flex-direction: row;
   }
-  .md\:sqmss-p-6 {
-    padding: 1.5rem;
-  }
   .md\:sqmss-px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:sqmss-w-auto {
+    width: auto;
+  }
+  .lg\:sqmss-p-6 {
+    padding: 1.5rem;
   }
 }
