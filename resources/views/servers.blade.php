@@ -31,7 +31,11 @@
     @endforeach
 </div>
 
-@push('scripts')
+@pushOnce('styles')
+<link href="{{ mix('css/sqms-servers.css', 'vendor/sqms-servers') }}" rel="stylesheet">
+@endPushOnce
+
+@pushOnce('scripts')
 <script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-servers') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -53,5 +57,5 @@
         });
     });
 </script>
-@endpush
+@endPushOnce
 </x-sqms-foundation::templates.page>
