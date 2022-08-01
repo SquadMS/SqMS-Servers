@@ -32,6 +32,9 @@
 .sqmss-relative {
   position: relative;
 }
+.sqmss-top-0 {
+  top: 0px;
+}
 .sqmss-mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -291,11 +294,11 @@ body.webp .bg-map-gorodok {
   .md\:sqmss-mb-0 {
     margin-bottom: 0px;
   }
+  .md\:sqmss-w-auto {
+    width: auto;
+  }
   .md\:sqmss-w-1\/2 {
     width: 50%;
-  }
-  .md\:sqmss-flex-1 {
-    flex: 1 1 0%;
   }
   .md\:sqmss-flex-grow {
     flex-grow: 1;

@@ -1,23 +1,21 @@
 <div wire:poll.60s>
     <section class="sqmss-bg-gray-100 bg-map-no-map {{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }} sqmss-bg-cover sqmss-bg-center" server-level-bg="{{ $server->online && $server->last_query_result->level() ? 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($server->last_query_result->level()) : '' }}">
         <div class="sqmss-container sqmss-mx-auto sm:sqmss-px-4">
-            <div class="sqmss-flex sqmss-flex-wrap  sqmss-min-vh-50 sqmss-items-center sqmss-p-12">
+            <div class="sqmss-flex sqmss-flex-wrap sqmss-min-vh-50 sqmss-justify-center sqmss-items-center sqmss-p-12">
                 @foreach (range(1, 2) as $teamId)
                     @php
                         $bgFactionClass = count($server->last_query_result->teamTags()) === 2 ? 'bg-faction-' . $server->last_query_result->teamTags()[$teamId] : null;
                     @endphp
-                    <div class="sqmss-w-full sqmss-relative md:sqmss-flex-grow md:sqmss-flex-1 data-show-online {{ $server->online  ? '' : 'sqmss-hidden' }}">
-                        <div class="squad-flag md:sqmss-p-6 sqmss-flex sqmss-justify-center sqmss-items-center">
-                            <div class="sqmss-aspect-squad-flag sqmss-h-40 data-team-tags flag {{ $bgFactionClass }} sqmss-bg-cover sqmss-bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
-                                <div class="sqmss-flex sqmss-justify-center sqmss-items-center">
-                                    <div class="sqmss-bg-gradient-to-b sqmss-from-transparent sqmss-to-black sqmss-opacity-30 {{ $loop->first ? '' : 'sqmss-right' }} sqmss-absolute sqmss-w-full sqmss-h-full"></div>
-                                </div>
+                    <div class="data-show-online {{ $server->online  ? '' : 'sqmss-hidden' }}">
+                        <div class="md:sqmss-p-6 sqmss-flex sqmss-justify-center sqmss-items-center">
+                            <div class="sqmss-aspect-squad-flag sqmss-h-40 sqmss-relative data-team-tags flag {{ $bgFactionClass }} sqmss-bg-cover sqmss-bg-center" flag-class="{{ $bgFactionClass }}" team-id="{{ $teamId }}">
+                                <div class="sqmss-bg-gradient-to-b sqmss-from-transparent sqmss-to-black sqmss-opacity-30 {{ $loop->first ? '' : 'sqmss-right' }} sqmss-absolute sqmss-top-0 sqmss-w-full sqmss-h-full"></div>
                             </div>
                         </div>
                     </div>
 
                     @if ($loop->first)
-                        <div class="sqmss-w-full sqmss-col-md-auto sqmss-flex sqmss-justify-center sqmss-items-center">
+                        <div class="sqmss-w-full md:sqmss-w-auto sqmss-flex sqmss-justify-center sqmss-items-center">
                             <span class="sqmss-text-blue-600 sqmss-h2">VS.</span>
                         </div>
                     @endif

@@ -13,6 +13,7 @@ use SquadMS\Foundation\Facades\SquadMSNavigation;
 use SquadMS\Foundation\Facades\SquadMSPermissions;
 use SquadMS\Foundation\Models\SquadMSUser;
 use SquadMS\Servers\Filament\Resources\ServerResource;
+use SquadMS\Servers\Http\Livewire\Server as LivewireServer;
 use SquadMS\Servers\Http\Livewire\ServerEntry;
 use SquadMS\Servers\Http\Middleware\WorkerAuth;
 use SquadMS\Servers\Jobs\QueryServer;
@@ -29,6 +30,7 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $livewireComponents = [
         'server-entry' => ServerEntry::class,
+        'server'       => LivewireServer::class
     ];
 
     public function configureModule(Package $package): void
