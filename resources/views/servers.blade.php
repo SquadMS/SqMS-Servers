@@ -32,10 +32,12 @@
 </div>
 
 @pushOnce('styles')
+@livewireStyles
 <link href="{{ mix('css/sqms-servers.css', 'vendor/sqms-servers') }}" rel="stylesheet">
 @endPushOnce
 
 @pushOnce('scripts')
+@livewireScripts
 <script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-servers') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
