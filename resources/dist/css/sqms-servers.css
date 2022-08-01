@@ -123,6 +123,17 @@
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
+.sqmss-bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+.sqmss-from-transparent {
+  --tw-gradient-from: transparent;
+  --tw-gradient-to: rgb(0 0 0 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.sqmss-to-black {
+  --tw-gradient-to: #000;
+}
 .sqmss-bg-cover {
   background-size: cover;
 }
@@ -186,6 +197,9 @@
 .sqmss-text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+.sqmss-opacity-30 {
+  opacity: 0.3;
 }
 .bg-faction-caf {
   background-image: url(/vendor/sqms-servers/images/caf.svg?17cc11fbf28e791af3cf2b30252bf30b);
