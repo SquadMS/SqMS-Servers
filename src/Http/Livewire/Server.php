@@ -3,6 +3,7 @@
 namespace SquadMS\Servers\Http\Livewire;
 
 use Livewire\Component;
+use SquadMS\Foundation\View\Components\Layouts\App;
 use SquadMS\Servers\Models\Server as ServerModel;
 
 class Server extends Component
@@ -11,6 +12,7 @@ class Server extends Component
 
     public function render()
     {
-        return view('sqms-servers::livewire.server');
+        return view('sqms-servers::livewire.server')
+            ->layout(App::class);
     }
 }
