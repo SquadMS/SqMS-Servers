@@ -48,6 +48,14 @@
 </section>
 @endsection
 
+@pushOnce('styles')
+@livewireStyles
+@endPushOnce
+
+@pushOnce('scripts')
+@livewireScripts
+@endPushOnce
+
 @pushOnce('scripts')
 <script src="https://cdn.jsdelivr.net/npm/morphdom@2.6.1/dist/morphdom.min.js"></script>
 <script src="{{ mix('js/server-status-listener.js', 'vendor/sqms-server') }}"></script>
