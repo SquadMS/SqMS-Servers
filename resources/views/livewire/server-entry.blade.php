@@ -1,5 +1,5 @@
 <a href="{{ route(Config::get('sqms-servers.routes.def.server.name'), ['server' => $server]) }}" class="sqmss-w-full sqmss-mb-4" wire:poll.60s.visible>
-    <div class="server sqmss-bg-gray-100 sqmss-bg-cover sqmss-bg-center {{ $bgClass }}" server-id="{{ $server->id }}">
+    <div class="server sqmss-bg-gray-100 sqmss-bg-cover sqmss-bg-center bg-map-no-map {{ $bgClass }}">
         <div class="server-inner sqmss-flex sqmss-flex-col md:sqmss-flex-row">
             <div class="md:sqmss-flex-grow sqmss-min-width-0 fsqmss-lex sqmss-items-center sqmss-p-6">
                 @if ($server->last_query_result->online())

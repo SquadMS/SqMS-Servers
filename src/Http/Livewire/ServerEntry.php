@@ -9,7 +9,7 @@ class ServerEntry extends Component
 {
     public Server $server;
 
-    protected string $bgClass = 'bg-map-no-map';
+    public ?string $bgClass = null;
 
     public function mount()
     {
