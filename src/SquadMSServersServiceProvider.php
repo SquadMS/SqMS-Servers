@@ -30,7 +30,7 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
     protected array $livewireComponents = [
         'server-entry' => ServerEntry::class,
-        'server'       => LivewireServer::class
+        'server'       => LivewireServer::class,
     ];
 
     public function configureModule(Package $package): void

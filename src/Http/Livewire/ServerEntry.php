@@ -14,7 +14,7 @@ class ServerEntry extends Component
     public function mount()
     {
         if ($this->server->last_query_result->online() && $this->server->last_query_result->level()) {
-            $this->bgClass = 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($this->server->last_query_result->level());
+            $this->bgClass = 'bg-map-'.\SquadMS\Foundation\Helpers\LevelHelper::levelToClass($this->server->last_query_result->level());
         }
     }
 
