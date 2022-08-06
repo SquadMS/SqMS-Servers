@@ -9,6 +9,15 @@ class ServerEntry extends Component
 {
     public Server $server;
 
+    protected string $bgClass = 'bg-map-no-map';
+
+    public function mount()
+    {
+        if ($this->server->last_query_result->online() && $this->server->last_query_result->level()) {
+            $this->bgClass = 'bg-map-' . \SquadMS\Foundation\Helpers\LevelHelper::levelToClass($this->server->last_query_result->level());
+        }
+    }
+
     public function render()
     {
         return view('sqms-servers::livewire.server-entry');
