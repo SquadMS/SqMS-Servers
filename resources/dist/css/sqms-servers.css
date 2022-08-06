@@ -67,11 +67,11 @@
 .sqmss-aspect-squad-flag {
   aspect-ratio: 512 / 269;
 }
-.sqmss-h-full {
-  height: 100%;
-}
 .sqmss-h-40 {
   height: 10rem;
+}
+.sqmss-h-full {
+  height: 100%;
 }
 .sqmss-w-full {
   width: 100%;
