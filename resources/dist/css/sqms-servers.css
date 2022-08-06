@@ -311,6 +311,9 @@ body.webp .bg-map-gorodok {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+  .md\:sqmss-text-start {
+    text-align: start;
+  }
 }
 @media (min-width: 1024px) {
   .lg\:sqmss-w-auto {

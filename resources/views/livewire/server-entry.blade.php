@@ -3,9 +3,9 @@
         <div class="server-inner sqmss-flex sqmss-flex-col md:sqmss-flex-row">
             <div class="md:sqmss-flex-grow sqmss-min-width-0 sqmss-flex sqmss-items-center sqmss-p-6">
                 @if ($server->last_query_result->online())
-                    <span class="sqmss-w-full sqmss-h3 sqmss-truncate sqmss-text-center sqmss-text-md-start sqmss-text-white md:sqmss-mb-0">{{ $server->last_query_result->name() }}</span>
+                    <span class="sqmss-w-full sqmss-h3 sqmss-truncate sqmss-text-center md:sqmss-text-start sqmss-text-white md:sqmss-mb-0">{{ $server->last_query_result->name() }}</span>
                 @else
-                    <span class="sqmss-w-full sqmss-h3 sqmss-truncate sqmss-text-center sqmss-text-md-start sqmss-text-gray-600 md:sqmss-mb-0">{{ $server->last_query_result->name() }}</span>
+                    <span class="sqmss-w-full sqmss-h3 sqmss-truncate sqmss-text-center md:sqmss-text-start sqmss-text-gray-600 md:sqmss-mb-0">{{ $server->last_query_result->name() }}</span>
                 @endif
             </div>
 
