@@ -67,7 +67,7 @@ class QueryServer implements ShouldQueue
             $gameq = new GameQ();
             $gameq->addServer($this->server->getGameQData());
             $result = $gameq->process();
-            $status = array_values($result)[0];
+            $status = head($result);
 
             /* Build a new QueryResult from the response */
             $serverQueryResult = new ServerQueryResult(
