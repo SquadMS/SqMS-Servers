@@ -5,6 +5,7 @@ namespace SquadMS\Servers\Data;
 use Carbon\Carbon;
 use Spatie\DataTransferObject\DataTransferObject;
 use DSG\SquadRCON\Data\Population;
+use Illuminate\Support\Arr;
 use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Foundation\Helpers\FactionHelper;
 use SquadMS\Servers\Models\Server;
@@ -41,9 +42,9 @@ class ServerQueryResult extends DataTransferObject
 
     public function __construct(...$args)
     {
-        parent::__construct(...$args);
+        Arr::set($args, 'created', Arr::get($args, 'created', Carbon::now()));
 
-        $this->created = $this->created ?? Carbon::now();
+        parent::__construct(...$args);
     }
 
     public function queue(): int

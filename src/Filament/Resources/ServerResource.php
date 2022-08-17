@@ -33,6 +33,13 @@ class ServerResource extends Resource
                     ->required()
                     ->default(false),
 
+                Forms\Components\TextInput::make('start_seeding')
+                    ->numeric()
+                    ->rules('nullable|integer|lt:stop_seeding|min:0|max:100'),
+                Forms\Components\TextInput::make('stop_seeding')
+                    ->numeric()
+                    ->rules('required_with:start_seeding|integer|gt:start_seeding|min:0|max:100'),
+
                 Forms\Components\Section::make('Host')->schema([
                     Forms\Components\TextInput::make('host')
                         ->rules('required|ipv4')

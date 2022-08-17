@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBanListsTable extends Migration
+class CreatePlayerServerInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateBanListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_server_info', function (Blueprint $table) {
+        Schema::create('player_server_infos', function (Blueprint $table) {
             $table->id();
+
+            /* The server this message was sent on */
+            $table->foreignId('user_id')->constrained();
 
             /* The server this message was sent on */
             $table->foreignId('server_id')->constrained();
@@ -36,6 +39,6 @@ class CreateBanListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ban_lists');
+        Schema::dropIfExists('player_server_infos');
     }
 }

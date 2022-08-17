@@ -9,12 +9,15 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use SquadMS\Foundation\Auth\SteamUser;
 use SquadMS\Foundation\Facades\SDKDataReader;
+use SquadMS\Foundation\Jobs\FetchUsers;
+use SquadMS\Foundation\Repositories\UserRepository;
 use SquadMS\Servers\Data\ServerQueryResult;
 use SquadMS\Servers\Events\ServerQueried;
 use SquadMS\Servers\Models\Server;
-use SquadMS\Servers\Services\ServerQueryService;
 
 class QueryServer implements ShouldQueue
 {
@@ -42,15 +45,20 @@ class QueryServer implements ShouldQueue
      */
     public function handle()
     {
-        /* Query the Server and dispatch event with the result */
-        ServerQueried::dispatch($this->queryServer());
+        $result = $this->queryServer();
+
+        /* "Register" users found in the query result without fetching their data */
+        UserRepository::createOrUpdateBulk(collect($result->steamIds())->map(fn (string $steamId) => new SteamUser($steamId))->toArray(), true);
+
+        /* Fetch users that are currently playing */
+        FetchUsers::dispatch($result->steamIds());
+
+        Event::dispatch(new ServerQueried($result));
     }
 
     /**
      * Queries the Server and retrieves  information. Instead of
      * throwing an exception it will return its success status.
-     *
-     * @return bool
      */
     private function queryServer(): ServerQueryResult
     {
