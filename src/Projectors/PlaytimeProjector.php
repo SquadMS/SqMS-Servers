@@ -8,7 +8,8 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use SquadMS\Servers\Events\ServerQueried;
 use SquadMS\Servers\Models\PlayerServerInfo;
 
-class PlaytimeProjectors extends Projector {
+class PlaytimeProjectors extends Projector
+{
     public function onServerQueried(ServerQueried $event): void
     {
         if ($event->serverQueryResult->count) {

@@ -18,7 +18,7 @@ class ServerQueryResultTest extends TestCase
             'name'       => 'Squad Dedicated Server',
             'host'       => '127.0.0.1',
             'port'       => 7787,
-            'query_port' => 27165
+            'query_port' => 27165,
         ]);
 
         new ServerQueryResult(

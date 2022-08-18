@@ -8,7 +8,8 @@ use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 use SquadMS\Servers\Events\ServerQueried;
 use SquadMS\Servers\Models\PlayerServerInfo;
 
-class SeedtimeProjector extends Projector {
+class SeedtimeProjector extends Projector
+{
     public function onServerQueried(ServerQueried $event): void
     {
         if ($event->serverQueryResult->count && $event->serverQueryResult->count < 40) {

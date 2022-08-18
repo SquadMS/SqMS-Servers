@@ -18,6 +18,7 @@ use SquadMS\Servers\Http\Livewire\ServerEntry;
 use SquadMS\Servers\Http\Middleware\WorkerAuth;
 use SquadMS\Servers\Jobs\QueryServer;
 use SquadMS\Servers\Models\PlayerServerInfo;
+use SquadMS\Servers\Models\PlayerServerSession;
 use SquadMS\Servers\Models\Server;
 use SquadMS\Servers\Policies\ServerPolicy;
 
@@ -64,6 +65,10 @@ class SquadMSServersServiceProvider extends SquadMSModuleServiceProvider
 
         SquadMSUser::resolveRelationUsing('playerServerInfos', static function (SquadMSUser $user): HasMany {
             return $user->hasMany(PlayerServerInfo::class);
+        });
+
+        SquadMSUser::resolveRelationUsing('playerServerSessions', static function (SquadMSUser $user): HasMany {
+            return $user->hasMany(PlayerServerSession::class);
         });
 
         SquadMSUser::resolveRelationUsing('serverChatMessages', static function (SquadMSUser $user): HasMany {

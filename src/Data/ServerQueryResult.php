@@ -3,9 +3,9 @@
 namespace SquadMS\Servers\Data;
 
 use Carbon\Carbon;
-use Spatie\DataTransferObject\DataTransferObject;
 use DSG\SquadRCON\Data\Population;
 use Illuminate\Support\Arr;
+use Spatie\DataTransferObject\DataTransferObject;
 use SquadMS\Foundation\Facades\SDKDataReader;
 use SquadMS\Foundation\Helpers\FactionHelper;
 use SquadMS\Servers\Models\Server;
