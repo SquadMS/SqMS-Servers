@@ -19,13 +19,6 @@ class TestCase extends SquadMSFoundationTestCase
 
             // SquadMS Servers Providers
             \SquadMS\Servers\SquadMSServersServiceProvider::class,
-            \SquadMS\Servers\Providers\AuthServiceProvider::class,
-            \SquadMS\Servers\Providers\LivewireServiceProvider::class,
-            \SquadMS\Servers\Providers\ModulesServiceProvider::class,
-            \SquadMS\Servers\Providers\PermissionsServiceProvider::class,
-            \SquadMS\Servers\Providers\RouteServiceProvider::class,
-            \SquadMS\Servers\Providers\ScheduleServiceProvider::class,
-            \SquadMS\Servers\Providers\ViewServiceProvider::class,
         ]);
     }
 

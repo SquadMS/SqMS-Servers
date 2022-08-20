@@ -30,6 +30,9 @@ class Server extends Model
 
         'account_playtime',
 
+        'start_seeding',
+        'stop_seeding',
+
         'host',
         'game_port',
         'query_port',

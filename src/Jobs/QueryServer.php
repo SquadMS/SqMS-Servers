@@ -9,10 +9,15 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use SquadMS\Foundation\Auth\SteamUser;
+use SquadMS\Foundation\Facades\SDKDataReader;
+use SquadMS\Foundation\Jobs\FetchUsers;
+use SquadMS\Foundation\Repositories\UserRepository;
 use SquadMS\Servers\Data\ServerQueryResult;
+use SquadMS\Servers\Events\ServerQueried;
 use SquadMS\Servers\Models\Server;
-use SquadMS\Servers\Services\ServerQueryService;
 
 class QueryServer implements ShouldQueue
 {
@@ -40,70 +45,81 @@ class QueryServer implements ShouldQueue
      */
     public function handle()
     {
-        /* Query the Server */
         $result = $this->queryServer();
 
-        /* Process the results */
-        ServerQueryService::processResult($result);
+        /* "Register" users found in the query result without fetching their data */
+        UserRepository::createOrUpdateBulk(collect($result->steamIds())->map(fn (string $steamId) => new SteamUser($steamId))->toArray(), true);
+
+        /* Fetch users that are currently playing */
+        FetchUsers::dispatch($result->steamIds());
+
+        Event::dispatch(new ServerQueried($result));
     }
 
     /**
      * Queries the Server and retrieves  information. Instead of
      * throwing an exception it will return its success status.
-     *
-     * @return bool
      */
     private function queryServer(): ServerQueryResult
     {
-        /** @var \DSG\SquadRCON\SquadServer|null */
-        $rcon = null;
-
-        /** @var GameQ|null */
-        $gameq = null;
-
-        $serverQueryResult = new ServerQueryResult($this->server);
-
         try {
             /* Steam Query / A2S */
             $gameq = new GameQ();
             $gameq->addServer($this->server->getGameQData());
             $result = $gameq->process();
-            $status = array_values($result)[0];
+            $status = head($result);
 
             /* Build a new QueryResult from the response */
-            $serverQueryResult->setQueryData(
-                Arr::get($status, 'gq_online', false),
-                Arr::get($status, 'gq_hostname') ?? 'Squad Dedicated Server',
-                intval(Arr::get($status, 'NUMPUBCONN', 0)),
-                intval(Arr::get($status, 'NUMPRIVCONN', 0)),
-                intval(Arr::get($status, 'PlayerCount_i', 0)),
-                intval(Arr::get($status, 'PublicQueue_i', 0)),
-                intval(Arr::get($status, 'ReservedQueue_i', 0)),
-                Arr::get($status, 'gq_mapname')
+            $serverQueryResult = new ServerQueryResult(
+                server: $this->server,
+                name: Arr::get($status, 'gq_hostname') ?? $this->server->name,
+                online: Arr::get($status, 'gq_online', false),
+                slots: intval(Arr::get($status, 'NUMPUBCONN', 0)),
+                reserved: intval(Arr::get($status, 'NUMPRIVCONN', 0)),
+                count: intval(Arr::get($status, 'PlayerCount_i', 0)),
+                publicQueue: intval(Arr::get($status, 'PublicQueue_i', 0)),
+                reservedQueue: intval(Arr::get($status, 'ReservedQueue_i', 0)),
+                layer: Arr::get($status, 'gq_mapname'),
+                level: SDKDataReader::layerToLevel($this->layer)
             );
 
             /* Check if the server is online and has RCON information configured */
-            if ($serverQueryResult->online() && $this->server->has_rcon_data) {
+            if ($serverQueryResult->online && $this->server->has_rcon_data) {
                 /* Initialize a new RCON connection to the server */
                 $rcon = $this->server->getRconConnection();
 
                 /* Run RCON commands and add information to the ServerQueryResult */
-                $serverQueryResult->setRCONData($rcon->showCurrentMap(), $rcon->showNextMap(), $rcon->serverPopulation());
+                $nextMapInfo = $rcon->showNextMap();
+                if (Arr::get($nextMapInfo, 'nextLayer')) {
+                    /* Only set if it is not Jensens Range, use current or default in that case */
+                    if (Arr::get($nextMapInfo, 'layer') !== 'Jensen\'s Training Range') {
+                        $serverQueryResult->nextLayer = SDKDataReader::getLayer(Arr::get($nextMapInfo, 'layer'));
+                    } else {
+                        $serverQueryResult->nextLayer = $serverQueryResult->nextLayer ?? 'JensensRange_GB-MIL';
+                    }
+                }
+                $serverQueryResult->nextLevel = Arr::get($nextMapInfo, 'nextLevel');
+                $serverQueryResult->population = $rcon->serverPopulation();
             }
+
+            return $serverQueryResult;
         } catch (\Throwable $e) {
             Log::debug('[QueryServer] Error during query: '.$e->getMessage().PHP_EOL.$e->getTraceAsString());
-        }
 
-        /* Close connections to be sure */
-        if ($rcon) {
-            $rcon->disconnect();
-            unset($rcon);
-        }
+            return new ServerQueryResult(
+                server: $this->server,
+                name: $this->server->name,
+            );
+        } finally {
+            /* Close connections to be sure */
+            if ($rcon) {
+                $rcon->disconnect();
+                unset($rcon);
+            }
 
-        if ($gameq) {
-            unset($gameq);
+            if ($gameq) {
+                unset($gameq);
+            }
         }
-
-        return $serverQueryResult;
     }
 }

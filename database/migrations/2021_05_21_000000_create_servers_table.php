@@ -22,6 +22,10 @@ class CreateServersTable extends Migration
             /* Determines if the servers playtime accounts to general playtime */
             $table->boolean('account_playtime')->default(false);
 
+            /* Allow to determine if the server is in seeding mode */
+            $table->unsignedTinyInteger('start_seeding')->nullable();
+            $table->unsignedTinyInteger('stop_seeding')->nullable();
+
             /* Connection Configuration */
             $table->string('host')->index();
             $table->unsignedSmallInteger('game_port')->default(7787);
